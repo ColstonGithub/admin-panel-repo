@@ -1,0 +1,17 @@
+export const GET_HOMEPAGE_CATEGORIES = "get-homepage-categories";
+export const ADD_HOMEPAGE_CATEGORY = "add-homepage-category";
+export const DELETE_CATEGORY = "delete-category";
+export const CATEGORY_DETAIL_PAGE = "category-detail-page";
+export const GET_HOMEPAGE_BANNERS = "get-homepage-banners";
+export const ADD_HOMEPAGE_BANNER = "add-homepage-banner";
+export const DELETE_BANNER = "delete-banner";
+export const BANNER_DETAIL_PAGE = "banner-detail-page";
+export const EDIT_HOMEPAGE_BANNER = "edit-homepage-banner";
+export const EDIT_HOMEPAGE_CATEGORY = "edit-homepage-category";
+export const GET_CATEGORY_BANNER = "get-category-banner";
+export const DELETE_CATEGORY_BANNER = "delete-category-banner";
+export const CATEGORY_BANNER_DETAIL_PAGE = "category-banner-detail-page";
+export const ADD_CATEGORY_BANNER = "add-category-banner";
+export const EDIT_CATEGORY_BANNER = "edit-category-banner";
+export const GET_EXPLORE_CATEGORY = "get-explore-category";
+export const DELETE_HOMEPAGE_EXPLORE_CATEGORY = "delete-homepage-exp-cat";

@@ -1,0 +1,9 @@
+export const GET_CORPORATE_PRODUCT = "get-corporate-product";
+export const GET_CORPORATE_BANNER = "get-corporate-banner";
+export const DELETE_CORPORATE_PRODUCT = "delete-corporate-product";
+export const DELETE_CORPORATE_BANNER = "delete-corporate-banner";
+export const CORPORATE_PRODUCT_DETAIL_PAGE = "corporate-product-detail-page";
+export const CORPORATE_BANNER_DETAIL_PAGE = "corporate-product-detail-page";
+export const ADD_CORPORATE_PRODUCT = "add-corporate-product";
+export const EDIT_CORPORATE_PRODUCT = "edit-corporate-product";
+export const ADD_CORPORATE_BANNER = "add-corporate-banner";

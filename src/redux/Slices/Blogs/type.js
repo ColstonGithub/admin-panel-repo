@@ -1,0 +1,9 @@
+export const BLOGS_DATA = "blogs-data";
+export const ADD_BLOGS = "add_blogs-data";
+export const EDIT_BLOGS = "edit_blogs-data";
+export const DELETE_BLOG = "delete-blog";
+export const BLOGS_DETAIL_PAGE = "blogs-detail-page";
+export const BLOGS_CATEGORY_DATA = "blogs-cateogry-data";
+export const BLOGS_CATEGORY_DETAILS = "blogs-cateogry-details";
+export const EDIT_BLOGS_CATEGORY = "Edit_blogs-cateogry";
+export const ADD_BLOG_CATEGORY = "add-blogs-cateogry";

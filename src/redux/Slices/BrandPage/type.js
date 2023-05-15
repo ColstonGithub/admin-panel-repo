@@ -1,0 +1,10 @@
+export const GET_BRAND_PAGE = "get-brand-page";
+export const BRAND_PAGE_DETAIL_PAGE = "brand-page-detail-page";
+export const DELETE_BRAND_PAGE = "delete-brand-page";
+export const ADD_BRAND_PAGE = "add-brand-page";
+export const EDIT_BRAND_PAGE = "edit-brand-page";
+export const BRAND_PAGE_BANNER_DATA = "brand-page-banner-data";
+export const EDIT_BRAND_PAGE_BANNER_DATA = "edit- brand-page-banner-data";
+export const DELETE_BRAND_PAGE_BANNER = "delete-brand-page-banner";
+export const BRAND_PAGE_BANNER_DETAIL_PAGE = "brand-page-banner-detail-page";
+export const ADD_BRAND_PAGE_BANNER = "add-brand-page-banner";

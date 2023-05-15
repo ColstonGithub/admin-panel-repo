@@ -1,0 +1,10 @@
+export const NEWS_PRESS_BANNER_DATA = "news-press-banner-data";
+export const NEWS_PRESS_PRODUCT_DATA = "news-press-product-data";
+export const DELETE_NEWS_PRESS_BANNER = "delete-news-press-banner";
+export const DELETE_NEWS_PRESS_PRODUCT = "delete-news-press-product";
+export const NEWS_PRESS_BANNER_DETAIL_PAGE = "news-press-banner-detail-page";
+export const NEWS_PRESS_PRODUCT_DETAIL_PAGE = "news-press-product-detail-page";
+export const ADD_NEWS_PRESS_PRODUCT = "add-news-press-product";
+export const ADD_NEWS_PRESS_BANNER = "add-news-press-product";
+export const EDIT_NEWS_PRESS_BANNER = "edit-news-press-product";
+export const EDIT_NEWS_PRESS_PRODUCT = "edit-news-press-product";

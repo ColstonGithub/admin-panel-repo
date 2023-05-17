@@ -25,7 +25,7 @@ const ExhibitionDetailPage = (props) => {
   const exhibitionBannerDetail = useSelector(
     (state) => state?.exhibitionBanner?.getExhibtionBannerData?.banner
   );
-  console.log("calleeedd");
+  
   return (
     <div
       style={{
@@ -130,8 +130,7 @@ const ExhibitionDetailPage = (props) => {
               </Row>
 
               <FMTypography
-                displayText={"Images:"}
-                styleData={{ color: "#717171" }}
+                displayText={"Images"}
               />
               {/* {exhibitionBannerDetail?.map((elem) => (
                 <img

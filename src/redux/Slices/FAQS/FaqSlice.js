@@ -3,9 +3,7 @@ import axiosInstance from "services/AxiosInstance";
 import {
   FAQ_LISTING,
   DELETE_FAQ,
-  ADD_FAQ_CATEGORY,
   FAQ_DETAIL_PAGE,
-  EDIT_FAQ_CATEGORY,
   ADD_FAQ,
   EDIT_FAQ,
 } from "./type";

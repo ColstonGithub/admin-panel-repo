@@ -29,6 +29,7 @@ const FMInput = (
         displayText={displayText}
         styleData={{
           ...customInputLabelStyle,
+          ...commonStyle.commonModalTitleStyle,
         }}
       />
       <InputBase

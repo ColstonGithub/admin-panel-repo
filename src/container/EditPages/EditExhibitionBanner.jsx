@@ -20,7 +20,7 @@ import { notify } from "constants/utils";
 const EditExhibitionBanner = (props) => {
   const { setOpen, open, id, usersListData } = props;
   const dispatch = useDispatch();
-  console.log("ids", id);
+  
 
   const [editedCategoryImage, setEditedCategoryImage] = useState("");
   const [image, setImage] = useState([]);
@@ -44,7 +44,6 @@ const EditExhibitionBanner = (props) => {
     (state) => state?.exhibitionBanner?.getExhibtionBannerData?.banner
   );
 
-  console.log("exhibitionBannerDetail", exhibitionBannerDetail);
 
   useEffect(() => {
     reset({
@@ -129,7 +128,6 @@ const EditExhibitionBanner = (props) => {
           sx={{
             display: "flex",
             justifyContent: "center",
-            transform: "translate(0, 30%)",
           }}
         >
           <Grid

@@ -1,7 +1,7 @@
 import { Box, Button } from "@mui/material";
 import FMTypography from "components/FMTypography/FMTypography";
 import Header from "components/SearchBar/Header";
-import React, {useState } from "react";
+import React, { useState } from "react";
 import { Col, Row, Container } from "react-bootstrap";
 import homeIcon from "assets/homeIcon.svg";
 import blogspageIcon from "assets/blogspage.svg";
@@ -9,7 +9,7 @@ import brandIcon from "assets/brandIcon.svg";
 import corporateIcon from "assets/corporateIcon.svg";
 import FMButton from "components/FMButton/FMButton";
 import TabsTable from "components/TabsTable/TabsTable";
-import AddBanner from "./AddInTableItems/AddBanner";
+import AddBanner from "./AddInTableItems/AddCategory";
 import "../HomePage/homePageBannerStyle.css";
 import {
   ABOUT_US,
@@ -57,13 +57,33 @@ import AddBlogCategoryComponent from "./AddInTableItems/AddBlogCategoryComponent
 import AddAboutUsComponent from "./AddInTableItems/AddAboutUsComponent";
 import AddFaqCategoryComponent from "./AddInTableItems/AddFaqCategoryComponent";
 import AddFAQs from "./AddInTableItems/AddFAQs";
+import AddHomepageExploreCategoryComponent from "./AddInTableItems/AddHomepageExploreCategoryComponent";
+
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import productIcon from 'assets/product.svg'
+import brandPageIcon from 'assets/brandpage.svg'
+import corporatePageIcon from 'assets/corporatePage.svg'
+import exhibitionIcon from 'assets/exhibition.svg'
+import virtualTourIcon from 'assets/virtualTour.svg'
+import newsPressIcon from 'assets/newsPress.svg'
+import blogsIcon from 'assets/blogs.svg'
+import catalogueIcon from 'assets/catalogue.svg'
+import videosIcon from 'assets/videos.svg'
+import careCleanIcon from 'assets/careClean.svg'
+import aboutUsIcon from 'assets/aboutUs.svg'
+import faqsIcon from 'assets/faqs.svg'
+import warrantyRegIcon from 'assets/warrantyReg.svg'
+import quotationSecIcon from 'assets/quotationSec.svg'
+import careerSecIcon from 'assets/careerSec.svg'
+import contactUsIcon from 'assets/contactUs.svg'
+
 
 const HomePageBanners = (props) => {
   const navigate = useNavigate();
   const { children, value, index, type, ...other } = props;
-
+  const dispatch = useDispatch();
   const [openFirst, setOpenFirst] = useState(false);
-
   const [corporatePage, setCorporatePage] = useState(false);
   const [addBanners, setAddBanners] = useState(false);
   const [addBrandPage, setAddBrandPage] = useState(false);
@@ -86,8 +106,9 @@ const HomePageBanners = (props) => {
   const [addBlogCategory, setAddBlogCategory] = useState(false);
   const [addAboutUs, setAddAboutUs] = useState(false);
   const [addFaqCategory, setAddFaqCategory] = useState(false);
+  const [addHomepageExploreCategory, setAddHomepageExploreCategory] =
+    useState(false);
   const [addFaqs, setAddFaqs] = useState(false);
-
   const handleOptionClick = (option) => {
     setActiveOption(option);
   };
@@ -160,7 +181,7 @@ const HomePageBanners = (props) => {
     setAddCategoryBanner(true);
   };
 
-  const addBlogPage = () => {
+  const addBlogModal = () => {
     navigate("/blogs/add-blog");
   };
   const addBlogCategoryModal = () => {
@@ -171,6 +192,10 @@ const HomePageBanners = (props) => {
   };
   const addFaqCategoryModal = () => {
     setAddFaqCategory(true);
+  };
+
+  const addHomepageExploreCategoryModal = () => {
+    setAddHomepageExploreCategory(true);
   };
 
   const addFaqsModal = () => {
@@ -214,7 +239,6 @@ const HomePageBanners = (props) => {
   const homepageBanners = useSelector(
     (state) => state?.exploreCategories?.getBannersListingData?.Homepagebanner
   );
-
 
   const brandProductNavigator = () => {
     navigate(BRAND_PRODUCTS);
@@ -293,6 +317,11 @@ const HomePageBanners = (props) => {
 
   const [activeOption, setActiveOption] = useState(false);
 
+  const isShowButton =
+    type !== "warrantyRegistrationString" &&
+    type !== "quotationSectionString" &&
+    type !== "careerSectionString" &&
+    type !== "contactUsSectionString";
   return (
     <>
       <Header />
@@ -306,6 +335,7 @@ const HomePageBanners = (props) => {
               justifyContent: "space-between",
               height: "88vh",
               padding: "0 3.5rem",
+              background: "#FAFBFD",
               paddingTop: "2rem",
               boxShadow: "8px 0px 8px rgba(181, 180, 180, 0.12)",
             }}
@@ -338,13 +368,18 @@ const HomePageBanners = (props) => {
                       fontWeight: "400",
                     }}
                   />
+                  {openFirst ? (
+                    <KeyboardArrowUpIcon sx={{ color: "black" }} />
+                  ) : (
+                    <KeyboardArrowDownIcon sx={{ color: "black" }} />
+                  )}
                 </Button>
                 <Box
                   className="dropdown-homepage"
                   style={{
                     display: openFirst ? "flex" : "none",
                     paddingLeft: "3rem",
-                    height: "100px",
+                    height: "60px",
                     // display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-around",
@@ -407,7 +442,7 @@ const HomePageBanners = (props) => {
               <div style={{ marginBottom: "20px" }}>
                 <Button sx={{ "&:hover": { backgroundColor: "white" } }}>
                   <img
-                    src={brandIcon}
+                    src={productIcon}
                     alt="icon"
                     style={{ marginRight: "24px", width: "15px" }}
                   />
@@ -426,7 +461,7 @@ const HomePageBanners = (props) => {
               <div style={{ marginBottom: "20px" }}>
                 <Button sx={{ "&:hover": { backgroundColor: "white" } }}>
                   <img
-                    src={brandIcon}
+                    src={brandPageIcon}
                     alt="icon"
                     style={{ marginRight: "24px", width: "15px" }}
                   />
@@ -439,6 +474,11 @@ const HomePageBanners = (props) => {
                       fontFamily: " 'Inter', sans-serif",
                     }}
                   />
+                  {openBrandPage ? (
+                    <KeyboardArrowUpIcon sx={{ color: "black" }} />
+                  ) : (
+                    <KeyboardArrowDownIcon sx={{ color: "black" }} />
+                  )}
                 </Button>
 
                 <Box
@@ -469,7 +509,7 @@ const HomePageBanners = (props) => {
               <div style={{ marginBottom: "20px" }}>
                 <Button sx={{ "&:hover": { backgroundColor: "white" } }}>
                   <img
-                    src={corporateIcon}
+                    src={corporatePageIcon}
                     alt="icon"
                     style={{ marginRight: "24px", width: "15px" }}
                   />
@@ -482,6 +522,11 @@ const HomePageBanners = (props) => {
                       fontFamily: " 'Inter', sans-serif",
                     }}
                   />
+                  {corporatePage ? (
+                    <KeyboardArrowUpIcon sx={{ color: "black" }} />
+                  ) : (
+                    <KeyboardArrowDownIcon sx={{ color: "black" }} />
+                  )}
                 </Button>
                 <Box
                   className="dropdown-homepage"
@@ -511,7 +556,7 @@ const HomePageBanners = (props) => {
               <div style={{ marginBottom: "20px" }}>
                 <Button sx={{ "&:hover": { backgroundColor: "white" } }}>
                   <img
-                    src={corporateIcon}
+                    src={exhibitionIcon}
                     alt="icon"
                     style={{ marginRight: "24px", width: "15px" }}
                   />
@@ -530,7 +575,7 @@ const HomePageBanners = (props) => {
               <div style={{ marginBottom: "20px" }}>
                 <Button sx={{ "&:hover": { backgroundColor: "white" } }}>
                   <img
-                    src={corporateIcon}
+                    src={virtualTourIcon}
                     alt="icon"
                     style={{ marginRight: "24px", width: "15px" }}
                   />
@@ -549,7 +594,7 @@ const HomePageBanners = (props) => {
               <div style={{ marginBottom: "20px" }}>
                 <Button sx={{ "&:hover": { backgroundColor: "white" } }}>
                   <img
-                    src={corporateIcon}
+                    src={newsPressIcon}
                     alt="icon"
                     style={{ marginRight: "24px", width: "15px" }}
                   />
@@ -563,6 +608,11 @@ const HomePageBanners = (props) => {
                       // color: activeOption ? "#f00" : "#555",
                     }}
                   />
+                  {newsPressOpen ? (
+                    <KeyboardArrowUpIcon sx={{ color: "black" }} />
+                  ) : (
+                    <KeyboardArrowDownIcon sx={{ color: "black" }} />
+                  )}
                 </Button>
                 <Box
                   className="dropdown-homepage"
@@ -602,7 +652,7 @@ const HomePageBanners = (props) => {
               <div style={{ marginBottom: "20px" }}>
                 <Button>
                   <img
-                    src={corporateIcon}
+                    src={blogsIcon}
                     alt="icon"
                     style={{ marginRight: "24px", width: "15px" }}
                   />
@@ -615,6 +665,11 @@ const HomePageBanners = (props) => {
                       fontFamily: " 'Inter', sans-serif",
                     }}
                   />
+                  {blogsMenuOpen ? (
+                    <KeyboardArrowUpIcon sx={{ color: "black" }} />
+                  ) : (
+                    <KeyboardArrowDownIcon sx={{ color: "black" }} />
+                  )}
                 </Button>
 
                 <Box
@@ -656,7 +711,7 @@ const HomePageBanners = (props) => {
               <div style={{ marginBottom: "20px" }}>
                 <Button>
                   <img
-                    src={corporateIcon}
+                    src={catalogueIcon}
                     alt="icon"
                     style={{ marginRight: "24px", width: "15px" }}
                   />
@@ -675,7 +730,7 @@ const HomePageBanners = (props) => {
               <div style={{ marginBottom: "20px" }}>
                 <Button>
                   <img
-                    src={corporateIcon}
+                    src={videosIcon}
                     alt="icon"
                     style={{ marginRight: "24px", width: "15px" }}
                   />
@@ -694,7 +749,7 @@ const HomePageBanners = (props) => {
               <div style={{ marginBottom: "20px" }}>
                 <Button>
                   <img
-                    src={corporateIcon}
+                    src={careCleanIcon}
                     alt="icon"
                     style={{ marginRight: "24px", width: "15px" }}
                   />
@@ -713,7 +768,7 @@ const HomePageBanners = (props) => {
               <div style={{ marginBottom: "20px" }}>
                 <Button>
                   <img
-                    src={corporateIcon}
+                    src={aboutUsIcon}
                     alt="icon"
                     style={{ marginRight: "24px", width: "15px" }}
                   />
@@ -733,7 +788,7 @@ const HomePageBanners = (props) => {
               <div style={{ marginBottom: "20px" }}>
                 <Button sx={{ "&:hover": { backgroundColor: "white" } }}>
                   <img
-                    src={corporateIcon}
+                    src={faqsIcon}
                     alt="icon"
                     style={{ marginRight: "24px", width: "15px" }}
                   />
@@ -747,6 +802,11 @@ const HomePageBanners = (props) => {
                       // color: activeOption ? "#f00" : "#555",
                     }}
                   />
+                  {faqsOpen ? (
+                    <KeyboardArrowUpIcon sx={{ color: "black" }} />
+                  ) : (
+                    <KeyboardArrowDownIcon sx={{ color: "black" }} />
+                  )}
                 </Button>
                 <Box
                   className="dropdown-homepage"
@@ -786,7 +846,7 @@ const HomePageBanners = (props) => {
               <div style={{ marginBottom: "20px" }}>
                 <Button>
                   <img
-                    src={corporateIcon}
+                    src={warrantyRegIcon}
                     alt="icon"
                     style={{ marginRight: "24px", width: "15px" }}
                   />
@@ -805,7 +865,7 @@ const HomePageBanners = (props) => {
               <div style={{ marginBottom: "20px" }}>
                 <Button>
                   <img
-                    src={corporateIcon}
+                    src={quotationSecIcon}
                     alt="icon"
                     style={{ marginRight: "24px", width: "15px" }}
                   />
@@ -824,7 +884,7 @@ const HomePageBanners = (props) => {
               <div style={{ marginBottom: "20px" }}>
                 <Button>
                   <img
-                    src={corporateIcon}
+                    src={careerSecIcon}
                     alt="icon"
                     style={{ marginRight: "24px", width: "15px" }}
                   />
@@ -843,7 +903,7 @@ const HomePageBanners = (props) => {
               <div style={{ marginBottom: "20px" }}>
                 <Button>
                   <img
-                    src={corporateIcon}
+                    src={contactUsIcon}
                     alt="icon"
                     style={{ marginRight: "24px", width: "15px" }}
                   />
@@ -920,52 +980,62 @@ const HomePageBanners = (props) => {
                   fontFamily: " 'Inter', sans-serif",
                 }}
               />
-              <FMButton
-                displayText={"Add"}
-                variant="contained"
-                styleData={{ backgroundColor: "#008060", borderRadius: "8px" }}
-                onClick={
-                  type === "homePageBannerString"
-                    ? addHomePageBannerFunc
-                    : type === "homePageCategoryString"
-                    ? addBanner
-                    : type === "brandProductString"
-                    ? addProductFunc
-                    : type === "brandPageString"
-                    ? addBrandPageFunc
-                    : type === "careCleanString"
-                    ? addCareCleanModal
-                    : type === "video"
-                    ? addVideoModal
-                    : type === "catalogueString"
-                    ? addCatalogueModal
-                    : type === "virtualTourBannerString"
-                    ? addVirtualTourModal
-                    : type === "exhibitionBannerString"
-                    ? addExhibitionBannerModal
-                    : type === "newsPressProductString"
-                    ? addNewsPressProductModal
-                    : type === "newsPressBannerString"
-                    ? addNewsPressBannerModal
-                    : type === "corporateProductString"
-                    ? addCorporateProductModal
-                    : type === "corporateBannerString"
-                    ? addCorporateBannerModal
-                    : type === "brandPageBannerString"
-                    ? addBrandPageBannerModal
-                    : type === "categoryBannerString"
-                    ? addCategoryBannerModal
-                    : type === "blogsString"
-                    ? addBlogPage
-                    : type === "blogsCategoryString"
-                    ? addBlogCategoryModal
-                    : type === "aboutUsString"
-                    ? addAboutUsModal
-                    : type === "faqsString"
-                    ? addFaqsModal
-                    : addFaqCategoryModal
-                }
-              />
+
+              {isShowButton ? (
+                <FMButton
+                  displayText={"Add"}
+                  variant="contained"
+                  styleData={{
+                    backgroundColor: "#008060",
+                    borderRadius: "8px",
+                  }}
+                  onClick={
+                    type === "homePageBannerString"
+                      ? addHomePageBannerFunc
+                      : type === "homePageCategoryString"
+                      ? addBanner
+                      : type === "brandProductString"
+                      ? addProductFunc
+                      : type === "brandPageString"
+                      ? addBrandPageFunc
+                      : type === "careCleanString"
+                      ? addCareCleanModal
+                      : type === "video"
+                      ? addVideoModal
+                      : type === "catalogueString"
+                      ? addCatalogueModal
+                      : type === "virtualTourBannerString"
+                      ? addVirtualTourModal
+                      : type === "exhibitionBannerString"
+                      ? addExhibitionBannerModal
+                      : type === "newsPressProductString"
+                      ? addNewsPressProductModal
+                      : type === "newsPressBannerString"
+                      ? addNewsPressBannerModal
+                      : type === "corporateProductString"
+                      ? addCorporateProductModal
+                      : type === "corporateBannerString"
+                      ? addCorporateBannerModal
+                      : type === "brandPageBannerString"
+                      ? addBrandPageBannerModal
+                      : type === "categoryBannerString"
+                      ? addCategoryBannerModal
+                      : type === "blogsString"
+                      ? addBlogModal
+                      : type === "blogsCategoryString"
+                      ? addBlogCategoryModal
+                      : type === "aboutUsString"
+                      ? addAboutUsModal
+                      : type === "faqsString"
+                      ? addFaqsModal
+                      : type === "faqCategoryString"
+                      ? addFaqCategoryModal
+                      : addHomepageExploreCategoryModal
+                  }
+                />
+              ) : (
+                <></>
+              )}
             </Box>
             <Box
               sx={{
@@ -979,78 +1049,77 @@ const HomePageBanners = (props) => {
               <TabsTable type={type} />
             </Box>
           </Col>
-
-          <AddBanner
-            open={addBanners}
-            setOpen={setAddBanners}
-            homepageCategoriess={homepageCategoriess}
-          />
-          <AddHomePageBanner
-            open={addHomePageBanners}
-            setOpen={setAddHomePageBanners}
-            homepageBanners={homepageBanners}
-          />
-
-          <AddBrandPageComponent
-            open={addBrandPage}
-            setOpen={setAddBrandPage}
-            // homepageBanners={totalProducts}
-          />
-
-          <AddCareCleanComponent
-            open={addCareClean}
-            setOpen={setAddCareClean}
-          />
-          <AddVideoComponent open={addVideo} setOpen={setAddVideo} />
-          <AddCatalogueComponent
-            open={addCatalogue}
-            setOpen={setAddCatalogue}
-          />
-          <AddVirtualTourComponent
-            open={addVirtualTour}
-            setOpen={setAddVirtualTour}
-          />
-          <AddExhibitionBannerComponent
-            open={addExhibitionBanner}
-            setOpen={setAddExhibitionBanner}
-          />
-          <AddNewsPressProductComponent
-            open={addNewsPressProduct}
-            setOpen={setAddNewsPressProduct}
-          />
-          <AddNewsPressBannerComponent
-            open={addNewsPressBanner}
-            setOpen={setAddNewsPressBanner}
-          />
-          <AddCorporateProductComponent
-            open={addCorporateProduct}
-            setOpen={setAddCorporateProduct}
-          />
-          <AddCorporateBannerComponent
-            open={addCorporateBanner}
-            setOpen={setAddCorporateBanner}
-          />
-          <AddBrandPageBannerComponent
-            open={addBrandPageBanner}
-            setOpen={setAddBrandPageBanner}
-          />          
-          <AddCategoryBannerComponent
-            open={addCategoryBanner}
-            setOpen={setAddCategoryBanner}
-            homepageCategoriess={homepageCategoriess}
-          />
-          <AddBlogCategoryComponent
-            open={addBlogCategory}
-            setOpen={setAddBlogCategory}
-            // homepageCategoriess={blogCategories}
-          />
-          <AddAboutUsComponent open={addAboutUs} setOpen={setAddAboutUs} />
-          <AddFaqCategoryComponent
-            open={addFaqCategory}
-            setOpen={setAddFaqCategory}
-          />
-          <AddFAQs open={addFaqs} setOpen={setAddFaqs} />
         </Row>
+        <AddBanner
+          open={addBanners}
+          setOpen={setAddBanners}
+          homepageCategoriess={homepageCategoriess}
+        />
+        <AddHomePageBanner
+          open={addHomePageBanners}
+          setOpen={setAddHomePageBanners}
+          homepageBanners={homepageBanners}
+        />
+
+        <AddBrandPageComponent
+          open={addBrandPage}
+          setOpen={setAddBrandPage}
+          // homepageBanners={totalProducts}
+        />
+
+        <AddCareCleanComponent open={addCareClean} setOpen={setAddCareClean} />
+        <AddVideoComponent open={addVideo} setOpen={setAddVideo} />
+        <AddCatalogueComponent open={addCatalogue} setOpen={setAddCatalogue} />
+        <AddVirtualTourComponent
+          open={addVirtualTour}
+          setOpen={setAddVirtualTour}
+        />
+        <AddExhibitionBannerComponent
+          open={addExhibitionBanner}
+          setOpen={setAddExhibitionBanner}
+        />
+        <AddNewsPressProductComponent
+          open={addNewsPressProduct}
+          setOpen={setAddNewsPressProduct}
+        />
+        <AddNewsPressBannerComponent
+          open={addNewsPressBanner}
+          setOpen={setAddNewsPressBanner}
+        />
+        <AddCorporateProductComponent
+          open={addCorporateProduct}
+          setOpen={setAddCorporateProduct}
+        />
+        <AddCorporateBannerComponent
+          open={addCorporateBanner}
+          setOpen={setAddCorporateBanner}
+        />
+        <AddBrandPageBannerComponent
+          open={addBrandPageBanner}
+          setOpen={setAddBrandPageBanner}
+        />
+        <AddCategoryBannerComponent
+          open={addCategoryBanner}
+          setOpen={setAddCategoryBanner}
+          homepageCategoriess={homepageCategoriess}
+        />
+        <AddBlogCategoryComponent
+          open={addBlogCategory}
+          setOpen={setAddBlogCategory}
+          // homepageCategoriess={blogCategories}
+        />
+        <AddAboutUsComponent open={addAboutUs} setOpen={setAddAboutUs} />
+        <AddFaqCategoryComponent
+          open={addFaqCategory}
+          setOpen={setAddFaqCategory}
+        />
+        <AddHomepageExploreCategoryComponent
+          open={addHomepageExploreCategory}
+          setOpen={setAddHomepageExploreCategory}
+          homepageCategoriess={homepageCategoriess}
+        />
+
+        <AddFAQs open={addFaqs} setOpen={setAddFaqs} />
       </Container>
     </>
   );

@@ -159,7 +159,7 @@ import ContactUsSectionDetailPage from "./DetailPages/ContactUsSectionDetailPage
 import {
   deleteHomepageExploreCategory,
   getHomePageExploreCat,
-} from "redux/Slices/HomePage/HomepageExploreCategory";
+  } from "redux/Slices/HomePage/HomepageExploreCategory";
 import EditExhibitionBanner from "container/EditPages/EditExhibitionBanner";
 import EditVirtualTourBanner from "container/EditPages/EditVirtualTourBanner";
 import EditNewsPressProduct from "container/EditPages/EditNewsPressProduct";
@@ -167,6 +167,7 @@ import EditVideo from "container/EditPages/EditVideo";
 import EditCareClean from "container/EditPages/EditCareClean";
 import EditFAQs from "container/EditPages/EditFAQs";
 import { Spinner } from "react-bootstrap";
+import HomepageCategoryBannerDetailPage from "./DetailPages/HomepageCategoryBannerDetailPage";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -227,6 +228,9 @@ export default function TabsTable({ type }) {
     React.useState(false);
   const [openCategoryBannerDetailPage, setOpenCategoryBannerDetailPage] =
     React.useState(false);
+    const [openHomepageCategoryBannerDetailPage, setOpenHomepageCategoryBannerDetailPage] =
+    React.useState(false);
+    
   const [openCorporateProductDetailPage, setOpenCorporateProductDetailPage] =
     React.useState(false);
   const [openCorporateBannerDetailPage, setOpenCorporateBannerDetailPage] =
@@ -264,6 +268,7 @@ export default function TabsTable({ type }) {
   const [videoPageId, setVideoPageId] = React.useState(null);
   const [careCleanPageId, setCareCleanPageId] = React.useState(null);
   const [categoryBannerPageId, setCategoryBannerPageId] = React.useState(null);
+  const [homepageCategoryBannerPageId,setHomepageCategoryBannerPageId] = React.useState(null)
   const [corporateProductPageId, setCorporateProductPageId] =
     React.useState(null);
   const [corporateBannerPageId, setCorporateBannerPageId] =
@@ -442,7 +447,7 @@ export default function TabsTable({ type }) {
     isError,
   } = useSelector((state) => state?.blogsCategory);
 
-  console.log("isFetching", isFetching, isError);
+  
 
   const blogCategoryPagination = useSelector(
     (state) => state?.blogsCategory?.getBlogCategoryListData?.pagination
@@ -669,6 +674,14 @@ export default function TabsTable({ type }) {
       setOpenCategoryBannerDetailPage(true);
     }
   }, [categoryBannerPageId]);
+
+  useEffect(() => {
+    if (homepageCategoryBannerPageId !== null && homepageCategoryBannerPageId) {
+      setOpenHomepageCategoryBannerDetailPage(true);
+    }
+  }, [homepageCategoryBannerPageId]);
+
+  
 
   useEffect(() => {
     if (corporateProductPageId !== null && corporateProductPageId) {
@@ -902,6 +915,10 @@ export default function TabsTable({ type }) {
   };
   const categoryBannerDetailPageHandler = (cId) => {
     setCategoryBannerPageId(cId);
+  };
+
+  const homepageCategoryBannerDetailPageHandler = (cId) => {
+    setHomepageCategoryBannerPageId(cId);
   };
 
   const corporateProductDetailPageHandler = (cId) => {
@@ -2062,7 +2079,7 @@ export default function TabsTable({ type }) {
         "S.NO.": index + 1,
         Title: element?.title,
         Images: element?.bannerImage,
-        BannerImageText: element?.bannerImageText,
+        // BannerImageText: element?.bannerImageText,
         id: element?._id,
         Actions: (
           <Grid>
@@ -2359,7 +2376,7 @@ export default function TabsTable({ type }) {
               height="20px"
               className="img-responsive img-fluid "
               loading="lazy"
-              onClick={() => categoryBannerDetailPageHandler(element?._id)}
+              onClick={() => homepageCategoryBannerDetailPageHandler(element?._id)}
               style={{ cursor: "pointer" }}
             />
             <img
@@ -2395,7 +2412,7 @@ export default function TabsTable({ type }) {
   const handlePageChange = (event, value) => {
     setUsersListData({ page: event });
   };
-  console.log("exhibitionPageId", exhibitionPageId);
+  
 
   return (
     <>
@@ -2695,6 +2712,19 @@ export default function TabsTable({ type }) {
           type={type}
         />
       )}
+      {homepageCategoryBannerPageId && (
+        <HomepageCategoryBannerDetailPage
+          open={openHomepageCategoryBannerDetailPage}
+          setOpen={() => {
+            setOpenHomepageCategoryBannerDetailPage(false);
+            setHomepageCategoryBannerPageId(null);
+          }}
+          id={homepageCategoryBannerPageId}
+          type={type}
+        />
+      )}
+
+
       {corporateProductPageId && (
         <CorporateProductsDetailPage
           open={openCorporateProductDetailPage}

@@ -117,7 +117,6 @@ const AddCorporateBannerComponent = (props) => {
           sx={{
             display: "flex",
             justifyContent: "center",
-            transform: "translate(0, 30%)",
           }}
         >
           <Grid
@@ -195,7 +194,7 @@ const AddCorporateBannerComponent = (props) => {
               </Row>
 
               <FMButton
-                displayText="Add Brand Page"
+                displayText="Add"
                 variant="contained"
                 disabled={false}
                 styleData={{

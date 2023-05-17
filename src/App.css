@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+th.MuiTableCell-root.MuiTableCell-head.MuiTableCell-stickyHeader.MuiTableCell-sizeMedium.css-bayryz-MuiTableCell-root {
+  background: #e7eaec;
+}
+
+tbody.MuiTableBody-root.css-apqrd9-MuiTableBody-root {
+  background: #fafbfd;
+}
+.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.MuiInputBase-multiline.css-1q6552y-MuiInputBase-root-MuiOutlinedInput-root{
+  border-radius: 10px;
+}

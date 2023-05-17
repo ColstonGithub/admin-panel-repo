@@ -150,7 +150,7 @@ const CategoryBannerDetailPage = (props) => {
                 </Col>
               </Row>
 
-              <FMTypography displayText={"Banner Image:"} />
+              <FMTypography displayText={"Banner Image"} />
               {/* {exhibitionBannerDetail?.map((elem) => (
                 <img
                   src={elem?.bannerImage}
@@ -168,7 +168,7 @@ const CategoryBannerDetailPage = (props) => {
                 style={{ marginLeft: "3rem" }}
               />
 
-              <FMTypography displayText={"Banner Image Text:"} />
+              <FMTypography displayText={"Banner Image Text"} />
               <img
                 src={getCategoryBannerDetails?.bannerImageText}
                 alt="img"

@@ -32,6 +32,7 @@ import {
   getBannerProductDetail,
 } from "redux/Slices/BannerProducts/BannerProducts";
 import { useParams, useNavigate } from "react-router";
+import { commonStyle } from "Styles/commonStyles";
 
 const EditProductComponent = () => {
   const { id } = useParams();
@@ -285,10 +286,7 @@ const EditProductComponent = () => {
       category: productData?.category,
       setBannerPicture,
     });
-    const filename = productData?.pdf?.replace(
-      "http://localhost:5000/",
-      ""
-    );
+    const filename = productData?.pdf?.replace("http://localhost:5000/", "");
     setPdfPreview(filename);
     setPreColors(productData?.colors);
     setPreBannerPicture(productData?.productPictures);
@@ -415,22 +413,38 @@ const EditProductComponent = () => {
               )}
             </Col>
             <Row style={{ marginTop: "2rem" }}>
+              <FMTypography
+                displayText={"Specifications"}
+                styleData={{
+                  ...commonStyle.commonModalTitleStyle,
+                  marginLeft: "-11px",
+                  opacity: "0.9",
+                  marginBottom: "4px",
+                }}
+              />
               <TextField
                 required
                 multiline
                 rows={3}
-                placeholder="Specifications"
                 id="specification"
                 name="specification"
                 {...register("specification")}
               />
             </Row>
             <Row style={{ marginTop: "2rem" }}>
+              <FMTypography
+                displayText={"Description"}
+                styleData={{
+                  ...commonStyle.commonModalTitleStyle,
+                  marginLeft: "-11px",
+                  opacity: "0.9",
+                  marginBottom: "4px",
+                }}
+              />
               <TextField
                 required
                 multiline
                 rows={3}
-                placeholder="Description"
                 id="description"
                 name="description"
                 {...register("description")}

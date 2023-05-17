@@ -30,11 +30,11 @@ import {
 import { useNavigate } from "react-router";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { notify } from "constants/utils";
-
+import { commonStyle } from "Styles/commonStyles";
 const AddProductComponent = () => {
   const navigate = useNavigate();
   const [imageAltText, setImageAltText] = useState([""]);
-
+  
   const productListingData = useSelector(
     (state) => state?.exploreCategories?.getCategoriesListData?.categoryList
   );
@@ -297,7 +297,7 @@ const AddProductComponent = () => {
                   fontWeight: "600",
                   fontSize: "2rem",
                   textAlign: "center",
-                  fontFamily: " 'Inter', sans-serif", 
+                  fontFamily: " 'Inter', sans-serif",
                 }}
               />
             </div>
@@ -399,22 +399,38 @@ const AddProductComponent = () => {
             </Col>
 
             <Row style={{ marginTop: "2rem" }}>
+              <FMTypography
+                displayText={"Specifications"}
+                styleData={{
+                  ...commonStyle.commonModalTitleStyle,
+                  marginLeft: "-11px",
+                  opacity: "0.9",
+                  marginBottom: "4px",
+                }}
+              />
               <TextField
                 required
                 multiline
                 rows={3}
-                placeholder="Specifications"
                 id="specification"
                 name="specification"
                 {...register("specification")}
               />
             </Row>
             <Row style={{ marginTop: "2rem" }}>
+              <FMTypography
+                displayText={"Description"}
+                styleData={{
+                  ...commonStyle.commonModalTitleStyle,
+                  marginLeft: "-11px",
+                  opacity: "0.9",
+                  marginBottom: "4px",
+                }}
+              />
               <TextField
                 required
                 multiline
                 rows={3}
-                placeholder="Description"
                 id="description"
                 name="description"
                 {...register("description")}
@@ -698,7 +714,6 @@ const AddProductComponent = () => {
               onClick={handleSubmit(onSubmit)}
             />
           </Row>
-
         </Container>
       </Grid>
     </div>

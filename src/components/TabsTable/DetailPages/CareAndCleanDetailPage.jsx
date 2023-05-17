@@ -145,16 +145,7 @@ const CareAndCleanDetailPage = (props) => {
                 </Col>
               </Row>
 
-              <FMTypography displayText={"Images:"} />
-              {/* {exhibitionBannerDetail?.map((elem) => (
-                <img
-                  src={elem?.bannerImage}
-                  alt="img"
-                  width="100px"
-                  height="100px"
-                  style={{ marginLeft: "2rem" }}
-                />
-              ))} */}
+              <FMTypography displayText={"Images"} />
               <img
                 src={getCareCleanDetails?.bannerImage}
                 alt="img"

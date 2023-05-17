@@ -134,8 +134,7 @@ const CataloguesDetailPage = (props) => {
               </Row>
 
               <FMTypography
-                displayText={"Images:"}
-                styleData={{ color: "#717171" }}
+                displayText={"Images"}
               />
               {/* {exhibitionBannerDetail?.map((elem) => (
                 <img

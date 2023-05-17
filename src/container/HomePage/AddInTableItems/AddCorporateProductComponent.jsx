@@ -110,7 +110,6 @@ const AddCorporateProductComponent = (props) => {
           sx={{
             display: "flex",
             justifyContent: "center",
-            transform: "translate(0, 30%)",
           }}
         >
           <Grid
@@ -143,7 +142,7 @@ const AddCorporateProductComponent = (props) => {
             />
 
             <Container>
-              <Row>
+              <Row style={{marginBottom:'1rem'}}>
                 <Col>
                   <FMInput
                     required
@@ -211,7 +210,7 @@ const AddCorporateProductComponent = (props) => {
               </Row>
 
               <FMButton
-                displayText="Add Brand Page"
+                displayText="Add"
                 variant="contained"
                 disabled={false}
                 styleData={{

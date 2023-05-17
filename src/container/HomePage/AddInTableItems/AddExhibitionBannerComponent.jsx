@@ -111,7 +111,6 @@ const AddExhibitionBannerComponent = (props) => {
           sx={{
             display: "flex",
             justifyContent: "center",
-            transform: "translate(0, 30%)",
           }}
         >
           <Grid

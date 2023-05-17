@@ -151,7 +151,7 @@ const FMTable = ({
         alignItems: "center",
       }}
     >
-      <FMTypography displayText={"No Data Found"} />
+      <FMTypography displayText={"Loading..."} />
     </Box>
   );
 };

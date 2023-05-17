@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import Header from "components/SearchBar/Header";
 import { Box, Grid } from "@mui/material";
 import FMTable from "../../../components/TabsTable/TableInTabs/FMTable";
@@ -13,6 +13,7 @@ import {
   deleteCategoryBanner,
   getCategoryBanners,
 } from "redux/Slices/HomePage/CategoryBanner";
+
 import ExploreCategoryDetailPage from "components/TabsTable/DetailPages/ExploreCategoryDetailPage";
 import {
   deleteCategory,
@@ -20,6 +21,7 @@ import {
 } from "redux/Slices/HomePage/HomePageCategories";
 import EditHomePageCategory from "container/HomePage/EditBannerAndCategory/EditHomePageCategory";
 import EditHomePageCategoryChildren from "container/HomePage/EditBannerAndCategory/EditExploreCategoryChildren";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 // import ExploreCategoryChildrenTableConfig from "./tableConfig";
 
 export const ExploreCategoryChildrenTableConfig = (type) => [
@@ -193,12 +195,15 @@ const ExploreCategoryChildren = () => {
 
     return rowDataVal;
   };
+  const navigate= useNavigate()
 
   return (
     <>
       <Header />
+
       <Grid sx={{ padding: "5rem" }}>
-        <Box sx={{ padding: "0 2rem 2rem 2rem" }}>
+        <Box sx={{ padding: "0 2rem 2rem 2rem", display:'flex', alignItems:'center' }}>
+        <ArrowBackIcon sx={{marginRight:'3rem', cursor:'pointer'}} onClick={()=>navigate(-1)} />
           <FMTypography
             displayText={exploreCategoryChildTitle?.pageTitle}
             styleData={{ fontSize: "2rem",fontFamily: "Inter" }}

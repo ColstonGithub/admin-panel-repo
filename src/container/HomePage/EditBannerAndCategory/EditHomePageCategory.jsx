@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { Grid, Modal, Box, FormControl, Select, MenuItem } from "@mui/material";
+import {
+  Grid,
+  Modal,
+  Box,
+  FormControl,
+  Select,
+  TextField,
+  MenuItem,
+} from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import FMButton from "components/FMButton/FMButton";
@@ -16,10 +24,12 @@ import {
   getHomePageCategories,
 } from "redux/Slices/HomePage/HomePageCategories";
 import { notify } from "constants/utils";
+import { commonStyle } from "Styles/commonStyles";
 
 const EditHomePageCategory = (props) => {
   const { setOpen, open, id, usersListData } = props;
   const dispatch = useDispatch();
+  const [imagePreview, setImagePreview] = useState(null);
 
   useEffect(() => {
     dispatch(getCategoriesDetail(id));
@@ -34,7 +44,7 @@ const EditHomePageCategory = (props) => {
   //   edit
   const [editedCategoryImage, setEditedCategoryImage] = useState("");
 
-  const homepageCategoriess = useSelector(
+  const productListingData = useSelector(
     (state) => state?.exploreCategories?.getCategoriesListData?.categoryList
   );
 
@@ -79,6 +89,7 @@ const EditHomePageCategory = (props) => {
     });
     // setProductTypes(homepageCategories?.)
     setEditedCategoryImage(homepageCategories?.categoryImage);
+    setProductTypes(homepageCategories?._id);
   }, [homepageCategories, reset]);
 
   const onSubmit = (data) => {
@@ -109,6 +120,7 @@ const EditHomePageCategory = (props) => {
   };
 
   const handleProductPictures = (e) => {
+    setImagePreview(URL.createObjectURL(e.target.files[0]));
     setCategoryImage(e.target.files[0]);
     setEditedCategoryImage("");
   };
@@ -130,57 +142,56 @@ const EditHomePageCategory = (props) => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         sx={{
-          position: "fixed",
-          display: "flex",
+          display: "grid",
           justifyContent: "center",
-          top: "0",
-          left: "0",
-          width: "100%",
-          height: "auto",
           backgroundColor: "rgba(0,0,0, .8)",
           zIndex: "1000",
-          overflowY: "auto",
         }}
       >
         <Grid
           sx={{
             display: "flex",
             justifyContent: "center",
-            transform: "translate(0, 30%)",
           }}
         >
           <Grid
             sx={{
               backgroundColor: "white",
               width: "36.5rem",
-              padding: "2.125rem",
               borderRadius: "0.5rem",
-              marginTop: "2rem",
-              // height: "43.75rem",
               height: "auto",
             }}
           >
-            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-              <img
-                src={crossIcon}
-                alt="cross-icon"
-                style={{ cursor: "pointer", width: "1rem" }}
-                onClick={setCloseDialog}
-              />
-            </Box>
-            <FMTypography
-              displayText="Banner"
-              styleData={{
-                fontWeight: "600",
-                fontSize: "1.125rem",
-                marginBottom: "1.5rem",
-                fontFamily: " 'Inter', sans-serif", 
+            <Box
+              sx={{
+                display: "flex",
+                boxShadow: " 0px 1px 12px rgba(181, 180, 180, 0.12)",
               }}
-            />
-
+            >
+              <Col className="col-11">
+                <FMTypography
+                  displayText={"Edit Category"}
+                  styleData={{
+                    fontWeight: "500",
+                    fontSize: "1.125rem",
+                    fontFamily: " 'Inter', sans-serif",
+                    margin: "1rem",
+                    textAlign: "center",
+                  }}
+                />
+              </Col>
+              <Col className="col-1">
+                <img
+                  src={crossIcon}
+                  alt="cross-icon"
+                  style={{ cursor: "pointer", width: "1rem", margin: "1rem" }}
+                  onClick={setCloseDialog}
+                />
+              </Col>
+            </Box>
             <Container>
-              <Row>
-                <Col>
+              <Row style={{ marginTop: "1rem" }}>
+                <Col md={6}>
                   <FMInput
                     required
                     readOnly={false}
@@ -192,32 +203,10 @@ const EditHomePageCategory = (props) => {
                     errorDisplayText={errors.title?.message}
                   />
                 </Col>
-                <Col>
-                  <FMInput
-                    required
-                    readOnly={false}
-                    displayText="Keyword"
-                    id="type"
-                    name="type"
-                    register={register("type")}
-                    error={errors.type}
-                    errorDisplayText={errors.type?.message}
-                  />
-                </Col>
-                <Col>
+                <Col md={6}>
                   <FMTypography displayText={"Type"} />
                   <FormControl fullWidth sx={{ minWidth: "13rem" }}>
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      value={productTypes}
-                      // label="productTypes"
-                      onChange={handleChange}
-                      placeholder="type"
-                      name="type"
-                      // register={register("type")}
-                      error={errors.type}
-                      errorDisplayText={errors.type?.message}
+                  <Select
                       sx={{
                         height: "2.5rem",
                         marginTop: ".3rem",
@@ -227,16 +216,62 @@ const EditHomePageCategory = (props) => {
                           border: "0.0625rem solid #1a1a1a1f",
                         },
                       }}
+                      native
+                      defaultValue=""
+                      id="grouped-native-select"
+                      value={productTypes}
+                      onChange={(e) => setProductTypes(e.target.value)}
                     >
-                      {homepageCategoriess?.map((elem) => (
-                        <MenuItem value={elem?._id}>{elem?.name}</MenuItem>
+                      <option></option>
+                      {productListingData?.map((option) => (
+                        <>
+                          <option value={option?._id}>{option.name}</option>
+                          {option?.children.map((e) => (
+                            <option value={e?._id}>{e.name}</option>
+                          ))}
+                        </>
                       ))}
                     </Select>
+                    
                   </FormControl>
                 </Col>
               </Row>
-              <Row className="mt-2">
-                <Col>
+              <Row style={{ marginTop: "1rem", padding: " 0.75rem" }}>
+                <FMTypography
+                  displayText={"Keyword"}
+                  styleData={{
+                    ...commonStyle.commonModalTitleStyle,
+                    marginLeft: "-11px",
+                    opacity: "0.9",
+                    marginBottom: "4px",
+                  }}
+                />
+                <TextField
+                  required
+                  multiline
+                  rows={3}
+                  id="type"
+                  name="type"
+                  {...register("type")}
+                />
+              </Row>
+              <Row style={{ marginTop: "1rem" }}>
+                <Col md={6}>
+                  <FMInput
+                    required
+                    customInputLabelStyle={{
+                      ...commonStyle.commonModalTitleStyle,
+                    }}
+                    readOnly={false}
+                    displayText={"Image"}
+                    type="file"
+                    accept="image/*"
+                    name="categoryImage"
+                    id="categoryImage"
+                    onChange={handleProductPictures}
+                  />
+                </Col>
+                <Col md={6}>
                   {" "}
                   <FMInput
                     required
@@ -249,28 +284,42 @@ const EditHomePageCategory = (props) => {
                     errorDisplayText={errors.imageAltText?.message}
                   />
                 </Col>
-                <Col></Col>
+                <Col>
+                  {editedCategoryImage
+                    ? editedCategoryImage && (
+                        <Box className="mt-3">
+                          <div style={commonStyle.commonModalTitleStyle}>
+                            {`Preview`}
+                          </div>
+                          <img
+                            src={editedCategoryImage}
+                            alt="img"
+                            width="100%"
+                            height="100px"
+                            style={{ marginTop: "4px" }}
+                          />
+                        </Box>
+                      )
+                    : imagePreview && (
+                        <Box className="mt-3">
+                          <div style={commonStyle.commonModalTitleStyle}>
+                            {`Preview`}{" "}
+                          </div>
+                          <img
+                            src={imagePreview}
+                            style={{
+                              width: "100%",
+                              height: "100px",
+                              marginTop: "4px",
+                            }}
+                          />
+                        </Box>
+                      )}
+                </Col>
               </Row>
-              <Row style={{ marginTop: "2rem" }}>
-                {editedCategoryImage && (
-                  <div style={{ width: "auto" }}>
-                    <img
-                      src={editedCategoryImage}
-                      alt="img"
-                      width="100%"
-                      height="100px"
-                    />
-                  </div>
-                )}
-                <input
-                  type="file"
-                  name="categoryImage"
-                  id="categoryImage"
-                  onChange={handleProductPictures}
-                />
-              </Row>
+
               <FMButton
-                displayText="Edit Category"
+                displayText="Update"
                 variant="contained"
                 disabled={false}
                 styleData={{

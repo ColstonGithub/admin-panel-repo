@@ -180,8 +180,7 @@ const ProductDetailPage = (props) => {
               </Row>
 
               <FMTypography
-                displayText={"Images:"}
-                styleData={{ color: "#717171" }}
+                displayText={"Images"}
               />
               {productData?.productPictures?.map((elem) => (
                 <img

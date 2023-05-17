@@ -134,7 +134,7 @@ const EditHomePageBanner = (props) => {
           sx={{
             display: "flex",
             justifyContent: "center",
-            transform: "translate(0, 10%)",
+            transform: "translate(0, 30%)",
             height: "450px",
           }}
         >

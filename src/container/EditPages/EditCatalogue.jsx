@@ -71,7 +71,7 @@ const EditCatalogue = (props) => {
     formData.append("_id", id);
     formData.append("title", data?.title?.toString());
     formData.append("imageAltText", data?.imageAltText?.toString());
-    console.log("image", image);
+    
     if (image) formData.append("image", image);
     if (pdf) formData.append("pdf", pdf);
 
@@ -129,7 +129,6 @@ const EditCatalogue = (props) => {
           sx={{
             display: "flex",
             justifyContent: "center",
-            transform: "translate(0, 30%)",
           }}
         >
           <Grid

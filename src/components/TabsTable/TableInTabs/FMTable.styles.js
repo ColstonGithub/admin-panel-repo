@@ -15,6 +15,7 @@ export const styles = {
     alignItems: "center",
     justifyContent: "center",
     marginTop: "0.75rem",
+    marginBottom: "1rem",
   },
   customSrollBar: {
     "&::-webkit-scrollbar": {

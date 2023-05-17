@@ -147,23 +147,34 @@ const Header = () => {
   };
 
   return (
-    <Grid sx={HeaderStyle.headerFullStyle}>
-      <Row style={{ ...HeaderStyle.iconGridContainer, margin: "0" }}>
-        <Col style={commonStyle.flexDisplayStyle}>
-        <Link to={'/home'}>
-          <img
-            src={colstonLogo}
-            alt="ColstonLogo"
-            style={{ ...HeaderStyle.ColstonLogoStyle, marginTop: "0.6rem" }}
-          />
+    <Grid
+      sx={{
+        ...HeaderStyle.headerFullStyle,
+        position: "relative",
+        zIndex: "999",
+      }}
+    >
+      <Row
+        style={{
+          margin: "0",
+          padding: "1rem 50px",
+        }}
+      >
+        <Col md={9}>
+          <Link to={"/home"}>
+            <img
+              src={colstonLogo}
+              alt="ColstonLogo"
+              style={{ ...HeaderStyle.ColstonLogoStyle, marginTop: "0.6rem" }}
+            />
           </Link>
         </Col>
 
         <Col
+          md={3}
           style={{
-            marginTop: ".5rem",
             display: "flex",
-            justifyContent: "flex-end",
+            justifyContent: "end",
           }}
         >
           {/* profile below */}
@@ -175,7 +186,6 @@ const Header = () => {
             onClick={handleClick}
             style={{
               minWidth: "0",
-              marginTop: "-1.7rem",
               "MuiButton-root:hover": {
                 // MuiButtonRoot:hover
                 backgroundColor: "red !important",
@@ -199,7 +209,13 @@ const Header = () => {
             }}
             sx={{ padding: "2rem", ...HeaderStyle.lgjaStyle }}
           >
-            <Box sx={{ display: "flex", marginBottom: ".5rem" }}>
+            <Box
+              sx={{
+                display: "flex",
+                marginBottom: ".5rem",
+                alignItems: "center",
+              }}
+            >
               <Stack direction="row" spacing={2} sx={{ marginLeft: "1rem" }}>
                 <Avatar src="/broken-image.jpg" />
               </Stack>
@@ -209,7 +225,7 @@ const Header = () => {
                     displayText={personLoggedIn}
                     sx={{ fontSize: "14px" }}
                   />
-                  <FMButton
+                  {/* <FMButton
                     displayText={"See your Profile"}
                     variant={"outlined"}
                     styleData={{
@@ -224,7 +240,7 @@ const Header = () => {
                         border: "none",
                       },
                     }}
-                  />
+                  /> */}
                 </Box>
               ) : (
                 <Box>

@@ -55,7 +55,6 @@ const BlogDetailPage = (props) => {
           sx={{
             display: "flex",
             justifyContent: "center",
-            transform: "translate(0, 30%)",
             height: "fit-content",
           }}
         >
@@ -75,7 +74,7 @@ const BlogDetailPage = (props) => {
             >
               <Col className="col-11">
                 <FMTypography
-                  displayText={"Product Details"}
+                  displayText={"Blog Category Detail"}
                   styleData={{
                     fontWeight: "500",
                     fontSize: "1.125rem",

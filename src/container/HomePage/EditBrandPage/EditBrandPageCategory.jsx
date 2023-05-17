@@ -15,6 +15,7 @@ import {
 } from "redux/Slices/BrandPage/BrandPage";
 import { addBrandPageSchema } from "validationSchema/HomePage/AddBannerSchema";
 import { notify } from "constants/utils";
+import { commonStyle } from "Styles/commonStyles";
 
 const EditBrandPageCategory = (props) => {
   const { setOpen, open, id, usersListData } = props;
@@ -112,18 +113,6 @@ const EditBrandPageCategory = (props) => {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-        sx={{
-          position: "fixed",
-          display: "flex",
-          justifyContent: "center",
-          top: "0",
-          left: "0",
-          width: "100%",
-          height: "auto",
-          backgroundColor: "rgba(0,0,0, .8)",
-          zIndex: "1000",
-          overflowY: "auto",
-        }}
       >
         <Grid
           sx={{
@@ -157,7 +146,7 @@ const EditBrandPageCategory = (props) => {
                 fontWeight: "600",
                 fontSize: "1.125rem",
                 marginBottom: "1.5rem",
-                fontFamily: " 'Inter', sans-serif", 
+                fontFamily: " 'Inter', sans-serif",
               }}
             />
             <Container>
@@ -222,8 +211,16 @@ const EditBrandPageCategory = (props) => {
                       />
                     </div>
                   )}
-                  <input
+
+                  <FMInput
+                    required
+                    customInputLabelStyle={{
+                      ...commonStyle.commonModalTitleStyle,
+                    }}
+                    readOnly={false}
+                    displayText={"Image"}
                     type="file"
+                    accept="image/*"
                     name="categoryImage"
                     id="categoryImage"
                     onChange={handleProductPictures}

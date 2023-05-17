@@ -51,23 +51,16 @@ const ExploreCategoryDetailPage = (props) => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         sx={{
-          position: "fixed",
-          display: "flex",
+          display: "grid",
           justifyContent: "center",
-          top: "0",
-          left: "0",
-          width: "100%",
-          height: "100%",
           backgroundColor: "rgba(0,0,0, .8)",
           zIndex: "1000",
-          overflowY: "auto",
         }}
       >
         <Grid
           sx={{
             display: "flex",
             justifyContent: "center",
-            transform: "translate(0, 30%)",
           }}
         >
           <Grid
@@ -106,8 +99,8 @@ const ExploreCategoryDetailPage = (props) => {
               </Col>
             </Box>
 
-            <Grid sx={{ margin: "1rem" }}>
-              <Row style={{ marginBottom: "1rem" }}>
+            <Container>
+              <Row style={{ marginBottom: "1rem", marginTop: "1rem" }}>
                 <Col>
                   <FMTypography displayText={"Name"} />
                   <FMTypography
@@ -127,14 +120,14 @@ const ExploreCategoryDetailPage = (props) => {
               </Row>
               <Row style={{ marginBottom: "1rem" }}>
                 <Col>
-                  <FMTypography displayText={"Keyword:"} />
+                  <FMTypography displayText={"Keyword"} />
                   <FMTypography
                     displayText={productDetailedData?.keyword}
                     styleData={{ color: "#717171" }}
                   />
                 </Col>
                 <Col>
-                  <FMTypography displayText={"Image Alt Text:"} />
+                  <FMTypography displayText={"Image Alt Text"} />
                   <FMTypography
                     displayText={productDetailedData?.imageAltText}
                     styleData={{ color: "#717171" }}
@@ -145,18 +138,17 @@ const ExploreCategoryDetailPage = (props) => {
               <Row>
                 <Col>
                   <FMTypography
-                    displayText={"Images:"}
-                    styleData={{ color: "#717171" }}
+                    displayText={"Image"}
+                    styleData={{ marginBottom: "4px" }}
                   />
-
                   <img
                     src={productDetailedData?.categoryImage}
                     alt="cat-img"
-                    width="550px"
+                    width="100%"
                   />
                 </Col>
               </Row>
-            </Grid>
+            </Container>
           </Grid>
         </Grid>
       </Modal>

@@ -164,7 +164,7 @@ const AddHomePageBanner = (props) => {
               />
             </Row>
             <FMButton
-              displayText="Add Banner"
+              displayText="Add"
               variant="contained"
               disabled={false}
               styleData={{

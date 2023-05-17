@@ -15,3 +15,5 @@ export const ADD_CATEGORY_BANNER = "add-category-banner";
 export const EDIT_CATEGORY_BANNER = "edit-category-banner";
 export const GET_EXPLORE_CATEGORY = "get-explore-category";
 export const DELETE_HOMEPAGE_EXPLORE_CATEGORY = "delete-homepage-exp-cat";
+export const HOMEPAGE_EXPLORE_CATEGORY_DETAIL_PAGE = "homepage-explore-category-detail-page"
+export const ADD_HOMEPAGE_EXPLORE_CAT = "add-homepage-explore-cat"

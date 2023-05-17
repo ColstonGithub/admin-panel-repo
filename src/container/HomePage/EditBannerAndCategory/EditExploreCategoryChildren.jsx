@@ -31,13 +31,13 @@ const EditHomePageCategoryChildren = (props) => {
 
   const [productTypes, setProductTypes] = React.useState("");
   const [categoryImage, setCategoryImage] = useState(" ");
-  //   edit
   const [editedCategoryImage, setEditedCategoryImage] = useState("");
 
   const homepageCategoriess = useSelector(
     (state) => state?.exploreCategories?.getCategoriesListData?.categoryList
   );
 
+  console.log("homepageCategoriess",homepageCategoriess)
   const handleChange = (event) => {
     setProductTypes(event.target.value);
   };
@@ -143,7 +143,6 @@ const EditHomePageCategoryChildren = (props) => {
           sx={{
             display: "flex",
             justifyContent: "center",
-            transform: "translate(0, 30%)",
           }}
         >
           <Grid
@@ -166,7 +165,7 @@ const EditHomePageCategoryChildren = (props) => {
               />
             </Box>
             <FMTypography
-              displayText="Banner"
+              displayText="Edit "
               styleData={{
                 fontWeight: "600",
                 fontSize: "1.125rem",
@@ -204,7 +203,7 @@ const EditHomePageCategoryChildren = (props) => {
                 <Col>
                   <FMTypography displayText={"Type"} />
                   <FormControl fullWidth sx={{ minWidth: "13rem" }}>
-                    <Select
+                    {/* <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
                       value={productTypes}
@@ -227,6 +226,33 @@ const EditHomePageCategoryChildren = (props) => {
                     >
                       {homepageCategoriess?.map((elem) => (
                         <MenuItem value={elem?._id}>{elem?.name}</MenuItem>
+                      ))}
+                    </Select> */}
+
+                    <Select
+                      sx={{
+                        height: "2.5rem",
+                        marginTop: ".3rem",
+                        border: "0.0625rem solid #1a1a1a1f",
+                        "&:hover": { border: "0.0625rem solid #1a1a1a1f" },
+                        "& .MuiSelect-root": {
+                          border: "0.0625rem solid #1a1a1a1f",
+                        },
+                      }}
+                      native
+                      defaultValue=""
+                      id="grouped-native-select"
+                      value={productTypes}
+                      onChange={(e) => setProductTypes(e.target.value)}
+                    >
+                      <option></option>
+                      {homepageCategoriess?.map((option) => (
+                        <>
+                          <option value={option?._id}>{option.name}</option>
+                          {option?.children.map((e) => (
+                            <option value={e?._id}>{e.name}</option>
+                          ))}
+                        </>
                       ))}
                     </Select>
                   </FormControl>
@@ -267,7 +293,7 @@ const EditHomePageCategoryChildren = (props) => {
                 />
               </Row>
               <FMButton
-                displayText="Edit Banner"
+                displayText="Edit"
                 variant="contained"
                 disabled={false}
                 styleData={{

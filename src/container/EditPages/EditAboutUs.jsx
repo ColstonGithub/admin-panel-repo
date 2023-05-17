@@ -44,7 +44,7 @@ const EditAboutUs = (props) => {
     (state) => state?.aboutUs?.getAboutUsData?.AboutUs
   );
 
-  console.log("aboutUsDetail", aboutUsDetail);
+  
 
   const {
     register,
@@ -136,7 +136,6 @@ const EditAboutUs = (props) => {
           sx={{
             display: "flex",
             justifyContent: "center",
-            transform: "translate(0, 30%)",
           }}
         >
           <Grid

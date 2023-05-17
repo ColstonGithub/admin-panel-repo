@@ -746,26 +746,26 @@ export const categoryBannerConfig = (type) => [
     },
   },
 
-  {
-    headername: "BannerImageText",
-    field: "BannerImageText",
-    align: "left",
-    width: "17%",
-    renderColumn: (row) => {
-      return (
-        <>
-          <img
-            src={row?.BannerImageText}
-            alt="img"
-            width="50px"
-            height="40px"
-            className="img-responsive img-fluid "
-            loading="lazy"
-          />
-        </>
-      );
-    },
-  },
+  // {
+  //   headername: "BannerImageText",
+  //   field: "BannerImageText",
+  //   align: "left",
+  //   width: "17%",
+  //   renderColumn: (row) => {
+  //     return (
+  //       <>
+  //         <img
+  //           src={row?.BannerImageText}
+  //           alt="img"
+  //           width="50px"
+  //           height="40px"
+  //           className="img-responsive img-fluid "
+  //           loading="lazy"
+  //         />
+  //       </>
+  //     );
+  //   },
+  // },
 
   {
     headername: "Actions",
@@ -1018,7 +1018,7 @@ export const homepageExploreCatSectionConfig = (type) => [
     align: "left",
     width: "20%",
     renderColumn: (row) => {
-      console.log("rowwww", row);
+      
       return (
         <>
           <img

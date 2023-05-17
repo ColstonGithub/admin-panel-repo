@@ -1,6 +1,6 @@
 export const HeaderStyle = {
   headerFullStyle: {
-    backgroundColor: "white !important",
+    backgroundColor: "#FAFBFD",
     boxShadow: "0px 1px 12px rgba(181, 180, 180, 0.12)",
   },
   iconGridContainer: {
@@ -9,13 +9,13 @@ export const HeaderStyle = {
     padding: "1rem 50px",
   },
   monkeyLogoStyle: { width: "50px", height: "50px" },
-  vibezterLogoStyle: { width: "150px", height: "30px", marginTop: "1rem" },
+  //colstonLogoStyle: { width: "150px", height: "30px", marginTop: "1rem" },
   cartStyle: {
     width: "20px",
     height: "18px",
     margin: "1rem 2rem 0 0",
   },
-  profileIconStyle: { width: "20px", height: "18px" },
+  profileIconStyle: { width: "20px", height: "20px" },
 
   //   menu style
   menuGridStyle: {

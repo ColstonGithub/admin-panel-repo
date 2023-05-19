@@ -231,7 +231,7 @@ const EditCorporateProduct = (props) => {
               </Row>
 
               <FMButton
-                displayText="Edit"
+                displayText="Update"
                 variant="contained"
                 disabled={false}
                 styleData={{

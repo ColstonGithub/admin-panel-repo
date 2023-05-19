@@ -281,7 +281,7 @@ const AddBlogComponent = () => {
                 </Col>
               </Row>
               <FMButton
-                displayText="Add"
+                displayText="Submit"
                 variant="contained"
                 disabled={false}
                 styleData={{

@@ -163,7 +163,7 @@ const EditVirtualTourBanner = (props) => {
               />
             </Box>
             <FMTypography
-              displayText="Edit Virtual Tour Banner"
+              displayText="Update"
               styleData={{
                 fontWeight: "600",
                 fontSize: "1.125rem",
@@ -219,7 +219,7 @@ const EditVirtualTourBanner = (props) => {
                 </Col>
               </Row>
               <FMButton
-                displayText="Edit"
+                displayText="Update"
                 variant="contained"
                 disabled={false}
                 styleData={{

@@ -1,14 +1,15 @@
 import { Box, Grid, Modal } from "@mui/material";
 import FMTypography from "components/FMTypography/FMTypography";
 import React, { useEffect } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import crossIcon from "assets/crossIcon.svg";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { getBannerProductDetail } from "redux/Slices/BannerProducts/BannerProducts";
+import { getContactUsSecById } from "redux/Slices/ContactUsSection/ContactUsSection";
 
-const ProductDetailPage = (props) => {
-  const { setOpen, open, id, type } = props;
+const ContactUsSectionDetailPage = (props) => {
+  const { setOpen, open, id } = props;
+
   const dispatch = useDispatch();
 
   const handleClose = () => {
@@ -19,11 +20,11 @@ const ProductDetailPage = (props) => {
   };
 
   useEffect(() => {
-    dispatch(getBannerProductDetail(id));
+    dispatch(getContactUsSecById(id));
   }, [id, dispatch]);
 
-  const productData = useSelector(
-    (state) => state?.brandProduct?.getBannerProductData?.product
+  const contactUsSectionDetail = useSelector(
+    (state) => state?.contactUsSection?.getContactUsSecData?.contactUs
   );
 
   return (
@@ -34,6 +35,7 @@ const ProductDetailPage = (props) => {
         padding: "15px",
         zIndex: "1000",
         width: "35%",
+        // height:'300px'
         borderRadius: ".5em",
       }}
     >
@@ -59,7 +61,7 @@ const ProductDetailPage = (props) => {
             display: "flex",
             justifyContent: "center",
             transform: "translate(0, 30%)",
-            height: "fit-content",
+            height: "450px",
           }}
         >
           <Grid
@@ -78,7 +80,7 @@ const ProductDetailPage = (props) => {
             >
               <Col className="col-11">
                 <FMTypography
-                  displayText={"Product Details"}
+                  displayText={"Contact us Section Details"}
                   styleData={{
                     fontWeight: "500",
                     fontSize: "1.125rem",
@@ -103,94 +105,54 @@ const ProductDetailPage = (props) => {
                 <Col>
                   <FMTypography displayText={"Name"} />
                   <FMTypography
-                    displayText={productData?.name}
+                    displayText={contactUsSectionDetail?.name}
                     styleData={{ color: "#717171" }}
                   />
                 </Col>
                 <Col>
                   <FMTypography displayText={"Date"} />
                   <FMTypography
-                    displayText={moment(productData?.createdAt).format(
-                      "DD/MM/YYYY"
-                    )}
+                    displayText={moment(
+                      contactUsSectionDetail?.createdAt
+                    ).format("DD/MM/YYYY")}
                     styleData={{ color: "#717171" }}
                   />
                 </Col>
               </Row>
-{/* 
-              <Row style={{ marginBottom: "1rem" }}>
+              <Row>
                 <Col>
-                  <FMTypography displayText={"Amazon Link"} />
+                  <FMTypography displayText={"Email"} />
                   <FMTypography
-                    displayText={productData?.amazonLink}
+                    displayText={contactUsSectionDetail?.email}
                     styleData={{ color: "#717171" }}
                   />
                 </Col>
-                <Col></Col>
-              </Row> */}
-              <Row style={{ marginBottom: "1rem" }}>
-                {productData?.colors?.map((elem, index) => (
-                  <Col>
-                    <FMTypography displayText={`Color ${index + 1}`} />
-                    {/* <div style={{ display: "flex" }}> */}
-                    <FMTypography
-                      displayText={`-> ${elem?.colorName}`}
-                      // styleData={{ color: elem?.colorCode }}
-                    />
-
-                    {/* </div> */}
-                    {elem?.productPictures?.map((ele, i) => (
-                      <Col>
-                        <Box sx={{display:"flex"}}>
-                          <FMTypography
-                            displayText={`-> ${i + 1}`}
-                            // styleData={{ color: elem?.colorCode }}
-                          />
-                          <Box className="mx-2 my-2">
-                          <img src={ele.img} alt={ele.imageAltText} style={{width:"100px",height:"50px"}} />
-                          </Box>
-                        </Box>
-                        {/* </div> */}
-                      </Col>
-                    ))}
-                  </Col>
-                ))}
-
-         
               </Row>
-         <Row>
-         <Col>
-                  <FMTypography displayText={"PDF"} />
-                  <a href={productData?.pdf}>Click to download</a>
+              <Row style={{ marginTop: "1rem" }}>
+                <Col>
+                  <FMTypography displayText={"Mobile Number"} />
+                  <FMTypography
+                    displayText={contactUsSectionDetail?.mobileNo}
+                    styleData={{ color: "#717171" }}
+                  />
                 </Col>
-         </Row>
-              <Row style={{ marginBottom: "1rem" }}>
-                <FMTypography displayText={"Specifications:"} />
-                <FMTypography
-                  displayText={productData?.specification}
-                  styleData={{ color: "#717171" }}
-                />
+                <Col>
+                  <FMTypography displayText={"Subject"} />
+                  <FMTypography
+                    displayText={contactUsSectionDetail?.subject}
+                    styleData={{ color: "#717171" }}
+                  />
+                </Col>
               </Row>
-              <Row style={{ marginBottom: "1rem" }}>
-                <FMTypography displayText={"Description"} />
-                <FMTypography
-                  displayText={productData?.description}
-                  styleData={{ color: "#717171" }}
-                />
+              <Row style={{ marginTop: "1rem" }}>
+                <Col>
+                  <FMTypography displayText={"Message"} />
+                  <FMTypography
+                    displayText={contactUsSectionDetail?.message}
+                    styleData={{ color: "#717171" }}
+                  />
+                </Col>
               </Row>
-
-              <FMTypography
-                displayText={"Images"}
-              />
-              {productData?.productPictures?.map((elem) => (
-                <img
-                  src={elem?.img}
-                  alt="img"
-                  width="100px"
-                  height="100px"
-                  style={{ marginLeft: "2rem" }}
-                />
-              ))}
             </Grid>
           </Grid>
         </Grid>
@@ -199,4 +161,4 @@ const ProductDetailPage = (props) => {
   );
 };
 
-export default ProductDetailPage;
+export default ContactUsSectionDetailPage;

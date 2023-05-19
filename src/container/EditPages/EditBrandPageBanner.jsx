@@ -282,7 +282,7 @@ const EditBrandPageBanner = (props) => {
               </Col>
             </Row>
             <FMButton
-              displayText="Edit Banner"
+              displayText="Update"
               variant="contained"
               disabled={false}
               styleData={{

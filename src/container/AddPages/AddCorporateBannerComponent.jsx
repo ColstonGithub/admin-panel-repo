@@ -1,106 +1,89 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { Grid, Modal, Box } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { Grid, Modal, Box, TextField } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
-
 import FMButton from "components/FMButton/FMButton";
 import FMTypography from "components/FMTypography/FMTypography";
 import FMInput from "components/FMInput/FMInput";
 import crossIcon from "assets/crossIcon.svg";
 import { Col, Container, Row } from "react-bootstrap";
-import { addBannerUploadSchema } from "validationSchema/HomePage/AddBannerSchema";
+
+import { addNewsPressProductSchema } from "validationSchema/AddNewsPressProductSchema";
 import {
-  editHomepageBannerMain,
-  getBannersDetail,
-  getHomePageBanners,
-} from "redux/Slices/HomePage/HomePageCategories";
+  addNewNewsPressProduct,
+  getNewsPressProducts,
+} from "redux/Slices/NewsPress/NewsPressProducts";
+import {
+  addNewCorporateProduct,
+  getcorporateProducts,
+} from "redux/Slices/CorporatePageSlices/CorporateProduct";
+import {
+  addCorporateBannerSchema,
+  addCorporateProductSchema,
+} from "validationSchema/AddCorporateProductSchema";
+import {
+  addNewCorporateBanner,
+  getcorporateBanner,
+} from "redux/Slices/CorporatePageSlices/CorporateBanner";
 import { notify } from "constants/utils";
 
-const EditHomePageBanner = (props) => {
-  const { setOpen, open, id, usersListData } = props;
-  const dispatch = useDispatch();
+const AddCorporateBannerComponent = (props) => {
+  const { setOpen, open } = props;
 
-  useEffect(() => {
-    dispatch(getBannersDetail(id));
-  }, [id, dispatch]);
-
-  const bannerDetailedData = useSelector(
-    (state) => state?.exploreCategories?.getParticularBannerData?.banner
-  );
-
-  const [productTypes, setProductTypes] = React.useState("");
-
-  const [banner, setBanner] = useState([]);
-  const [editedBanner, setEditedBanner] = useState([]);
-
-  const handleChange = (event) => {
-    setProductTypes(event.target.value);
-  };
+  const [image, setImage] = useState([]);
+  const [pdf, setPdf] = useState("");
 
   const handleClose = () => {
-    setOpen(false);
     setValue("title", "");
-    setBanner([]);
+    setValue("imageAltText", "");
+    setValue("image", "");
+    setValue("pdf", null);
   };
   const setCloseDialog = () => {
     setOpen(false);
     setValue("title", "");
-    setBanner([]);
+    setValue("imageAltText", "");
+    setValue("image", "");
+    setValue("pdf", null);
   };
 
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
     setValue,
   } = useForm({
-    resolver: yupResolver(addBannerUploadSchema),
+    resolver: yupResolver(addCorporateBannerSchema),
     mode: "onChange",
   });
 
-  useEffect(() => {
-    reset({
-      title: bannerDetailedData?.title,
-    });
-    bannerDetailedData?.banners?.map((elem) => {
-      return setEditedBanner([...editedBanner, elem?.img]);
-    });
-  }, [bannerDetailedData, reset]);
+  const dispatch = useDispatch();
 
   const onSubmit = (data) => {
     const formData = new FormData();
     formData.append("title", data?.title?.toString());
+    formData.append("bannerImageAltText", data?.bannerImageAltText?.toString());
+    formData.append("bannerImage", image);
 
-    {
-      banner &&
-        banner.map((file, index) => {
-          return {
-            img: formData.append("banner", file),
-            imageAltText: formData.append(
-              "imageAltText",
-              "imageAltText[index]"
-            ),
-          };
-        });
-    }
-    formData.append("_id", id);
-
-    dispatch(editHomepageBannerMain(formData)).then(() => {
-      dispatch(getHomePageBanners(usersListData));
-      notify({ type: "success", messgae: "Data Edited Successfully" });
+    dispatch(addNewCorporateBanner(formData)).then(() => {
+      const usersListData = { page: 1 };
+      dispatch(getcorporateBanner(usersListData));
+      setOpen(false);
+      formData.append("title", "");
+      formData.append("imageAltText", "");
+      formData.append("image", "");
     });
-
-    setOpen(false);
-    setValue("title", "");
-    setBanner([]);
+    notify({ type: "success", messgae: "Data Added Successfully" });
   };
 
   const handleBannerPictures = (e) => {
-    setEditedBanner([]);
-    setBanner([...banner, e.target.files[0]]);
+    setImage(e.target.files[0]);
   };
+  const handleBannerPdf = (e) => {
+    setPdf(e.target.files[0]);
+  };
+
   return (
     <div
       style={{
@@ -109,7 +92,6 @@ const EditHomePageBanner = (props) => {
         padding: "15px",
         zIndex: "1000",
         width: "35%",
-        // height:'300px'
         borderRadius: ".5em",
       }}
     >
@@ -119,6 +101,7 @@ const EditHomePageBanner = (props) => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         sx={{
+          position: "fixed",
           display: "flex",
           justifyContent: "center",
           top: "0",
@@ -134,8 +117,6 @@ const EditHomePageBanner = (props) => {
           sx={{
             display: "flex",
             justifyContent: "center",
-            transform: "translate(0, 30%)",
-            height: "450px",
           }}
         >
           <Grid
@@ -144,8 +125,9 @@ const EditHomePageBanner = (props) => {
               width: "36.5rem",
               padding: "2.125rem",
               borderRadius: "0.5rem",
-              // marginTop: "2rem",
-              height: "500px",
+              marginTop: "2rem",
+              // height: "43.75rem",
+              height: "auto",
             }}
           >
             <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
@@ -157,7 +139,7 @@ const EditHomePageBanner = (props) => {
               />
             </Box>
             <FMTypography
-              displayText="Banner"
+              displayText="Add Corporate Banner"
               styleData={{
                 fontWeight: "600",
                 fontSize: "1.125rem",
@@ -180,29 +162,39 @@ const EditHomePageBanner = (props) => {
                     errorDisplayText={errors.title?.message}
                   />
                 </Col>
+
+                <Col>
+                  <FMInput
+                    required
+                    readOnly={false}
+                    displayText="Banner Image Alt Text"
+                    id="bannerImageAltText"
+                    name="bannerImageAltText"
+                    register={register("bannerImageAltText")}
+                    error={errors.bannerImageAltText}
+                    errorDisplayText={errors.bannerImageAltText?.message}
+                  />
+                </Col>
               </Row>
-              <Row style={{ marginTop: "2rem" }}>
-                {editedBanner.length > 0
-                  ? editedBanner?.map((pic, index) => (
-                      <div key={index}>
-                        <img src={pic} alt="imgs" width="100px" />
-                      </div>
-                    ))
-                  : null}
-                {banner.length > 0
-                  ? banner?.map((pic, index) => (
-                      <div key={index}>{pic.name}</div>
-                    ))
-                  : null}
-                <input
-                  type="file"
-                  name="banner"
-                  id="banner"
-                  onChange={handleBannerPictures}
-                />
+
+              <Row>
+                <Col style={{ marginTop: "2rem" }}>
+                  <FMTypography
+                    displayText={"Image: "}
+                    styleData={{ color: "#A3A3A3" }}
+                  />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    name="banner"
+                    id="banner"
+                    onChange={handleBannerPictures}
+                  />
+                </Col>
               </Row>
+
               <FMButton
-                displayText="Edit Banner"
+                displayText="Submit"
                 variant="contained"
                 disabled={false}
                 styleData={{
@@ -223,4 +215,4 @@ const EditHomePageBanner = (props) => {
   );
 };
 
-export default EditHomePageBanner;
+export default AddCorporateBannerComponent;

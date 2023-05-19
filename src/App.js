@@ -54,9 +54,9 @@ import EmailVerifyOtp from "./views/SignUp/emailOtpVerification";
 import HomePageBanners from "container/HomePage/HomePageBanners";
 import PrivateRoutes from "Routes/PrivateRoutes";
 
-import AddProductComponent from "container/HomePage/AddInTableItems/AddProductComponent";
+import AddProductComponent from "container/AddPages/AddProductComponent";
 import EditProductComponent from "container/EditPages/EditProductComponent";
-import AddBlogComponent from "container/HomePage/AddInTableItems/AddBlogComponent";
+import AddBlogComponent from "container/AddPages/AddBlogComponent";
 import EditBlogs from "container/EditPages/EditBlogs";
 // children
 import ExploreCategoryChildren from "container/Children/ExploreCategoryChildren/ExploreCategoryChildren";

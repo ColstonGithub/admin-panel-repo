@@ -18,17 +18,9 @@ import {
   addNewCorporateProduct,
   getcorporateProducts,
 } from "redux/Slices/CorporatePageSlices/CorporateProduct";
-import {
-  addCorporateBannerSchema,
-  addCorporateProductSchema,
-} from "validationSchema/AddCorporateProductSchema";
-import {
-  addNewCorporateBanner,
-  getcorporateBanner,
-} from "redux/Slices/CorporatePageSlices/CorporateBanner";
-import { notify } from "constants/utils";
+import { addCorporateProductSchema } from "validationSchema/AddCorporateProductSchema";
 
-const AddCorporateBannerComponent = (props) => {
+const AddCorporateProductComponent = (props) => {
   const { setOpen, open } = props;
 
   const [image, setImage] = useState([]);
@@ -54,7 +46,7 @@ const AddCorporateBannerComponent = (props) => {
     formState: { errors },
     setValue,
   } = useForm({
-    resolver: yupResolver(addCorporateBannerSchema),
+    resolver: yupResolver(addCorporateProductSchema),
     mode: "onChange",
   });
 
@@ -63,18 +55,19 @@ const AddCorporateBannerComponent = (props) => {
   const onSubmit = (data) => {
     const formData = new FormData();
     formData.append("title", data?.title?.toString());
-    formData.append("bannerImageAltText", data?.bannerImageAltText?.toString());
-    formData.append("bannerImage", image);
+    formData.append("imageAltText", data?.imageAltText?.toString());
+    formData.append("image", image);
+    formData.append("text", data?.text?.toString());
 
-    dispatch(addNewCorporateBanner(formData)).then(() => {
+    dispatch(addNewCorporateProduct(formData)).then(() => {
       const usersListData = { page: 1 };
-      dispatch(getcorporateBanner(usersListData));
+      dispatch(getcorporateProducts(usersListData));
       setOpen(false);
       formData.append("title", "");
       formData.append("imageAltText", "");
       formData.append("image", "");
+      formData.append("text", "");
     });
-    notify({ type: "success", messgae: "Data Added Successfully" });
   };
 
   const handleBannerPictures = (e) => {
@@ -139,7 +132,7 @@ const AddCorporateBannerComponent = (props) => {
               />
             </Box>
             <FMTypography
-              displayText="Add Corporate Banner"
+              displayText="Add Corporate Product"
               styleData={{
                 fontWeight: "600",
                 fontSize: "1.125rem",
@@ -149,7 +142,7 @@ const AddCorporateBannerComponent = (props) => {
             />
 
             <Container>
-              <Row>
+              <Row style={{marginBottom:'1rem'}}>
                 <Col>
                   <FMInput
                     required
@@ -167,13 +160,36 @@ const AddCorporateBannerComponent = (props) => {
                   <FMInput
                     required
                     readOnly={false}
-                    displayText="Banner Image Alt Text"
-                    id="bannerImageAltText"
-                    name="bannerImageAltText"
-                    register={register("bannerImageAltText")}
-                    error={errors.bannerImageAltText}
-                    errorDisplayText={errors.bannerImageAltText?.message}
+                    displayText="Image Alt Text"
+                    id="imageAltText"
+                    name="imageAltText"
+                    register={register("imageAltText")}
+                    error={errors.imageAltText}
+                    errorDisplayText={errors.imageAltText?.message}
                   />
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <FMTypography
+                    displayText={"Text"}
+                    styleData={{ color: "#717171" }}
+                  />
+                  <TextField
+                    placeholder="Text"
+                    multiline
+                    rows={2}
+                    maxRows={4}
+                    id="text"
+                    {...register("text")}
+                    error={errors.text ? true : false}
+                  />
+                  {errors.text && (
+                    <FMTypography
+                      displayText={errors.text?.message}
+                      styleData={{ color: "red" }}
+                    />
+                  )}
                 </Col>
               </Row>
 
@@ -194,7 +210,7 @@ const AddCorporateBannerComponent = (props) => {
               </Row>
 
               <FMButton
-                displayText="Add"
+                displayText="Submit"
                 variant="contained"
                 disabled={false}
                 styleData={{
@@ -215,4 +231,4 @@ const AddCorporateBannerComponent = (props) => {
   );
 };
 
-export default AddCorporateBannerComponent;
+export default AddCorporateProductComponent;

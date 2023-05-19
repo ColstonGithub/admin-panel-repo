@@ -114,7 +114,7 @@ const EditBlogsCategory = (props) => {
               />
             </Box>
             <FMTypography
-              displayText="Edit Blog Category"
+              displayText="Update"
               styleData={{
                 fontWeight: "600",
                 fontSize: "1.125rem",

@@ -1,14 +1,15 @@
 import { Box, Grid, Modal } from "@mui/material";
 import FMTypography from "components/FMTypography/FMTypography";
 import React, { useEffect } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import crossIcon from "assets/crossIcon.svg";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { getCatalogueDetail } from "redux/Slices/Catalogue/Catalogue";
+import { getWarrantyRegById } from "redux/Slices/WarrantyRegistration/WarrantyRegistration";
 
-const CataloguesDetailPage = (props) => {
-  const { setOpen, open, id, type } = props;
+const WarrantyRegDetailPage = (props) => {
+  const { setOpen, open, id } = props;
+
   const dispatch = useDispatch();
 
   const handleClose = () => {
@@ -19,13 +20,12 @@ const CataloguesDetailPage = (props) => {
   };
 
   useEffect(() => {
-    dispatch(getCatalogueDetail(id));
+    dispatch(getWarrantyRegById(id));
   }, [id, dispatch]);
 
-  const blogsDetail = useSelector((state) => state?.blogs?.getBlogsData?.Blogs);
-
-  const cataloguesDetail = useSelector(
-    (state) => state?.catalogues?.getCatalogueData?.Catalogue
+  const warrantyRegDetail = useSelector(
+    (state) =>
+      state?.warrantyRegistration?.getWarrantyRegData?.warrentyRegistration
   );
   return (
     <div
@@ -35,6 +35,7 @@ const CataloguesDetailPage = (props) => {
         padding: "15px",
         zIndex: "1000",
         width: "35%",
+        // height:'300px'
         borderRadius: ".5em",
       }}
     >
@@ -60,7 +61,7 @@ const CataloguesDetailPage = (props) => {
             display: "flex",
             justifyContent: "center",
             transform: "translate(0, 30%)",
-            height: "fit-content",
+            height: "450px",
           }}
         >
           <Grid
@@ -79,7 +80,7 @@ const CataloguesDetailPage = (props) => {
             >
               <Col className="col-11">
                 <FMTypography
-                  displayText={"Product Details"}
+                  displayText={"Warranty Registration Details"}
                   styleData={{
                     fontWeight: "500",
                     fontSize: "1.125rem",
@@ -102,56 +103,47 @@ const CataloguesDetailPage = (props) => {
             <Grid sx={{ margin: "1rem" }}>
               <Row style={{ marginBottom: "1rem" }}>
                 <Col>
-                  <FMTypography displayText={"Title"} />
+                  <FMTypography displayText={"Name"} />
                   <FMTypography
-                    displayText={cataloguesDetail?.title}
+                    displayText={warrantyRegDetail?.name}
                     styleData={{ color: "#717171" }}
                   />
                 </Col>
                 <Col>
                   <FMTypography displayText={"Date"} />
                   <FMTypography
-                    displayText={moment(cataloguesDetail?.createdAt).format(
+                    displayText={moment(warrantyRegDetail?.createdAt).format(
                       "DD/MM/YYYY"
                     )}
                     styleData={{ color: "#717171" }}
                   />
                 </Col>
               </Row>
-
-              <Row style={{ marginBottom: "1rem" }}>
+              <Row>
                 <Col>
-                  <FMTypography displayText={"Image Alt Text"} />
+                  <FMTypography displayText={"Email"} />
                   <FMTypography
-                    displayText={cataloguesDetail?.imageAltText}
+                    displayText={warrantyRegDetail?.email}
+                    styleData={{ color: "#717171" }}
+                  />
+                </Col>
+              </Row>
+              <Row style={{ marginTop: "1rem" }}>
+                <Col>
+                  <FMTypography displayText={"Mobile Number"} />
+                  <FMTypography
+                    displayText={warrantyRegDetail?.mobileNo}
                     styleData={{ color: "#717171" }}
                   />
                 </Col>
                 <Col>
-                  <FMTypography displayText={"PDF"} />
-                  <a href={cataloguesDetail?.pdf}> Click here to download </a>
+                  <FMTypography displayText={"Subject"} />
+                  <FMTypography
+                    displayText={warrantyRegDetail?.subject}
+                    styleData={{ color: "#717171" }}
+                  />
                 </Col>
               </Row>
-
-              <FMTypography
-                displayText={"Images"}
-              />
-              {/* {exhibitionBannerDetail?.map((elem) => (
-                <img
-                  src={elem?.bannerImage}
-                  alt="img"
-                  width="100px"
-                  height="100px"
-                  style={{ marginLeft: "2rem" }}
-                />
-              ))} */}
-              <img
-                src={cataloguesDetail?.image}
-                alt="img"
-                width="450px"
-                height="auto"
-                style={{ marginLeft: "3rem" }}
-              />
             </Grid>
           </Grid>
         </Grid>
@@ -160,4 +152,4 @@ const CataloguesDetailPage = (props) => {
   );
 };
 
-export default CataloguesDetailPage;
+export default WarrantyRegDetailPage;

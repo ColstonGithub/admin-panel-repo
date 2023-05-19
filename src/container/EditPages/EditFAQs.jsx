@@ -7,13 +7,14 @@ import FMButton from "components/FMButton/FMButton";
 import FMTypography from "components/FMTypography/FMTypography";
 import FMInput from "components/FMInput/FMInput";
 import crossIcon from "assets/crossIcon.svg";
-import { Col, Container, Row, Spinner } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { getBlogCategory } from "redux/Slices/Blogs/BlogsCategory";
 import { addBlogsSchema } from "validationSchema/AddBlogCategorySchema";
 import { editBlogs, getBlogs, getBlogsDetail } from "redux/Slices/Blogs/Blogs";
 import { commonStyle } from "Styles/commonStyles";
 import { getFaqCategoryData } from "redux/Slices/FAQS/FaqCategorySlice";
 import { addFaqsSchema } from "validationSchema/addFaqCategorySchema";
+import { InfinitySpin } from 'react-loader-spinner'
 import {
   addNewFaq,
   editFaq,
@@ -136,7 +137,7 @@ const EditFAQs = (props) => {
               />
             </Box>
             <FMTypography
-              displayText="Edit FAQs"
+              displayText="Update"
               styleData={{
                 fontWeight: "600",
                 fontSize: "1.125rem",
@@ -207,7 +208,8 @@ const EditFAQs = (props) => {
               </Row>
 
               {props?.loader ? (
-                <Spinner />
+
+        <InfinitySpin width="200" color="#4fa94d" />
               ) : (
                 <FMButton
                   displayText="Submit"

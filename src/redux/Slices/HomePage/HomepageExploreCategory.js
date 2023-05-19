@@ -4,7 +4,7 @@ import {
   GET_EXPLORE_CATEGORY,
   DELETE_HOMEPAGE_EXPLORE_CATEGORY,
   HOMEPAGE_EXPLORE_CATEGORY_DETAIL_PAGE,
-  ADD_HOMEPAGE_EXPLORE_CAT,
+  ADD_HOMEPAGE_EXPLORE_CAT,EDIT_HOMEPAGE_EXPLORE_CATEGORY
 } from "./type";
 import { PER_PAGE_LIMIT } from "constants/AppConstant";
 
@@ -67,6 +67,25 @@ export const addHomepageExploreCat = createAsyncThunk(
     }
   }
 );
+
+
+
+export const editHomepageExploreCategory = createAsyncThunk(
+  EDIT_HOMEPAGE_EXPLORE_CATEGORY,
+  async (payload, thunkAPI) => {
+    try {
+      const response = await axiosInstance.patch(
+        `api/explorecategory/update`,
+        payload
+      );
+
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ error: error });
+    }
+  }
+);
+
 
 const homepageExploreCategorySlice = createSlice({
   name: "homepageExploreCategorySlice",

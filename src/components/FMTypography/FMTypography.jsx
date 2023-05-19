@@ -1,5 +1,6 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
+import { commonStyle } from "Styles/commonStyles";
 const style = {
   typographyStyle: {
     color: "black",
@@ -7,7 +8,7 @@ const style = {
 };
 const FMTypography = ({ displayText, styleData, ...restProps }) => {
   return (
-    <Typography sx={{ ...style.typographyStyle, ...styleData }} {...restProps}>
+    <Typography sx={{ ...style.typographyStyle, ...commonStyle.commonModalTitleStyle,...styleData, }} {...restProps}>
       {displayText}
     </Typography>
   );

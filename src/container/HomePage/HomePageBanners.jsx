@@ -5,11 +5,9 @@ import React, { useState } from "react";
 import { Col, Row, Container } from "react-bootstrap";
 import homeIcon from "assets/homeIcon.svg";
 import blogspageIcon from "assets/blogspage.svg";
-import brandIcon from "assets/brandIcon.svg";
-import corporateIcon from "assets/corporateIcon.svg";
 import FMButton from "components/FMButton/FMButton";
 import TabsTable from "components/TabsTable/TabsTable";
-import AddBanner from "./AddInTableItems/AddCategory";
+import AddBanner from "container/AddPages/AddCategory";
 import "../HomePage/homePageBannerStyle.css";
 import {
   ABOUT_US,
@@ -40,44 +38,43 @@ import {
 } from "Routes/Routes";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import AddHomePageBanner from "./AddInTableItems/AddHomePageBanner";
-import AddBrandPageComponent from "./AddInTableItems/AddBrandPageComponent";
-import AddCareCleanComponent from "./AddInTableItems/AddCareCleanComponent";
-import AddVideoComponent from "./AddInTableItems/AddVideoComponent";
-import AddCatalogueComponent from "./AddInTableItems/AddCatalogueComponent";
-import AddVirtualTourComponent from "./AddInTableItems/AddVirtualTourComponent";
-import AddExhibitionBannerComponent from "./AddInTableItems/AddExhibitionBannerComponent";
-import AddNewsPressProductComponent from "./AddInTableItems/AddNewsPressProductComponent";
-import AddNewsPressBannerComponent from "./AddInTableItems/AddNewsPressBannerComponent";
-import AddCorporateProductComponent from "./AddInTableItems/AddCorporateProductComponent";
-import AddCorporateBannerComponent from "./AddInTableItems/AddCorporateBannerComponent";
-import AddBrandPageBannerComponent from "./AddInTableItems/AddBrandPageBannerComponent";
-import AddCategoryBannerComponent from "./AddInTableItems/AddCategoryBannerComponent";
-import AddBlogCategoryComponent from "./AddInTableItems/AddBlogCategoryComponent";
-import AddAboutUsComponent from "./AddInTableItems/AddAboutUsComponent";
-import AddFaqCategoryComponent from "./AddInTableItems/AddFaqCategoryComponent";
-import AddFAQs from "./AddInTableItems/AddFAQs";
-import AddHomepageExploreCategoryComponent from "./AddInTableItems/AddHomepageExploreCategoryComponent";
+import AddHomePageBanner from "container/AddPages/AddHomePageBanner";
+import AddBrandPageComponent from "container/AddPages/AddBrandPageComponent";
+import AddCareCleanComponent from "container/AddPages/AddCareCleanComponent";
+import AddVideoComponent from "container/AddPages/AddVideoComponent";
+import AddCatalogueComponent from "container/AddPages/AddCatalogueComponent";
+import AddVirtualTourComponent from "container/AddPages/AddVirtualTourComponent";
+import AddExhibitionBannerComponent from "container/AddPages/AddExhibitionBannerComponent";
+import AddNewsPressProductComponent from "container/AddPages/AddNewsPressProductComponent";
+import AddNewsPressBannerComponent from "container/AddPages/AddNewsPressBannerComponent";
+import AddCorporateProductComponent from "container/AddPages/AddCorporateProductComponent";
+import AddCorporateBannerComponent from "container/AddPages/AddCorporateBannerComponent";
+import AddBrandPageBannerComponent from "container/AddPages/AddBrandPageBannerComponent";
+import AddCategoryBannerComponent from "container/AddPages/AddCategoryBannerComponent";
+import AddBlogCategoryComponent from "container/AddPages/AddBlogCategoryComponent";
+import AddAboutUsComponent from "container/AddPages/AddAboutUsComponent";
+import AddFaqCategoryComponent from "container/AddPages/AddFaqCategoryComponent";
+import AddFAQs from "container/AddPages/AddFAQs";
+import AddHomepageExploreCategoryComponent from "container/AddPages/AddHomepageExploreCategoryComponent";
 
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import productIcon from 'assets/product.svg'
-import brandPageIcon from 'assets/brandpage.svg'
-import corporatePageIcon from 'assets/corporatePage.svg'
-import exhibitionIcon from 'assets/exhibition.svg'
-import virtualTourIcon from 'assets/virtualTour.svg'
-import newsPressIcon from 'assets/newsPress.svg'
-import blogsIcon from 'assets/blogs.svg'
-import catalogueIcon from 'assets/catalogue.svg'
-import videosIcon from 'assets/videos.svg'
-import careCleanIcon from 'assets/careClean.svg'
-import aboutUsIcon from 'assets/aboutUs.svg'
-import faqsIcon from 'assets/faqs.svg'
-import warrantyRegIcon from 'assets/warrantyReg.svg'
-import quotationSecIcon from 'assets/quotationSec.svg'
-import careerSecIcon from 'assets/careerSec.svg'
-import contactUsIcon from 'assets/contactUs.svg'
-
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import productIcon from "assets/product.svg";
+import brandPageIcon from "assets/brandpage.svg";
+import corporatePageIcon from "assets/corporatePage.svg";
+import exhibitionIcon from "assets/exhibition.svg";
+import virtualTourIcon from "assets/virtualTour.svg";
+import newsPressIcon from "assets/newsPress.svg";
+import blogsIcon from "assets/blogs.svg";
+import catalogueIcon from "assets/catalogue.svg";
+import videosIcon from "assets/videos.svg";
+import careCleanIcon from "assets/careClean.svg";
+import aboutUsIcon from "assets/aboutUs.svg";
+import faqsIcon from "assets/faqs.svg";
+import warrantyRegIcon from "assets/warrantyReg.svg";
+import quotationSecIcon from "assets/quotationSec.svg";
+import careerSecIcon from "assets/careerSec.svg";
+import contactUsIcon from "assets/contactUs.svg";
 
 const HomePageBanners = (props) => {
   const navigate = useNavigate();
@@ -353,7 +350,11 @@ const HomePageBanners = (props) => {
               className="scroll-bar-class"
             >
               <div style={{ marginBottom: "20px" }}>
-                <Button sx={{ "&:hover": { backgroundColor: "white" } }}>
+                <Button
+                  sx={{
+                    "&:hover": { background: "#EBECEF", borderRadius: "8px" },
+                  }}
+                >
                   <img
                     src={homeIcon}
                     alt="icon"
@@ -363,9 +364,10 @@ const HomePageBanners = (props) => {
                     displayText={"Home Page"}
                     onClick={() => homepageDisplay()}
                     styleData={{
-                      fontSize: "15px",
+                      fontSize: "16px",
                       fontFamily: " 'Inter', sans-serif",
                       fontWeight: "400",
+                      color: "#222222",
                     }}
                   />
                   {openFirst ? (
@@ -379,7 +381,7 @@ const HomePageBanners = (props) => {
                   style={{
                     display: openFirst ? "flex" : "none",
                     paddingLeft: "3rem",
-                    height: "60px",
+                    height: "90px",
                     // display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-around",
@@ -391,17 +393,20 @@ const HomePageBanners = (props) => {
                       color: activeOption === 1 ? "#008060" : "#717171",
                       cursor: "pointer",
                       fontSize: "16px",
+                      marginBottom: "10px",
+                      marginTop: "10px",
                       fontFamily: " 'Inter', sans-serif",
                     }}
                     onClick={homePageNavigatorHandler}
                   />
 
                   <FMTypography
-                    displayText={"Category banner"}
+                    displayText={"Category Banner"}
                     styleData={{
                       color: activeOption === 2 ? "#008060" : "#717171",
                       cursor: "pointer",
                       fontSize: "16px",
+                      marginBottom: "10px",
                       fontFamily: " 'Inter', sans-serif",
                     }}
                     onClick={categoryBannerNavigator}
@@ -409,8 +414,7 @@ const HomePageBanners = (props) => {
                   <FMTypography
                     displayText={"Explore Category"}
                     styleData={{
-                      // color: activeOption === 1 ? "#008060" : "#717171",
-                      color: "#717171",
+                      color: activeOption === 3 ? "#008060" : "#717171",
                       cursor: "pointer",
                       fontSize: "16px",
                       fontFamily: " 'Inter', sans-serif",
@@ -421,17 +425,22 @@ const HomePageBanners = (props) => {
               </div>
 
               <div style={{ marginBottom: "20px" }}>
-                <Button sx={{ "&:hover": { backgroundColor: "white" } }}>
+                <Button
+                  sx={{
+                    "&:hover": { background: "#EBECEF", borderRadius: "8px" },
+                  }}
+                >
                   <img
                     src={blogspageIcon}
                     alt="icon"
                     style={{ marginRight: "24px", width: "15px" }}
                   />
                   <FMTypography
-                    displayText={"Explore Categories"}
+                    displayText={"Category"}
                     onClick={categoryNavigatorHandler}
                     styleData={{
-                      fontSize: "15px",
+                      fontSize: "16px",
+                      color: "#222222",
                       fontWeight: "400",
                       fontFamily: " 'Inter', sans-serif",
                     }}
@@ -440,7 +449,11 @@ const HomePageBanners = (props) => {
               </div>
 
               <div style={{ marginBottom: "20px" }}>
-                <Button sx={{ "&:hover": { backgroundColor: "white" } }}>
+                <Button
+                  sx={{
+                    "&:hover": { background: "#EBECEF", borderRadius: "8px" },
+                  }}
+                >
                   <img
                     src={productIcon}
                     alt="icon"
@@ -450,8 +463,9 @@ const HomePageBanners = (props) => {
                     displayText={"Product"}
                     onClick={() => brandProductNavigator()}
                     styleData={{
-                      fontSize: "15px",
+                      fontSize: "16px",
                       fontWeight: "400",
+                      color: "#222222",
                       fontFamily: " 'Inter', sans-serif",
                     }}
                   />
@@ -459,7 +473,11 @@ const HomePageBanners = (props) => {
               </div>
 
               <div style={{ marginBottom: "20px" }}>
-                <Button sx={{ "&:hover": { backgroundColor: "white" } }}>
+                <Button
+                  sx={{
+                    "&:hover": { background: "#EBECEF", borderRadius: "8px" },
+                  }}
+                >
                   <img
                     src={brandPageIcon}
                     alt="icon"
@@ -469,8 +487,9 @@ const HomePageBanners = (props) => {
                     displayText={"Brand Page"}
                     onClick={() => brandPageDisplay()}
                     styleData={{
-                      fontSize: "15px",
+                      fontSize: "16px",
                       fontWeight: "400",
+                      color: "#222222",
                       fontFamily: " 'Inter', sans-serif",
                     }}
                   />
@@ -486,7 +505,7 @@ const HomePageBanners = (props) => {
                   style={{
                     display: openBrandPage ? "flex" : "none",
                     paddingLeft: "3rem",
-                    height: "50px",
+                    height: "60px",
                     // display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-around",
@@ -495,19 +514,35 @@ const HomePageBanners = (props) => {
                   <FMTypography
                     displayText={"Brand Product"}
                     onClick={() => brandPageNavigator()}
-                    styleData={{ color: "#717171", cursor: "pointer" }}
+                    styleData={{
+                      color: "#717171",
+                      cursor: "pointer",
+                      fontSize: "16px",
+                      fontWeight: "400",
+                      marginBottom: "10px",
+                      marginTop: "10px",
+                    }}
                   />
 
                   <FMTypography
                     displayText={"Brand Page Banner"}
                     onClick={() => brandBannerNavigator()}
-                    styleData={{ color: "#717171", cursor: "pointer" }}
+                    styleData={{
+                      color: "#717171",
+                      cursor: "pointer",
+                      fontSize: "16px",
+                      fontWeight: "400",
+                    }}
                   />
                 </Box>
               </div>
 
               <div style={{ marginBottom: "20px" }}>
-                <Button sx={{ "&:hover": { backgroundColor: "white" } }}>
+                <Button
+                  sx={{
+                    "&:hover": { background: "#EBECEF", borderRadius: "8px" },
+                  }}
+                >
                   <img
                     src={corporatePageIcon}
                     alt="icon"
@@ -517,8 +552,9 @@ const HomePageBanners = (props) => {
                     displayText={"Corporate Page"}
                     onClick={() => corporatePageDisplay()}
                     styleData={{
-                      fontSize: "15px",
+                      fontSize: "16px",
                       fontWeight: "400",
+                      color: "#222222",
                       fontFamily: " 'Inter', sans-serif",
                     }}
                   />
@@ -533,7 +569,7 @@ const HomePageBanners = (props) => {
                   style={{
                     display: corporatePage ? "block" : "none",
                     paddingLeft: "3rem",
-                    height: "50px",
+                    height: "60px",
                     // display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-around",
@@ -541,20 +577,36 @@ const HomePageBanners = (props) => {
                 >
                   <FMTypography
                     displayText={"Corporate Product"}
-                    styleData={{ color: "#717171", cursor: "pointer" }}
+                    styleData={{
+                      color: "#717171",
+                      cursor: "pointer",
+                      fontSize: "16px",
+                      fontWeight: "400",
+                      marginBottom: "10px",
+                      marginTop: "10px",
+                    }}
                     onClick={() => corporateProductNavigator()}
                   />
 
                   <FMTypography
-                    displayText={"Corporate Banner"}
-                    styleData={{ color: "#717171", cursor: "pointer" }}
+                    displayText={"Corporate Page Banner"}
+                    styleData={{
+                      color: "#717171",
+                      cursor: "pointer",
+                      fontSize: "16px",
+                      fontWeight: "400",
+                    }}
                     onClick={() => corporateBannerNavigator()}
                   />
                 </Box>
               </div>
 
               <div style={{ marginBottom: "20px" }}>
-                <Button sx={{ "&:hover": { backgroundColor: "white" } }}>
+                <Button
+                  sx={{
+                    "&:hover": { background: "#EBECEF", borderRadius: "8px" },
+                  }}
+                >
                   <img
                     src={exhibitionIcon}
                     alt="icon"
@@ -564,8 +616,9 @@ const HomePageBanners = (props) => {
                     displayText={"Exhibition"}
                     onClick={() => exhibitionNavigator()}
                     styleData={{
-                      fontSize: "15px",
+                      fontSize: "16px",
                       fontWeight: "400",
+                      color: "#222222",
                       fontFamily: " 'Inter', sans-serif",
                     }}
                   />
@@ -573,7 +626,11 @@ const HomePageBanners = (props) => {
               </div>
 
               <div style={{ marginBottom: "20px" }}>
-                <Button sx={{ "&:hover": { backgroundColor: "white" } }}>
+                <Button
+                  sx={{
+                    "&:hover": { background: "#EBECEF", borderRadius: "8px" },
+                  }}
+                >
                   <img
                     src={virtualTourIcon}
                     alt="icon"
@@ -583,8 +640,9 @@ const HomePageBanners = (props) => {
                     displayText={"Virtual Tour"}
                     onClick={() => virtualTourNavigator()}
                     styleData={{
-                      fontSize: "15px",
+                      fontSize: "16px",
                       fontWeight: "400",
+                      color: "#222222",
                       fontFamily: " 'Inter', sans-serif",
                     }}
                   />
@@ -592,18 +650,23 @@ const HomePageBanners = (props) => {
               </div>
 
               <div style={{ marginBottom: "20px" }}>
-                <Button sx={{ "&:hover": { backgroundColor: "white" } }}>
+                <Button
+                  sx={{
+                    "&:hover": { background: "#EBECEF", borderRadius: "8px" },
+                  }}
+                >
                   <img
                     src={newsPressIcon}
                     alt="icon"
                     style={{ marginRight: "24px", width: "15px" }}
                   />
                   <FMTypography
-                    displayText={"News & Press Page"}
+                    displayText={"News & Press"}
                     onClick={() => newsPressDisplay()}
                     styleData={{
-                      fontSize: "15px",
+                      fontSize: "16px",
                       fontWeight: "400",
+                      color: "#222222",
                       fontFamily: " 'Inter', sans-serif",
                       // color: activeOption ? "#f00" : "#555",
                     }}
@@ -619,7 +682,7 @@ const HomePageBanners = (props) => {
                   style={{
                     display: newsPressOpen ? "flex" : "none",
                     paddingLeft: "3rem",
-                    height: "50px",
+                    height: "60px",
                     // display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-around",
@@ -630,6 +693,9 @@ const HomePageBanners = (props) => {
                     styleData={{
                       color: "#717171",
                       cursor: "pointer",
+                      marginBottom: "10px",
+                      marginTop: "10px",
+                      fontWeight: "400",
                       fontSize: "16px",
                       fontFamily: " 'Inter', sans-serif",
                     }}
@@ -641,7 +707,8 @@ const HomePageBanners = (props) => {
                     styleData={{
                       color: "#717171",
                       cursor: "pointer",
-                      fontSize: "15.5px",
+                      fontWeight: "400",
+                      fontSize: "16px",
                       fontFamily: " 'Inter', sans-serif",
                     }}
                     onClick={newsPressProductsNavigator}
@@ -650,7 +717,11 @@ const HomePageBanners = (props) => {
               </div>
 
               <div style={{ marginBottom: "20px" }}>
-                <Button>
+                <Button
+                  sx={{
+                    "&:hover": { background: "#EBECEF", borderRadius: "8px" },
+                  }}
+                >
                   <img
                     src={blogsIcon}
                     alt="icon"
@@ -660,8 +731,9 @@ const HomePageBanners = (props) => {
                     displayText={"Blogs"}
                     onClick={() => blogsMenuDisplay()}
                     styleData={{
-                      fontSize: "15px",
+                      fontSize: "16px",
                       fontWeight: "400",
+                      color: "#222222",
                       fontFamily: " 'Inter', sans-serif",
                     }}
                   />
@@ -677,7 +749,7 @@ const HomePageBanners = (props) => {
                   style={{
                     display: blogsMenuOpen ? "flex" : "none",
                     paddingLeft: "3rem",
-                    height: "50px",
+                    height: "60px",
                     // display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-around",
@@ -688,6 +760,9 @@ const HomePageBanners = (props) => {
                     styleData={{
                       color: "#717171",
                       cursor: "pointer",
+                      fontWeight: "400",
+                      marginBottom: "10px",
+                      marginTop: "10px",
                       fontSize: "16px",
                       fontFamily: " 'Inter', sans-serif",
                     }}
@@ -699,7 +774,8 @@ const HomePageBanners = (props) => {
                     styleData={{
                       color: "#717171",
                       cursor: "pointer",
-                      fontSize: "15.5px",
+                      fontWeight: "400",
+                      fontSize: "16px",
                       fontFamily: " 'Inter', sans-serif",
                     }}
                     onClick={() => blogsNavigator()}
@@ -709,7 +785,11 @@ const HomePageBanners = (props) => {
                 {/* blog dropdown above */}
               </div>
               <div style={{ marginBottom: "20px" }}>
-                <Button>
+                <Button
+                  sx={{
+                    "&:hover": { background: "#EBECEF", borderRadius: "8px" },
+                  }}
+                >
                   <img
                     src={catalogueIcon}
                     alt="icon"
@@ -719,8 +799,10 @@ const HomePageBanners = (props) => {
                     displayText={"Catalogue"}
                     onClick={() => catalogueNavigator()}
                     styleData={{
-                      fontSize: "15px",
+                      cursor: "pointer",
                       fontWeight: "400",
+                      color: "#222222",
+                      fontSize: "16px",
                       fontFamily: " 'Inter', sans-serif",
                     }}
                   />
@@ -728,7 +810,11 @@ const HomePageBanners = (props) => {
               </div>
 
               <div style={{ marginBottom: "20px" }}>
-                <Button>
+                <Button
+                  sx={{
+                    "&:hover": { background: "#EBECEF", borderRadius: "8px" },
+                  }}
+                >
                   <img
                     src={videosIcon}
                     alt="icon"
@@ -738,8 +824,9 @@ const HomePageBanners = (props) => {
                     displayText={"Videos"}
                     onClick={() => videoNavigator()}
                     styleData={{
-                      fontSize: "15px",
+                      fontSize: "16px",
                       fontWeight: "400",
+                      color: "#222222",
                       fontFamily: " 'Inter', sans-serif",
                     }}
                   />
@@ -747,7 +834,11 @@ const HomePageBanners = (props) => {
               </div>
 
               <div style={{ marginBottom: "20px" }}>
-                <Button>
+                <Button
+                  sx={{
+                    "&:hover": { background: "#EBECEF", borderRadius: "8px" },
+                  }}
+                >
                   <img
                     src={careCleanIcon}
                     alt="icon"
@@ -757,8 +848,9 @@ const HomePageBanners = (props) => {
                     displayText={"Care & Clean"}
                     onClick={() => careCleanNavigator()}
                     styleData={{
-                      fontSize: "15px",
+                      fontSize: "16px",
                       fontWeight: "400",
+                      color: "#222222",
                       fontFamily: " 'Inter', sans-serif",
                     }}
                   />
@@ -766,7 +858,11 @@ const HomePageBanners = (props) => {
               </div>
 
               <div style={{ marginBottom: "20px" }}>
-                <Button>
+                <Button
+                  sx={{
+                    "&:hover": { background: "#EBECEF", borderRadius: "8px" },
+                  }}
+                >
                   <img
                     src={aboutUsIcon}
                     alt="icon"
@@ -776,8 +872,9 @@ const HomePageBanners = (props) => {
                     displayText={"About us"}
                     onClick={() => aboutusNavigator()}
                     styleData={{
-                      fontSize: "15px",
+                      fontSize: "16px",
                       fontWeight: "400",
+                      color: "#222222",
                       fontFamily: " 'Inter', sans-serif",
                     }}
                   />
@@ -786,7 +883,11 @@ const HomePageBanners = (props) => {
 
               {/*  */}
               <div style={{ marginBottom: "20px" }}>
-                <Button sx={{ "&:hover": { backgroundColor: "white" } }}>
+                <Button
+                  sx={{
+                    "&:hover": { background: "#EBECEF", borderRadius: "8px" },
+                  }}
+                >
                   <img
                     src={faqsIcon}
                     alt="icon"
@@ -796,8 +897,9 @@ const HomePageBanners = (props) => {
                     displayText={"FAQs"}
                     onClick={() => faqsMenuDisplay()}
                     styleData={{
-                      fontSize: "15px",
+                      fontSize: "16px",
                       fontWeight: "400",
+                      color: "#222222",
                       fontFamily: " 'Inter', sans-serif",
                       // color: activeOption ? "#f00" : "#555",
                     }}
@@ -813,7 +915,7 @@ const HomePageBanners = (props) => {
                   style={{
                     display: faqsOpen ? "flex" : "none",
                     paddingLeft: "3rem",
-                    height: "50px",
+                    height: "60px",
                     // display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-around",
@@ -824,6 +926,8 @@ const HomePageBanners = (props) => {
                     styleData={{
                       color: "#717171",
                       cursor: "pointer",
+                      marginBottom: "10px",
+                      marginTop: "10px",
                       fontSize: "16px",
                       fontFamily: " 'Inter', sans-serif",
                     }}
@@ -835,7 +939,7 @@ const HomePageBanners = (props) => {
                     styleData={{
                       color: "#717171",
                       cursor: "pointer",
-                      fontSize: "15.5px",
+                      fontSize: "16px",
                       fontFamily: " 'Inter', sans-serif",
                     }}
                     onClick={faqCategoryNavigator}
@@ -844,7 +948,11 @@ const HomePageBanners = (props) => {
               </div>
 
               <div style={{ marginBottom: "20px" }}>
-                <Button>
+                <Button
+                  sx={{
+                    "&:hover": { background: "#EBECEF", borderRadius: "8px" },
+                  }}
+                >
                   <img
                     src={warrantyRegIcon}
                     alt="icon"
@@ -854,8 +962,9 @@ const HomePageBanners = (props) => {
                     displayText={"Warranty Registration"}
                     onClick={() => warrantyNavigator()}
                     styleData={{
-                      fontSize: "15px",
+                      fontSize: "16px",
                       fontWeight: "400",
+                      color: "#222222",
                       fontFamily: " 'Inter', sans-serif",
                     }}
                   />
@@ -863,7 +972,11 @@ const HomePageBanners = (props) => {
               </div>
 
               <div style={{ marginBottom: "20px" }}>
-                <Button>
+                <Button
+                  sx={{
+                    "&:hover": { background: "#EBECEF", borderRadius: "8px" },
+                  }}
+                >
                   <img
                     src={quotationSecIcon}
                     alt="icon"
@@ -873,8 +986,9 @@ const HomePageBanners = (props) => {
                     displayText={"Quotation Section"}
                     onClick={() => quotationNavigator()}
                     styleData={{
-                      fontSize: "15px",
+                      fontSize: "16px",
                       fontWeight: "400",
+                      color: "#222222",
                       fontFamily: " 'Inter', sans-serif",
                     }}
                   />
@@ -882,7 +996,11 @@ const HomePageBanners = (props) => {
               </div>
 
               <div style={{ marginBottom: "20px" }}>
-                <Button>
+                <Button
+                  sx={{
+                    "&:hover": { background: "#EBECEF", borderRadius: "8px" },
+                  }}
+                >
                   <img
                     src={careerSecIcon}
                     alt="icon"
@@ -892,8 +1010,9 @@ const HomePageBanners = (props) => {
                     displayText={"Career Section"}
                     onClick={() => careerSectionNavigator()}
                     styleData={{
-                      fontSize: "15px",
+                      fontSize: "16px",
                       fontWeight: "400",
+                      color: "#222222",
                       fontFamily: " 'Inter', sans-serif",
                     }}
                   />
@@ -901,7 +1020,11 @@ const HomePageBanners = (props) => {
               </div>
 
               <div style={{ marginBottom: "20px" }}>
-                <Button>
+                <Button
+                  sx={{
+                    "&:hover": { background: "#EBECEF", borderRadius: "8px" },
+                  }}
+                >
                   <img
                     src={contactUsIcon}
                     alt="icon"
@@ -911,8 +1034,9 @@ const HomePageBanners = (props) => {
                     displayText={"Contact Us Section"}
                     onClick={() => ContactUsSectionNavigator()}
                     styleData={{
-                      fontSize: "15px",
+                      fontSize: "16px",
                       fontWeight: "400",
+                      color: "#222222",
                       fontFamily: " 'Inter', sans-serif",
                     }}
                   />

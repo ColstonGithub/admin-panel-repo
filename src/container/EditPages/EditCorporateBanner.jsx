@@ -137,7 +137,7 @@ const EditCorporateBanner = (props) => {
               />
             </Box>
             <FMTypography
-              displayText="Edit Corporate Banner"
+              displayText="Update"
               styleData={{
                 fontWeight: "600",
                 fontSize: "1.125rem",
@@ -202,7 +202,7 @@ const EditCorporateBanner = (props) => {
               </Row>
 
               <FMButton
-                displayText="Edit"
+                displayText="Update"
                 variant="contained"
                 disabled={false}
                 styleData={{

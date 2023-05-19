@@ -18,8 +18,14 @@ import {
   getBlogCategory,
 } from "redux/Slices/Blogs/BlogsCategory";
 import { addBlogCategorySchema } from "validationSchema/AddBlogCategorySchema";
+import { addFaqCategorySchema } from "validationSchema/addFaqCategorySchema";
+import {
+  addNewFaqCategory,
+  getFaqCategoryData,
+} from "redux/Slices/FAQS/FaqCategorySlice";
+import { notify } from "constants/utils";
 
-const AddBlogCategoryComponent = (props) => {
+const AddFaqCategoryComponent = (props) => {
   const { setOpen, open } = props;
   const dispatch = useDispatch();
 
@@ -31,30 +37,23 @@ const AddBlogCategoryComponent = (props) => {
     setValue("name", "");
   };
 
-  //   useEffect(() => {
-  //     dispatch(getBlogCategory());
-  //   }, [dispatch]);
-
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
   } = useForm({
-    resolver: yupResolver(addBlogCategorySchema),
+    resolver: yupResolver(addFaqCategorySchema),
     mode: "onChange",
   });
 
   const onSubmit = (data) => {
-    // const formData = new FormData();
-    // formData.append("name", data?.name?.toString());
-
-    dispatch(addBlogCategory(data)).then(() => {
+    dispatch(addNewFaqCategory(data)).then(() => {
       const usersListData = { page: 1 };
-      dispatch(getBlogCategory(usersListData));
+      dispatch(getFaqCategoryData(usersListData));
       setOpen(false);
-      // formData.append("name", "");
     });
+    notify({ type: "success", messgae: "Data Added Successfully" });
   };
 
   return (
@@ -111,7 +110,7 @@ const AddBlogCategoryComponent = (props) => {
               />
             </Box>
             <FMTypography
-              displayText="Add Blog Category"
+              displayText="Add FAQ Category"
               styleData={{
                 fontWeight: "600",
                 fontSize: "1.125rem",
@@ -137,7 +136,7 @@ const AddBlogCategoryComponent = (props) => {
               </Row>
 
               <FMButton
-                displayText="Add"
+                displayText="Submit"
                 variant="contained"
                 disabled={false}
                 styleData={{
@@ -158,4 +157,4 @@ const AddBlogCategoryComponent = (props) => {
   );
 };
 
-export default AddBlogCategoryComponent;
+export default AddFaqCategoryComponent;

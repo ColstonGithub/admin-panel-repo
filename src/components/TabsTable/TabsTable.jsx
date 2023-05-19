@@ -1,7 +1,5 @@
 import * as React from "react";
 import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import FMTable from "./TableInTabs/FMTable";
@@ -49,14 +47,14 @@ import {
   deleteProduct,
   getBannerProducts,
 } from "redux/Slices/BannerProducts/BannerProducts";
-import EditHomePageBanner from "../../container/HomePage/EditBannerAndCategory/EditHomePageBanner";
-import EditHomePageCategory from "container/HomePage/EditBannerAndCategory/EditHomePageCategory";
+import EditHomePageBanner from "container/EditPages/EditHomePageBanner";
+import EditHomePageCategory from "container/EditPages/EditHomePageCategory";
 import {
   deleteBrandPage,
   getBrandPage,
 } from "redux/Slices/BrandPage/BrandPage";
-import BrandPageDetailPage from "./DetailPages/BrandPageDetailPage";
-import EditBrandPageCategory from "container/HomePage/EditBrandPage/EditBrandPageCategory";
+import BrandPageDetailPage from "container/DetailPages/BrandPageDetailPage";
+import EditBrandPageCategory from "container//EditPages/EditBrandPageCategory";
 import {
   deleteCorporateProduct,
   getcorporateProducts,
@@ -100,27 +98,27 @@ import {
   deleteBrandPageBanner,
   getBrandPageBanner,
 } from "redux/Slices/BrandPage/brandPageBanner";
-import HomePageBannerDetailPage from "./DetailPages/CategoryDetailPage";
-import ExploreCategoryDetailPage from "./DetailPages/ExploreCategoryDetailPage";
-import ProductDetailPage from "./DetailPages/ProductsDetailPage";
-import BrandPageBannerDetailPage from "./DetailPages/BrandPageBannerDetailPage";
-import ExhibitionDetailPage from "./DetailPages/ExhibitionDetailPage";
-import BlogDetailPage from "./DetailPages/BlogDetailPage";
-import CataloguesDetailPage from "./DetailPages/CataloguesDetailPage";
-import VideoDetailPage from "./DetailPages/VideoDetailPage";
-import CareAndCleanDetailPage from "./DetailPages/CareAndCleanDetailPage";
-import CategoryBannerDetailPage from "./DetailPages/CategoryBannerDetailPage";
-import CorporateProductsDetailPage from "./DetailPages/CorporateProductsDetailPage";
-import CorporateBannerDetailPage from "./DetailPages/CorporateBannerDetailPage";
-import VirtualTourDetailPage from "./DetailPages/VirtualTourDetailPage";
-import NewsPressBannerDetailPage from "./DetailPages/NewsPressBannerDetailPage";
-import NewsPressProductDetailPage from "./DetailPages/NewsPressProductDetailPage";
-import AboutUsDetailPage from "./DetailPages/AboutUsDetailPage";
-import FaqCategoryDetailPage from "./DetailPages/FaqCategoryDetailPage";
-import FaqDetailPage from "./DetailPages/FaqDetailPage";
-import WarrantyRegDetailPage from "./DetailPages/WarrantyRegDetailPage";
-import QuotationSectionDetailPage from "./DetailPages/QuotationSectionDetailPage";
-import EditBrandPageBanner from "container/HomePage/EditBrandPage/EditBrandPageBanner";
+import HomePageBannerDetailPage from "container/DetailPages/HomepageBannerDetailPage";
+import ExploreCategoryDetailPage from "container/DetailPages/ExploreCategoryDetailPage";
+import ProductDetailPage from "container/DetailPages/ProductsDetailPage";
+import BrandPageBannerDetailPage from "container/DetailPages/BrandPageBannerDetailPage";
+import ExhibitionDetailPage from "container/DetailPages/ExhibitionDetailPage";
+import BlogDetailPage from "container/DetailPages/BlogDetailPage";
+import CataloguesDetailPage from "container/DetailPages/CataloguesDetailPage";
+import VideoDetailPage from "container/DetailPages/VideoDetailPage";
+import CareAndCleanDetailPage from "container/DetailPages/CareAndCleanDetailPage";
+import CategoryBannerDetailPage from "container/DetailPages/CategoryBannerDetailPage";
+import CorporateProductsDetailPage from "container/DetailPages/CorporateProductsDetailPage";
+import CorporateBannerDetailPage from "container/DetailPages/CorporateBannerDetailPage";
+import VirtualTourDetailPage from "container/DetailPages/VirtualTourDetailPage";
+import NewsPressBannerDetailPage from "container/DetailPages/NewsPressBannerDetailPage";
+import NewsPressProductDetailPage from "container/DetailPages/NewsPressProductDetailPage";
+import AboutUsDetailPage from "container/DetailPages/AboutUsDetailPage";
+import FaqCategoryDetailPage from "container/DetailPages/FaqCategoryDetailPage";
+import FaqDetailPage from "container/DetailPages/FaqDetailPage";
+import WarrantyRegDetailPage from "container/DetailPages/WarrantyRegDetailPage";
+import QuotationSectionDetailPage from "container/DetailPages/QuotationSectionDetailPage";
+import EditBrandPageBanner from "container/EditPages/EditBrandPageBanner";
 import EditCorporateProduct from "container/EditPages/EditCorporateProduct";
 import EditCorporateBanner from "container/EditPages/EditCorporateBanner";
 import EditNewsPressBanner from "container/EditPages/EditNewsPressBanner";
@@ -154,20 +152,23 @@ import {
   deleteAboutUsSection,
   getContactUsSection,
 } from "redux/Slices/ContactUsSection/ContactUsSection";
-import CareerSectionDetailPage from "./DetailPages/CareerSectionDetailPage";
-import ContactUsSectionDetailPage from "./DetailPages/ContactUsSectionDetailPage";
+import CareerSectionDetailPage from "container/DetailPages/CareerSectionDetailPage";
+import ContactUsSectionDetailPage from "container/DetailPages/ContactUsSectionDetailPage";
 import {
   deleteHomepageExploreCategory,
   getHomePageExploreCat,
-  } from "redux/Slices/HomePage/HomepageExploreCategory";
+} from "redux/Slices/HomePage/HomepageExploreCategory";
 import EditExhibitionBanner from "container/EditPages/EditExhibitionBanner";
 import EditVirtualTourBanner from "container/EditPages/EditVirtualTourBanner";
 import EditNewsPressProduct from "container/EditPages/EditNewsPressProduct";
 import EditVideo from "container/EditPages/EditVideo";
 import EditCareClean from "container/EditPages/EditCareClean";
 import EditFAQs from "container/EditPages/EditFAQs";
-import { Spinner } from "react-bootstrap";
-import HomepageCategoryBannerDetailPage from "./DetailPages/HomepageCategoryBannerDetailPage";
+import { InfinitySpin } from "react-loader-spinner";
+import HomepageCategoryBannerDetailPage from "container/DetailPages/HomepageBannerDetailPage";
+import EditExploreCategoryComponent from "container/EditPages/EditExploreCategory";
+import HomepageExploreCategoryDetailPage from "container/DetailPages/HomepageExploreCategoryDetailPage";
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -228,9 +229,15 @@ export default function TabsTable({ type }) {
     React.useState(false);
   const [openCategoryBannerDetailPage, setOpenCategoryBannerDetailPage] =
     React.useState(false);
-    const [openHomepageCategoryBannerDetailPage, setOpenHomepageCategoryBannerDetailPage] =
-    React.useState(false);
-    
+  const [
+    openHomepageCategoryBannerDetailPage,
+    setOpenHomepageCategoryBannerDetailPage,
+  ] = React.useState(false);
+  const [
+    openHomepageExploreCategoryDetailPage,
+    setOpenHomepageExploreCategoryDetailPage,
+  ] = React.useState(false);
+
   const [openCorporateProductDetailPage, setOpenCorporateProductDetailPage] =
     React.useState(false);
   const [openCorporateBannerDetailPage, setOpenCorporateBannerDetailPage] =
@@ -268,7 +275,9 @@ export default function TabsTable({ type }) {
   const [videoPageId, setVideoPageId] = React.useState(null);
   const [careCleanPageId, setCareCleanPageId] = React.useState(null);
   const [categoryBannerPageId, setCategoryBannerPageId] = React.useState(null);
-  const [homepageCategoryBannerPageId,setHomepageCategoryBannerPageId] = React.useState(null)
+  const [homepageExploreCategoryPageId, setHomepageExploreCategoryPageId] = React.useState(null);
+  const [homepageCategoryBannerPageId, setHomepageCategoryBannerPageId] =
+    React.useState(null);
   const [corporateProductPageId, setCorporateProductPageId] =
     React.useState(null);
   const [corporateBannerPageId, setCorporateBannerPageId] =
@@ -324,6 +333,7 @@ export default function TabsTable({ type }) {
   const [editBlogCategory, setEditBlogCategory] = React.useState(false);
   const [editBlogs, setEditBlogs] = React.useState(false);
   const [editFAQs, setEditFAQs] = React.useState(false);
+  const [editExploreCategory, setEditExploreCategory] = React.useState(false);
 
   const [editFaqCategory, setEditFaqCategory] = React.useState(false);
 
@@ -446,8 +456,6 @@ export default function TabsTable({ type }) {
     isFetching,
     isError,
   } = useSelector((state) => state?.blogsCategory);
-
-  
 
   const blogCategoryPagination = useSelector(
     (state) => state?.blogsCategory?.getBlogCategoryListData?.pagination
@@ -680,8 +688,13 @@ export default function TabsTable({ type }) {
       setOpenHomepageCategoryBannerDetailPage(true);
     }
   }, [homepageCategoryBannerPageId]);
-
   
+  useEffect(() => {
+    if (homepageExploreCategoryPageId !== null && homepageExploreCategoryPageId) {
+      setOpenHomepageExploreCategoryDetailPage(true);
+    }
+  }, [homepageExploreCategoryPageId]);
+
 
   useEffect(() => {
     if (corporateProductPageId !== null && corporateProductPageId) {
@@ -831,7 +844,7 @@ export default function TabsTable({ type }) {
 
   useEffect(() => {
     type === "exhibitionBannerString" &&
-    dispatch(getExhibitionBannerDetail(editedExhibitionBannerId));
+      dispatch(getExhibitionBannerDetail(editedExhibitionBannerId));
   }, [editedExhibitionBannerId, dispatch, type]);
 
   const exhibitionBannerDetail = useSelector(
@@ -857,6 +870,9 @@ export default function TabsTable({ type }) {
   const editCategoryBannerFunc = (cId) => {
     setEditCategoryBanner(cId);
   };
+  const editExploreCategoryFunc = (cId) => {
+    setEditExploreCategory(cId);
+  };
 
   const editCatalogueFunc = (cId) => {
     setEditCatalogue(cId);
@@ -871,7 +887,7 @@ export default function TabsTable({ type }) {
 
   const editBlogsFunc = (cId) => {
     navigate(`/blogs/edit-blog/${cId}`);
-   // setEditBlogs(cId);
+    // setEditBlogs(cId);
   };
 
   const editFAQsFunc = (cId) => {
@@ -919,6 +935,10 @@ export default function TabsTable({ type }) {
 
   const homepageCategoryBannerDetailPageHandler = (cId) => {
     setHomepageCategoryBannerPageId(cId);
+  };
+
+  const HomepageExploreCategoryDetailPageHandler = (cId) => {
+    setHomepageExploreCategoryPageId(cId);
   };
 
   const corporateProductDetailPageHandler = (cId) => {
@@ -1193,12 +1213,11 @@ export default function TabsTable({ type }) {
 
   const getBannerRowData = () => {
     let BannerRowDataVal = [];
-
     homepageBanners?.map((element, index) => {
       const rowData = {
         "S.NO.": index + 1,
         Name: element?.title,
-        Images: element?.banners,
+        Images: element?.banner,
         CreatedAt: element?.createdAt,
         id: element?._id,
         Actions: (
@@ -2376,7 +2395,9 @@ export default function TabsTable({ type }) {
               height="20px"
               className="img-responsive img-fluid "
               loading="lazy"
-              onClick={() => homepageCategoryBannerDetailPageHandler(element?._id)}
+              onClick={() =>
+                HomepageExploreCategoryDetailPageHandler(element?._id)
+              }
               style={{ cursor: "pointer" }}
             />
             <img
@@ -2386,7 +2407,7 @@ export default function TabsTable({ type }) {
               height="20px"
               className="img-responsive img-fluid "
               loading="lazy"
-              onClick={() => editCategoryBannerFunc(element?._id)}
+              onClick={() => editExploreCategoryFunc(element?._id)}
               style={{ marginLeft: "1.5rem", cursor: "pointer" }}
             />
             <img
@@ -2412,7 +2433,6 @@ export default function TabsTable({ type }) {
   const handlePageChange = (event, value) => {
     setUsersListData({ page: event });
   };
-  
 
   return (
     <>
@@ -2724,6 +2744,17 @@ export default function TabsTable({ type }) {
         />
       )}
 
+      {homepageExploreCategoryPageId && (
+        <HomepageExploreCategoryDetailPage
+          open={openHomepageExploreCategoryDetailPage}
+          setOpen={() => {
+            setOpenHomepageExploreCategoryDetailPage(false);
+            setHomepageExploreCategoryPageId(null);
+          }}
+          id={homepageExploreCategoryPageId}
+          type={type}
+        />
+      )}
 
       {corporateProductPageId && (
         <CorporateProductsDetailPage
@@ -2878,11 +2909,11 @@ export default function TabsTable({ type }) {
             top: 0,
             left: 0,
             display: "flex",
-            alignItems: 'center',
-            justifyContent: 'center'
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          <Spinner />
+          <InfinitySpin width="200" color="#4fa94d" />
         </Box>
       ) : (
         <Box>
@@ -3011,6 +3042,14 @@ export default function TabsTable({ type }) {
               open={editCorporateBanner}
               setOpen={setEditCorporateBanner}
               id={editCorporateBanner}
+              usersListData={usersListData}
+            />
+          )}
+          {editExploreCategory && (
+            <EditExploreCategoryComponent
+              open={editExploreCategory}
+              setOpen={setEditExploreCategory}
+              id={editExploreCategory}
               usersListData={usersListData}
             />
           )}

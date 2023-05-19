@@ -3,7 +3,7 @@ import detailIcon from "assets/detailIcon.svg";
 import editIcon from "assets/editIcon.svg";
 import deleteIcon from "assets/deleteIcon.svg";
 import { styles } from "./FMTable.styles";
-
+import { InfinitySpin } from 'react-loader-spinner'
 import {
   Paper,
   Table,
@@ -151,7 +151,8 @@ const FMTable = ({
         alignItems: "center",
       }}
     >
-      <FMTypography displayText={"Loading..."} />
+      <InfinitySpin width="200" color="#4fa94d" />
+      {/* <FMTypography displayText={"Loading..."} /> */}
     </Box>
   );
 };

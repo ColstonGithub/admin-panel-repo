@@ -81,7 +81,7 @@ const Login = () => {
       .unwrap()
       .then((res) => {
         if (res) {
-          navigate(EMAIL_VERIFY);
+          navigate("/home");
         }
       });
   };

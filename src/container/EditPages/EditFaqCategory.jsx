@@ -119,7 +119,7 @@ const EditFaqCategory = (props) => {
               />
             </Box>
             <FMTypography
-              displayText="Edit FAQ Category"
+              displayText="Update"
               styleData={{
                 fontWeight: "600",
                 fontSize: "1.125rem",
@@ -145,7 +145,7 @@ const EditFaqCategory = (props) => {
               </Row>
 
               <FMButton
-                displayText="Edit"
+                displayText="Update"
                 variant="contained"
                 disabled={false}
                 styleData={{

@@ -9,18 +9,12 @@ import FMTypography from "components/FMTypography/FMTypography";
 import detailIcon from "assets/detailIcon.svg";
 import editIcon from "assets/editIcon.svg";
 import deleteIcon from "assets/deleteIcon.svg";
-import {
-  deleteCategoryBanner,
-  getCategoryBanners,
-} from "redux/Slices/HomePage/CategoryBanner";
 
-import ExploreCategoryDetailPage from "components/TabsTable/DetailPages/ExploreCategoryDetailPage";
+import ExploreCategoryDetailPage from "container/DetailPages/ExploreCategoryDetailPage";
 import {
   deleteCategory,
-  getHomePageCategories,
 } from "redux/Slices/HomePage/HomePageCategories";
-import EditHomePageCategory from "container/HomePage/EditBannerAndCategory/EditHomePageCategory";
-import EditHomePageCategoryChildren from "container/HomePage/EditBannerAndCategory/EditExploreCategoryChildren";
+import EditHomePageCategoryChildren from "container/EditPages/EditExploreCategoryChildren";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 // import ExploreCategoryChildrenTableConfig from "./tableConfig";
 

@@ -1,34 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { Grid, Modal, Box, FormControl, Select, MenuItem } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { Box, FormControl, Select, MenuItem } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FMButton from "components/FMButton/FMButton";
 import FMTypography from "components/FMTypography/FMTypography";
 import FMInput from "components/FMInput/FMInput";
-import crossIcon from "assets/crossIcon.svg";
-import { Col, Container, Row } from "react-bootstrap";
+
+import { Col, Row } from "react-bootstrap";
+
 import {
-  editCategoryBanner,
+  addNewCategoryBanner,
   getCategoryBanners,
 } from "redux/Slices/HomePage/CategoryBanner";
 import { addCategoryBannerSchema } from "validationSchema/AddCategoryBannerSchema";
-import { getCategoryBannerDetail } from "redux/Slices/HomePage/CategoryBanner";
 import { notify } from "constants/utils";
 import ModalWrapper from "container/HomePage/Modal";
 import { commonStyle } from "Styles/commonStyles";
 
-const EditCategoryBanner = (props) => {
-  const { setOpen, open, id } = props;
+const AddCategoryBannerComponent = (props) => {
+  const { setOpen, open, homepageCategoriess } = props;
   const [imagePreview, setImagePreview] = useState(null);
-
-  const [bannerImage, setBannerImage] = useState("");
-  const [image, setImage] = useState([]);
-
-  const [bannerTextImage, setBannerTextImage] = useState("");
-  const [imageText, setImageText] = useState([]);
-
-  const [productTypes, setProductTypes] = React.useState("");
+  
+  const [image, setImage] = useState("");
+  const [productTypes, setProductTypes] = useState("");
 
   const handleChange = (event) => {
     setProductTypes(event.target.value);
@@ -38,6 +33,7 @@ const EditCategoryBanner = (props) => {
     setValue("title", "");
     setValue("imageAltText", "");
     setImage("");
+    setProductTypes("");
     setImagePreview("");
   };
   const setCloseDialog = () => {
@@ -45,6 +41,7 @@ const EditCategoryBanner = (props) => {
     setValue("title", "");
     setValue("imageAltText", "");
     setImage("");
+    setProductTypes("");
     setImagePreview("");
   };
 
@@ -53,7 +50,6 @@ const EditCategoryBanner = (props) => {
     handleSubmit,
     formState: { errors },
     setValue,
-    reset,
   } = useForm({
     resolver: yupResolver(addCategoryBannerSchema),
     mode: "onChange",
@@ -61,50 +57,30 @@ const EditCategoryBanner = (props) => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getCategoryBannerDetail(id));
-  }, [id, dispatch]);
-
-  const getCategoryBannerDetails = useSelector(
-    (state) => state?.categoryBanner?.getCategoryBannerData?.banner
-  );
-
-  const homepageCategoriess = useSelector(
-    (state) => state?.exploreCategories?.getCategoriesListData?.categoryList
-  );
-
-  useEffect(() => {
-    reset({
-      title: getCategoryBannerDetails?.title,
-      buttonText: getCategoryBannerDetails?.buttonText,
-      bannerImageAltText: getCategoryBannerDetails?.bannerImageAltText,
-      bannerImageTextAltText: getCategoryBannerDetails?.bannerImageTextAltText,
-    });
-    setBannerImage(getCategoryBannerDetails?.bannerImage);
-    setBannerTextImage(getCategoryBannerDetails?.bannerImageText);
-    setProductTypes(getCategoryBannerDetails?.categoryId);
-  }, [getCategoryBannerDetails, reset]);
-
   const onSubmit = (data) => {
     const formData = new FormData();
-    formData.append("_id", id);
     formData.append("title", data?.title?.toString());
     formData.append("bannerImageAltText", data?.bannerImageAltText?.toString());
-    if (image) formData.append("bannerImage", image);
+    formData.append("bannerImage", image);
     formData.append("categoryId", productTypes?.toString());
 
-    dispatch(editCategoryBanner(formData)).then(() => {
+    dispatch(addNewCategoryBanner(formData)).then(() => {
       const usersListData = { page: 1 };
       dispatch(getCategoryBanners(usersListData));
-      notify({ type: "success", messgae: "Data Edited Successfully" });
       setOpen(false);
+      setValue("title", "");
+      setValue("bannerImageAltText", "");
+      setValue("bannerImage", "");
+      setProductTypes("");
+      setImage("");
+      setImagePreview("");
     });
+    notify({ type: "success", messgae: "Data Added Successfully" });
   };
 
   const handleBannerPictures = (e) => {
-    setImage(e.target.files[0]);
     setImagePreview(URL.createObjectURL(e.target.files[0]));
-    setBannerImage("");
+    setImage(e.target.files[0]);
   };
 
   return (
@@ -113,9 +89,9 @@ const EditCategoryBanner = (props) => {
       setOpen={setOpen}
       handleClose={handleClose}
       setCloseDialog={setCloseDialog}
-      modalTitle={"Edit Category Banner"}
+      modalTitle={"Add Category Banner"}
     >
-      <Row style={{ marginTopop: "1rem" }}>
+      <Row style={{ marginTop: "1rem" }}>
         <Col>
           <FMInput
             required
@@ -128,6 +104,7 @@ const EditCategoryBanner = (props) => {
             errorDisplayText={errors.title?.message}
           />
         </Col>
+
         <Col>
           <FMTypography displayText={"Select Category"} />
           <FormControl fullWidth sx={{ minWidth: "13rem" }}>
@@ -188,21 +165,6 @@ const EditCategoryBanner = (props) => {
           />
         </Col>
         <Col>
-          {bannerImage && (
-            <Box className="mt-3">
-              <div style={commonStyle.commonModalTitleStyle}>
-                {`Image Preview`}{" "}
-              </div>
-              <img
-                src={bannerImage}
-                style={{
-                  width: "200px",
-                  height: "200px",
-                  marginTop: "4px",
-                }}
-              />
-            </Box>
-          )}
           {imagePreview && (
             <Box className="mt-3">
               <div style={commonStyle.commonModalTitleStyle}>
@@ -222,7 +184,7 @@ const EditCategoryBanner = (props) => {
       </Row>
 
       <FMButton
-        displayText="Update"
+        displayText="Submit"
         variant="contained"
         disabled={false}
         styleData={{
@@ -239,4 +201,4 @@ const EditCategoryBanner = (props) => {
   );
 };
 
-export default EditCategoryBanner;
+export default AddCategoryBannerComponent;

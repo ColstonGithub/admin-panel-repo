@@ -170,7 +170,7 @@ const EditVideo = (props) => {
               />
             </Box>
             <FMTypography
-              displayText="Edit Video Data"
+              displayText="Update"
               styleData={{
                 fontWeight: "600",
                 fontSize: "1.125rem",
@@ -250,7 +250,7 @@ const EditVideo = (props) => {
                 </Col>
               </Row>
               <FMButton
-                displayText="Edit"
+                displayText="Update"
                 variant="contained"
                 disabled={false}
                 styleData={{

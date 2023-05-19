@@ -180,7 +180,7 @@ const EditCareClean = (props) => {
               />
             </Box>
             <FMTypography
-              displayText="Edit Care & Clean"
+              displayText="Update"
               styleData={{
                 fontWeight: "600",
                 fontSize: "1.125rem",
@@ -250,8 +250,8 @@ const EditCareClean = (props) => {
                   />
                 </Col>
               </Row>
-              <Row style={{ marginTop: "2rem" }}>
-                <Col style={{ marginTop: "2rem" }}>
+              <Row style={{ marginTop: "1rem" }}>
+                <Col>
                   {editedCategoryImage && (
                     <div style={{ width: "auto" }}>
                       <img

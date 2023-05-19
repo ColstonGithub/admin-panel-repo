@@ -5,7 +5,7 @@ import { Col, Row } from "react-bootstrap";
 import crossIcon from "assets/crossIcon.svg";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { getQuotationSecById } from "../../../redux/Slices/QuotationSection/QuotationSection";
+import { getQuotationSecById } from "redux/Slices/QuotationSection/QuotationSection";
 
 const QuotationSectionDetailPage = (props) => {
   const { setOpen, open, id } = props;

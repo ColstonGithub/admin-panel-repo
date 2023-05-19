@@ -7,6 +7,7 @@ export const addBannerSchema = Yup.object().shape({
 
 export const addBannerUploadSchema = Yup.object().shape({
   title: Yup.string().required("Title is required"),
+  imageAltText: Yup.string().required("Alt Text is required"),
 });
 
 export const addProductSchema = Yup.object().shape({

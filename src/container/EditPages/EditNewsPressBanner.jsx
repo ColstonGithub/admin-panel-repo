@@ -150,7 +150,7 @@ const EditNewsPressBanner = (props) => {
               />
             </Box>
             <FMTypography
-              displayText="Edit News Press Banner"
+              displayText="Update"
               styleData={{
                 fontWeight: "600",
                 fontSize: "1.125rem",
@@ -254,7 +254,7 @@ const EditNewsPressBanner = (props) => {
               </Row>
 
               <FMButton
-                displayText="Edit Brand Page"
+                displayText="Update"
                 variant="contained"
                 disabled={false}
                 styleData={{

@@ -15,7 +15,8 @@ import {
 } from "redux/Slices/AboutUs/AboutUs";
 import { addAboutUsSchema } from "validationSchema/AddAboutUsSchema";
 import { notify } from "constants/utils";
-
+import { commonStyle } from "Styles/commonStyles";
+import ModalWrapper from "container/HomePage/Modal";
 const EditAboutUs = (props) => {
   const { setOpen, open, id } = props;
 
@@ -43,8 +44,6 @@ const EditAboutUs = (props) => {
   const aboutUsDetail = useSelector(
     (state) => state?.aboutUs?.getAboutUsData?.AboutUs
   );
-
-  
 
   const {
     register,
@@ -104,198 +103,136 @@ const EditAboutUs = (props) => {
   };
 
   return (
-    <div
-      style={{
-        position: "absolute",
-        backgroundColor: "#FFF",
-        padding: "15px",
-        zIndex: "1000",
-        width: "35%",
-        borderRadius: ".5em",
-      }}
+    <ModalWrapper
+      open={open}
+      setOpen={setOpen}
+      setCloseDialog={setCloseDialog}
+      handleClose={handleClose}
+      modalTitle={"Edit About Us"}
     >
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        sx={{
-          position: "fixed",
-          display: "flex",
-          justifyContent: "center",
-          top: "0",
-          left: "0",
-          width: "100%",
-          height: "100%",
-          backgroundColor: "rgba(0,0,0, .8)",
-          zIndex: "1000",
-          overflowY: "auto",
-        }}
-      >
-        <Grid
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <Grid
-            sx={{
-              backgroundColor: "white",
-              width: "36.5rem",
-              padding: "2.125rem",
-              borderRadius: "0.5rem",
-              marginTop: "2rem",
-              // height: "43.75rem",
-              height: "auto",
+      <Row style={{ marginTop: "1rem" }}>
+        <Col>
+          <FMInput
+            required
+            readOnly={false}
+            displayText="Title"
+            id="title"
+            name="title"
+            register={register("title")}
+            error={errors.title}
+            errorDisplayText={errors.title?.message}
+          />
+        </Col>
+      </Row>
+
+      <Row style={{ marginTop: "1rem", padding: " 0.75rem" }}>
+          <FMTypography
+            displayText={"Text"}
+            styleData={{
+              ...commonStyle.commonModalTitleStyle,
+              marginLeft: "-11px",
+              opacity: "0.9",
+              marginBottom: "4px",
             }}
-          >
-            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-              <img
-                src={crossIcon}
-                alt="cross-icon"
-                style={{ cursor: "pointer", width: "1rem" }}
-                onClick={setCloseDialog}
-              />
-            </Box>
-            <FMTypography
-              displayText="Edit About Us"
-              styleData={{
-                fontWeight: "600",
-                fontSize: "1.125rem",
-                marginBottom: "1.5rem",
-                fontFamily: "'Inter', sans-serif",
-              }}
-            />
+          />
+          <TextField
+            required
+            multiline
+            rows={3}
+            id="text"
+            name="text"
+            {...register("text")}
+            error={errors.text ? true : false}
+          />
+        </Row>
 
-            <Container>
-              <Row>
-                <Col>
-                  <FMInput
-                    required
-                    readOnly={false}
-                    displayText="Title"
-                    id="title"
-                    name="title"
-                    register={register("title")}
-                    error={errors.title}
-                    errorDisplayText={errors.title?.message}
-                  />
-                </Col>
+      <Row style={{ marginTop: "1rem" }}>
+        <Col>
+          <FMInput
+            required
+            readOnly={false}
+            displayText={"Banner Image"}
+            type="file"
+            accept="image/*"
+            name="banner"
+            id="banner"
+            onChange={handleBannerPictures}
+          />
+        </Col>
+        <Col>
+          <FMInput
+            required
+            readOnly={false}
+            displayText="Banner Image Alt Text"
+            id="bannerImageAltText"
+            name="bannerImageAltText"
+            register={register("bannerImageAltText")}
+            error={errors.bannerImageAltText}
+            errorDisplayText={errors.bannerImageAltText?.message}
+          />
+        </Col>
 
-                <Col>
-                  <FMTypography
-                    displayText={"Text"}
-                    styleData={{ color: "#717171" }}
-                  />
-                  <TextField
-                    placeholder="Text"
-                    multiline
-                    rows={2}
-                    maxRows={4}
-                    id="text"
-                    {...register("text")}
-                    error={errors.text ? true : false}
-                  />
-                  {errors.text && (
-                    <FMTypography
-                      displayText={errors.text?.message}
-                      styleData={{ color: "red" }}
-                    />
-                  )}
-                </Col>
-              </Row>
-              <Row style={{ marginTop: "2rem" }}>
-                <Col>
-                  <FMInput
-                    required
-                    readOnly={false}
-                    displayText=" Banner Image Alt Text"
-                    id="bannerImageAltText"
-                    name="bannerImageAltText"
-                    register={register("bannerImageAltText")}
-                    error={errors.bannerImageAltText}
-                    errorDisplayText={errors.bannerImageAltText?.message}
-                  />
-                </Col>
+        <div style={{...commonStyle.commonModalTitleStyle, marginTop:"10px"}}>{`Banner Image Preview`} </div>
+        {image && (
+          <Box>
+            <div style={{ width: "auto" }}>
+              <img src={image} alt="img" width="200px" height="200px" />
+            </div>
+          </Box>
+        )}
+      </Row>
 
-                <Col>
-                  <FMInput
-                    required
-                    readOnly={false}
-                    displayText="Banner Image Text Alt Text"
-                    id="bannerImageTextAltText"
-                    name="bannerImageTextAltText"
-                    register={register("bannerImageTextAltText")}
-                    error={errors.bannerImageTextAltText}
-                    errorDisplayText={errors.bannerImageTextAltText?.message}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col style={{ marginTop: "2rem" }}>
-                  <FMTypography
-                    displayText={"Image: "}
-                    styleData={{ color: "#A3A3A3" }}
-                  />
-                  {image && (
-                    <div style={{ width: "auto" }}>
-                      <img src={image} alt="img" width="150px" height="100px" />
-                    </div>
-                  )}
-                  <input
-                    type="file"
-                    accept="image/*"
-                    name="banner"
-                    id="banner"
-                    onChange={handleBannerPictures}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col style={{ marginTop: "2rem" }}>
-                  <FMTypography
-                    displayText={" Banner Image: "}
-                    styleData={{ color: "#A3A3A3" }}
-                  />
-                  {bannerImage && (
-                    <div style={{ width: "auto" }}>
-                      <img
-                        src={bannerImage}
-                        alt="img"
-                        width="150px"
-                        height="100px"
-                      />
-                    </div>
-                  )}
+      <Row style={{ marginTop: "1rem" }}>
+        <Col>
+          <FMInput
+            required
+            readOnly={false}
+            displayText={"Banner Image Text"}
+            type="file"
+            accept="image/*"
+            name="bannerImageText"
+            id="bannerImageText"
+            onChange={handleBannerImageTextPictures}
+          />
+        </Col>
 
-                  <input
-                    type="file"
-                    accept="image/*"
-                    name="bannerImageText"
-                    id="bannerImageText"
-                    onChange={handleBannerImageTextPictures}
-                  />
-                </Col>
-              </Row>
-              <FMButton
-                displayText="Edit"
-                variant="contained"
-                disabled={false}
-                styleData={{
-                  textTransform: "capitalize",
-                  marginTop: "2rem",
-                  "&:hover": {
-                    border: "none",
-                    textDecoration: "none",
-                  },
-                }}
-                onClick={handleSubmit(onSubmit)}
-              />
-            </Container>
-          </Grid>
-        </Grid>
-      </Modal>
-    </div>
+        <Col>
+          <FMInput
+            required
+            readOnly={false}
+            displayText="Banner Image Text Alt Text"
+            id="bannerImageTextAltText"
+            name="bannerImageTextAltText"
+            register={register("bannerImageTextAltText")}
+            error={errors.bannerImageTextAltText}
+            errorDisplayText={errors.bannerImageTextAltText?.message}
+          />
+        </Col>
+
+        <div style={{...commonStyle.commonModalTitleStyle, marginTop:"10px"}}>{`Banner Image Text Preview`} </div>
+        {bannerImage && (
+          <Box>
+            <div style={{ width: "auto" }}>
+              <img src={bannerImage} alt="img" width="200px" height="200px" />
+            </div>
+          </Box>
+        )}
+      </Row>
+      <FMButton
+        displayText="Update"
+        variant="contained"
+        disabled={false}
+        styleData={{
+          textTransform: "capitalize",
+          marginTop: "2rem",
+          "&:hover": {
+            border: "none",
+            textDecoration: "none",
+          },
+        }}
+        onClick={handleSubmit(onSubmit)}
+      />
+    </ModalWrapper>
   );
 };
 

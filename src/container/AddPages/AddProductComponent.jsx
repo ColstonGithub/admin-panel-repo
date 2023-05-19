@@ -16,7 +16,7 @@ import FMButton from "components/FMButton/FMButton";
 import FMTypography from "components/FMTypography/FMTypography";
 import FMInput from "components/FMInput/FMInput";
 
-import crossIcon from "../../../assets/crossIcon.svg";
+import crossIcon from "assets/crossIcon.svg";
 
 import { Col, Container, Row } from "react-bootstrap";
 
@@ -38,6 +38,7 @@ const AddProductComponent = () => {
   const productListingData = useSelector(
     (state) => state?.exploreCategories?.getCategoriesListData?.categoryList
   );
+  
 
   const [banner, setBanner] = useState([""]);
   const [productPdf, setProductPdf] = useState("");
@@ -477,12 +478,12 @@ const AddProductComponent = () => {
                         <Box key={pictureIndex}>
                           {picture.picturePreview && (
                             <Box className="m-3">
-                              <div>{`Preview ${pictureIndex + 1}`}</div>
+                              <div>{`Image Preview ${pictureIndex + 1}`}</div>
                               <img
                                 src={picture.picturePreview}
                                 style={{
-                                  width: "100px",
-                                  height: "100px",
+                                  width: "200px",
+                                  height: "200px",
                                 }}
                               />
                             </Box>
@@ -623,12 +624,12 @@ const AddProductComponent = () => {
                   <Row key={index}>
                     {picture?.picturePreview && (
                       <Box className="m-3">
-                        <div>{`Preview ${index + 1}`} </div>
+                        <div>{`Image Preview ${index + 1}`} </div>
                         <img
                           src={picture?.picturePreview}
                           style={{
-                            width: "100px",
-                            height: "100px",
+                            width: "200px",
+                            height: "200px",
                           }}
                         />
                       </Box>
@@ -683,7 +684,7 @@ const AddProductComponent = () => {
 
                 <Box>
                   <FMButton
-                    displayText="Add"
+                    displayText="Add Picture"
                     variant="contained"
                     disabled={false}
                     styleData={{

@@ -5,10 +5,9 @@ import { Col, Row } from "react-bootstrap";
 import crossIcon from "assets/crossIcon.svg";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { getWarrantyRegById } from "../../../redux/Slices/WarrantyRegistration/WarrantyRegistration";
-import { getCareerSecById } from "redux/Slices/CareerSection/CareerSection";
+import { getFaqById } from "redux/Slices/FAQS/FaqSlice";
 
-const CareerSectionDetailPage = (props) => {
+const FaqDetailPage = (props) => {
   const { setOpen, open, id } = props;
 
   const dispatch = useDispatch();
@@ -21,12 +20,13 @@ const CareerSectionDetailPage = (props) => {
   };
 
   useEffect(() => {
-    dispatch(getCareerSecById(id));
+    dispatch(getFaqById(id));
   }, [id, dispatch]);
 
-  const careerSectionDetail = useSelector(
-    (state) => state?.careerSection?.getCareerSecData?.careerData
+  const faqCategoryDetail = useSelector(
+    (state) => state?.faqCategory?.getFaqCategoryData?.faqCategory
   );
+  const faqDetail = useSelector((state) => state?.faq?.getFaqData?.faqData);
   return (
     <div
       style={{
@@ -80,7 +80,7 @@ const CareerSectionDetailPage = (props) => {
             >
               <Col className="col-11">
                 <FMTypography
-                  displayText={"Career Section Details"}
+                  displayText={"FAQ Category Details"}
                   styleData={{
                     fontWeight: "500",
                     fontSize: "1.125rem",
@@ -103,16 +103,16 @@ const CareerSectionDetailPage = (props) => {
             <Grid sx={{ margin: "1rem" }}>
               <Row style={{ marginBottom: "1rem" }}>
                 <Col>
-                  <FMTypography displayText={"Name"} />
+                  <FMTypography displayText={"Faq Category"} />
                   <FMTypography
-                    displayText={careerSectionDetail?.name}
+                    displayText={faqDetail?.faqCategory}
                     styleData={{ color: "#717171" }}
                   />
                 </Col>
                 <Col>
                   <FMTypography displayText={"Date"} />
                   <FMTypography
-                    displayText={moment(careerSectionDetail?.createdAt).format(
+                    displayText={moment(faqDetail?.createdAt).format(
                       "DD/MM/YYYY"
                     )}
                     styleData={{ color: "#717171" }}
@@ -121,40 +121,20 @@ const CareerSectionDetailPage = (props) => {
               </Row>
               <Row>
                 <Col>
-                  <FMTypography displayText={"Email"} />
+                  <FMTypography displayText={"Question"} />
                   <FMTypography
-                    displayText={careerSectionDetail?.email}
+                    displayText={faqDetail?.question}
                     styleData={{ color: "#717171" }}
                   />
                 </Col>
               </Row>
-              <Row style={{ marginTop: "1rem" }}>
+              <Row>
                 <Col>
-                  <FMTypography displayText={"Mobile Number"} />
+                  <FMTypography displayText={"Answer"} />
                   <FMTypography
-                    displayText={careerSectionDetail?.mobileNo}
+                    displayText={faqDetail?.answer}
                     styleData={{ color: "#717171" }}
                   />
-                </Col>
-                <Col>
-                  <FMTypography displayText={"Subject"} />
-                  <FMTypography
-                    displayText={careerSectionDetail?.subject}
-                    styleData={{ color: "#717171" }}
-                  />
-                </Col>
-              </Row>
-              <Row style={{ marginTop: "1rem" }}>
-                <Col>
-                  <FMTypography displayText={"Message"} />
-                  <FMTypography
-                    displayText={careerSectionDetail?.message}
-                    styleData={{ color: "#717171" }}
-                  />
-                </Col>
-                <Col>
-                  <FMTypography displayText={"PDF"} />
-                  <a href={careerSectionDetail?.pdf}>Click to Download</a>
                 </Col>
               </Row>
             </Grid>
@@ -165,4 +145,4 @@ const CareerSectionDetailPage = (props) => {
   );
 };
 
-export default CareerSectionDetailPage;
+export default FaqDetailPage;

@@ -1,39 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { Grid, Modal, Box } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { Grid, Modal, Box, TextField } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FMButton from "components/FMButton/FMButton";
 import FMTypography from "components/FMTypography/FMTypography";
 import FMInput from "components/FMInput/FMInput";
 import crossIcon from "assets/crossIcon.svg";
 import { Col, Container, Row } from "react-bootstrap";
+import { addCareCleanSchema } from "validationSchema/AddCareCleanSchema";
+import { addCareClean, getCareClean } from "redux/Slices/CareClean/CareClean";
+import { addVideoSchema } from "validationSchema/AddVideoSchema";
+import { addVideoData, getVideos } from "redux/Slices/videosSlices/Video";
 import { addCatalogueSchema } from "validationSchema/AddCatalogueSchema";
 import {
-  editCatalogue,
-  getCatalogueDetail,
+  addNewCatalogue,
   getCatalogues,
 } from "redux/Slices/Catalogue/Catalogue";
 import { notify } from "constants/utils";
 import ModalWrapper from "container/HomePage/Modal";
 import { commonStyle } from "Styles/commonStyles";
-
-const EditCatalogue = (props) => {
-  const { setOpen, open, id } = props;
-
-  const [image, setImage] = useState(null);
-  const [bannerImage, setBannerImage] = useState("");
+const AddCatalogueComponent = (props) => {
+  const { setOpen, open } = props;
+  const [pdfFile, setPdfFile] = useState();
+  const [image, setImage] = useState([]);
   const [pdf, setPdf] = useState("");
-  const [pdfPreview, setPdfPreview] = useState("");
+  const [imagePreview, setImagePreview] = useState(null);
 
   const handleClose = () => {
-    setOpen(false);
     setValue("title", "");
     setValue("imageAltText", "");
     setValue("image", "");
     setValue("pdf", null);
   };
-
   const setCloseDialog = () => {
     setOpen(false);
     setValue("title", "");
@@ -41,20 +40,10 @@ const EditCatalogue = (props) => {
     setValue("image", "");
     setValue("pdf", null);
   };
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getCatalogueDetail(id));
-  }, [id, dispatch]);
-
-  const cataloguesDetail = useSelector(
-    (state) => state?.catalogues?.getCatalogueData?.Catalogue
-  );
 
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
     setValue,
   } = useForm({
@@ -62,47 +51,34 @@ const EditCatalogue = (props) => {
     mode: "onChange",
   });
 
-  useEffect(() => {
-    reset({
-      title: cataloguesDetail?.title,
-      imageAltText: cataloguesDetail?.imageAltText,
-    });
-    setBannerImage(cataloguesDetail?.image);
-    const filename = cataloguesDetail?.pdf?.replace(
-      "http://localhost:5000/public/",
-      ""
-    );
-    setPdfPreview(filename);
-  }, [cataloguesDetail, reset]);
+  const dispatch = useDispatch();
 
   const onSubmit = (data) => {
     const formData = new FormData();
-    formData.append("_id", id);
     formData.append("title", data?.title?.toString());
     formData.append("imageAltText", data?.imageAltText?.toString());
+    formData.append("image", image);
+    formData.append("pdf", pdf);
 
-    if (image) formData.append("image", image);
-    if (pdf) formData.append("pdf", pdf);
-
-    dispatch(editCatalogue(formData)).then(() => {
+    dispatch(addNewCatalogue(formData)).then(() => {
       const usersListData = { page: 1 };
       dispatch(getCatalogues(usersListData));
-      notify({ type: "success", messgae: "Data Edited Successfully" });
       setOpen(false);
       formData.append("title", "");
       formData.append("imageAltText", "");
       formData.append("image", "");
       formData.append("pdf", null);
     });
+    notify({ type: "success", messgae: "Data Added Successfully" });
   };
 
   const handleBannerPictures = (e) => {
+    setImagePreview(URL.createObjectURL(e.target.files[0]));
     setImage(e.target.files[0]);
-    setBannerImage("");
   };
   const handleBannerPdf = (e) => {
+    setPdfFile(URL.createObjectURL(e.target.files[0]));
     setPdf(e.target.files[0]);
-    setPdfPreview("");
   };
 
   return (
@@ -111,7 +87,7 @@ const EditCatalogue = (props) => {
       setOpen={setOpen}
       handleClose={handleClose}
       setCloseDialog={setCloseDialog}
-      modalTitle={"Edit Catalogue"}
+      modalTitle={"Add Catalogue"}
     >
       <Row style={{ marginTop: "1rem" }}>
         <Col>
@@ -140,20 +116,31 @@ const EditCatalogue = (props) => {
             onChange={handleBannerPdf}
           />
 
-          {pdfPreview && (
-            <Box className="mt-2">
-              <div
-                style={commonStyle.commonModalTitleStyle}
-              >{`Pdf Preview`}</div>
-              <div style={{ width: "auto" }}>
-                <p>{pdfPreview}</p>
-              </div>
+          {pdfFile && (
+            <Box
+              sx={{
+                margin: "1rem 0",
+              }}
+            >
+              <FMTypography
+                displayText={"Pdf Preview"}
+                styleData={commonStyle.commonModalTitleStyle}
+              />
+              <embed
+                src={pdfFile}
+                type="application/pdf"
+                frameBorder="0"
+                scrolling="auto"
+                height="200px"
+                width="100%"
+              ></embed>
             </Box>
           )}
         </Col>
       </Row>
+
       <Row style={{ marginTop: "1rem" }}>
-        <Col>
+        <Col md={6}>
           <FMInput
             required
             readOnly={false}
@@ -165,7 +152,7 @@ const EditCatalogue = (props) => {
             onChange={handleBannerPictures}
           />
         </Col>
-        <Col>
+        <Col md={6}>
           <FMInput
             required
             readOnly={false}
@@ -177,20 +164,25 @@ const EditCatalogue = (props) => {
             errorDisplayText={errors.imageAltText?.message}
           />
         </Col>
-        {bannerImage && (
-          <Box className="mt-2">
-            <div
-              style={commonStyle.commonModalTitleStyle}
-            >{`Image Preview`}</div>
-            <div style={{ width: "auto" }}>
-              <img src={bannerImage} alt="img" width="200px" height="200px" />
-            </div>
-          </Box>
-        )}
+        <Col>
+          {imagePreview && (
+            <Box className="mt-4">
+              <div style={commonStyle.commonModalTitleStyle}>{`Image Preview`} </div>
+              <img
+                src={imagePreview}
+                style={{
+                  width: "200px",
+                  height: "200px",
+                  marginTop: "4px",
+                }}
+              />
+            </Box>
+          )}
+        </Col>
       </Row>
 
       <FMButton
-        displayText="Update"
+        displayText="Submit"
         variant="contained"
         disabled={false}
         styleData={{
@@ -207,4 +199,4 @@ const EditCatalogue = (props) => {
   );
 };
 
-export default EditCatalogue;
+export default AddCatalogueComponent;

@@ -1,11 +1,10 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Box, Grid, Modal } from "@mui/material";
+import { Box } from "@mui/material";
 import FMTypography from "components/FMTypography/FMTypography";
 import React, { useEffect, useState } from "react";
-import crossIcon from "assets/crossIcon.svg";
 import { useForm } from "react-hook-form";
 import FMButton from "components/FMButton/FMButton";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import FMInput from "components/FMInput/FMInput";
 import { useDispatch, useSelector } from "react-redux";
 import { getBrandPageDetail } from "redux/Slices/BrandPage/BrandPage";
@@ -18,9 +17,18 @@ import {
 } from "redux/Slices/videosSlices/Video";
 import { editVideoSchema } from "validationSchema/AddVideoSchema";
 import { notify } from "constants/utils";
+import ModalWrapper from "container/HomePage/Modal";
+import { commonStyle } from "Styles/commonStyles";
 
 const EditVideo = (props) => {
   const { setOpen, open, id, usersListData } = props;
+  const [poster, setPoster] = useState("");
+  const [videoFile, setVideoFile] = useState("");
+  const [imagePreview, setImagePreview] = useState("");
+  const [videoFilePreview, setVideoFilePreview] = useState("");
+  const [videoFilePrevious, setVideoFilePrevious] = useState("");
+  const [editedImagePreview, setEditedImagePreview] = useState("");
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getBrandPageDetail(id));
@@ -29,10 +37,6 @@ const EditVideo = (props) => {
   useEffect(() => {
     dispatch(virtualTourBannerDetail(id));
   }, [id, dispatch]);
-
-  const [editedCategoryImage, setEditedCategoryImage] = useState("");
-  const [categoryImage, setCategoryImage] = useState(" ");
-  const [videoFile, setVideoFile] = useState(null);
 
   const {
     register,
@@ -60,214 +64,211 @@ const EditVideo = (props) => {
       title: videoDetail?.title,
       metaData: videoDetail?.metaData,
     });
-    setEditedCategoryImage(videoDetail?.poster);
-    setVideoFile(videoDetail?.video);
+    setEditedImagePreview(videoDetail?.poster);
+    setVideoFilePrevious(videoDetail?.video);
   }, [videoDetail, reset]);
 
   const handleClose = () => {
     setOpen(false);
-    setValue("type", "");
+    setValue("metaData", "");
     setValue("title", "");
-    setValue("buttonText", "");
-    setValue("categoryImage", "");
+    setPoster("");
   };
   const setCloseDialog = () => {
     setOpen(false);
-    setValue("type", "");
+    setValue("metaData", "");
     setValue("title", "");
-    setValue("buttonText", "");
-    setValue("categoryImage", "");
+    setPoster("");
   };
 
   const onSubmit = (data) => {
     const formData = new FormData();
     formData.append("title", data?.title?.toString());
-
     formData.append("metaData", data?.metaData?.toString());
-    if (categoryImage !== " ") {
-      formData.append("poster", categoryImage);
+    if (poster !== " ") {
+      formData.append("poster", poster);
     }
-
     if (videoFile !== " ") {
       formData.append("video", videoFile);
     }
-
     formData.append("_id", id);
 
     dispatch(editVideoDetails(formData)).then(() => {
       dispatch(getVideos(usersListData));
       notify({ type: "success", messgae: "Data Edited Successfully" });
       setOpen(false);
-      setValue("type", "");
+      setValue("metaData", "");
       setValue("title", "");
-      setValue("buttonText", "");
-      setValue("image", "");
-      setCategoryImage(" ");
+      setPoster("");
     });
   };
 
   const handleProductPictures = (e) => {
-    setCategoryImage(e.target.files[0]);
-    setEditedCategoryImage("");
+    setPoster(e.target.files[0]);
+    setImagePreview(URL.createObjectURL(e.target.files[0]));
+    setEditedImagePreview("");
   };
 
   const handleFileChange = (event) => {
     setVideoFile(event.target.files[0]);
+    setVideoFilePrevious("");
+    setVideoFilePreview(URL.createObjectURL(event.target.files[0]));
   };
 
   return (
-    <div
-      style={{
-        position: "absolute",
-        backgroundColor: "#FFF",
-        padding: "15px",
-        zIndex: "1000",
-        width: "35%",
-        borderRadius: ".5em",
-      }}
+    <ModalWrapper
+      open={open}
+      setOpen={setOpen}
+      handleClose={handleClose}
+      setCloseDialog={setCloseDialog}
+      modalTitle={"Edit Video"}
     >
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        sx={{
-          position: "fixed",
-          display: "flex",
-          justifyContent: "center",
-          top: "0",
-          left: "0",
-          width: "100%",
-          height: "auto",
-          backgroundColor: "rgba(0,0,0, .8)",
-          zIndex: "1000",
-          overflowY: "auto",
-        }}
-      >
-        <Grid
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            border: "none",
-          }}
-        >
-          <Grid
-            sx={{
-              backgroundColor: "white",
-              width: "36.5rem",
-              padding: "2.125rem",
-              borderRadius: "0.5rem",
-              //   marginTop: "2rem",
-              // height: "43.75rem",
-            }}
-          >
-            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-              <img
-                src={crossIcon}
-                alt="cross-icon"
-                style={{ cursor: "pointer", width: "1rem" }}
-                onClick={setCloseDialog}
-              />
-            </Box>
+      <Row style={{ marginBottom: "1rem" }}>
+        <Col>
+          <FMInput
+            required
+            readOnly={false}
+            displayText="Title"
+            id="title"
+            name="title"
+            register={register("title")}
+            error={errors.title}
+            errorDisplayText={errors.title?.message}
+          />
+        </Col>
+        <Col>
+          <FMInput
+            required
+            readOnly={false}
+            displayText="Meta Data"
+            id="metaData"
+            name="metaData"
+            register={register("metaData")}
+            error={errors.metaData}
+            errorDisplayText={errors.metaData?.message}
+          />{" "}
+          {errors.metaData && (
             <FMTypography
-              displayText="Update"
-              styleData={{
-                fontWeight: "600",
-                fontSize: "1.125rem",
-                marginBottom: "1.5rem",
-                fontFamily: " 'Inter', sans-serif",
+              displayText={errors.metaData?.message}
+              styleData={{ color: "red" }}
+            />
+          )}
+        </Col>
+      </Row>
+
+      <Row style={{ marginTop: "1rem" }}>
+        <Col>
+          <FMInput
+            required
+            readOnly={false}
+            displayText={"Poster"}
+            type="file"
+            accept="image/*"
+            name="poster"
+            id="poster"
+            onChange={handleProductPictures}
+          />
+        </Col>
+
+        {editedImagePreview && (
+          <Box className="mt-2">
+            <div style={commonStyle.commonModalTitleStyle}>
+              {`Image Preview`}
+            </div>
+            <img
+              src={editedImagePreview}
+              style={{
+                width: "200px",
+                height: "200px",
+                marginTop: "4px",
               }}
             />
-            <Container>
-              <Row>
-                <Col>
-                  <FMInput
-                    required
-                    readOnly={false}
-                    displayText="Title"
-                    id="title"
-                    name="title"
-                    register={register("title")}
-                    error={errors.title}
-                    errorDisplayText={errors.title?.message}
-                  />
-                </Col>
-                <Col>
-                  <FMInput
-                    required
-                    readOnly={false}
-                    displayText="Meta Data"
-                    id="metaData"
-                    name="metaData"
-                    register={register("metaData")}
-                    error={errors.metaData}
-                    errorDisplayText={errors.metaData?.message}
-                  />
-                </Col>
-              </Row>
+          </Box>
+        )}
 
-              <Row style={{ marginTop: "2rem" }}>
-                <FMTypography displayText={"Poster"} />
-                <Col>
-                  {editedCategoryImage && (
-                    <div style={{ width: "auto" }}>
-                      <img
-                        src={editedCategoryImage}
-                        alt="img"
-                        width="150px"
-                        height="100px"
-                      />
-                    </div>
-                  )}
-                  <input
-                    type="file"
-                    name="categoryImage"
-                    id="categoryImage"
-                    onChange={handleProductPictures}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col className="mt-4">
-                  <FMTypography
-                    displayText={"Video: "}
-                    styleData={{ color: "#A3A3A3" }}
-                  />
-                  {videoFile && (
-                    <div style={{ width: "auto" }}>
-                      <video
-                        width="150"
-                        height="auto"
-                        controls
-                        // style={{ marginLeft: "3rem" }}
-                      >
-                        <source src={videoFile} />
-                      </video>
-                    </div>
-                  )}
+        {imagePreview && (
+          <Box className="mt-2">
+            <div style={commonStyle.commonModalTitleStyle}>
+              {`Image Preview`}
+            </div>
+            <img
+              src={imagePreview}
+              style={{
+                width: "200px",
+                height: "200px",
+                marginTop: "4px",
+              }}
+            />
+          </Box>
+        )}
+      </Row>
 
-                  <input type="file" onChange={handleFileChange} />
-                </Col>
-              </Row>
-              <FMButton
-                displayText="Update"
-                variant="contained"
-                disabled={false}
-                styleData={{
-                  textTransform: "capitalize",
-                  marginTop: "2rem",
-                  "&:hover": {
-                    border: "none",
-                    textDecoration: "none",
-                  },
-                }}
-                onClick={handleSubmit(onSubmit)}
-              />
-            </Container>
-          </Grid>
-        </Grid>
-      </Modal>
-    </div>
+      <Row style={{ marginBottom: "1rem" }}>
+        <Col md={12}>
+          <FMInput
+            required
+            customInputLabelStyle={{
+              ...commonStyle.commonModalTitleStyle,
+            }}
+            readOnly={false}
+            displayText={"Video"}
+            type="file"
+            accept="video/mp4, video/mov"
+            onChange={handleFileChange}
+          />
+        </Col>
+        <Col md={12}>
+          {videoFilePreview && (
+            <Box className="mt-2">
+              <div style={commonStyle.commonModalTitleStyle}>
+                {`Video Preview`}
+              </div>
+              <video
+                src={videoFilePreview}
+                width="100%"
+                height="200"
+                controls
+                style={{ marginTop: "4px" }}
+              >
+                Your browser does not support the video tag.
+              </video>
+            </Box>
+          )}
+
+          {videoFilePrevious && (
+            <Box className="mt-2">
+              <div style={commonStyle.commonModalTitleStyle}>
+                {`Video Preview`}
+              </div>
+              <video
+                src={videoFilePrevious}
+                width="100%"
+                height="200"
+                controls
+                style={{ marginTop: "4px" }}
+              >
+                Your browser does not support the video tag.
+              </video>
+            </Box>
+          )}
+        </Col>
+      </Row>
+
+      <FMButton
+        displayText="Update"
+        variant="contained"
+        disabled={false}
+        styleData={{
+          textTransform: "capitalize",
+          marginTop: "2rem",
+          "&:hover": {
+            border: "none",
+            textDecoration: "none",
+          },
+        }}
+        onClick={handleSubmit(onSubmit)}
+      />
+    </ModalWrapper>
   );
 };
 

@@ -20,26 +20,33 @@ import { commonStyle } from "Styles/commonStyles";
 
 const EditCatalogue = (props) => {
   const { setOpen, open, id } = props;
-
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState("");
   const [bannerImage, setBannerImage] = useState("");
   const [pdf, setPdf] = useState("");
   const [pdfPreview, setPdfPreview] = useState("");
+  const [imagePreview, setImagePreview] = useState(null);
+  const [pdfFile, setPdfFile] = useState();
 
   const handleClose = () => {
     setOpen(false);
     setValue("title", "");
     setValue("imageAltText", "");
-    setValue("image", "");
-    setValue("pdf", null);
+    setImage("");
+    setBannerImage("");
+    setImagePreview("");
+    setPdfPreview("");
+    setPdf("");
   };
 
   const setCloseDialog = () => {
     setOpen(false);
     setValue("title", "");
     setValue("imageAltText", "");
-    setValue("image", "");
-    setValue("pdf", null);
+    setImage("");
+    setBannerImage("");
+    setImagePreview("");
+    setPdfPreview("");
+    setPdf("");
   };
   const dispatch = useDispatch();
 
@@ -72,7 +79,7 @@ const EditCatalogue = (props) => {
       "http://localhost:5000/public/",
       ""
     );
-    setPdfPreview(filename);
+    setPdfPreview(cataloguesDetail?.pdf);
   }, [cataloguesDetail, reset]);
 
   const onSubmit = (data) => {
@@ -80,27 +87,31 @@ const EditCatalogue = (props) => {
     formData.append("_id", id);
     formData.append("title", data?.title?.toString());
     formData.append("imageAltText", data?.imageAltText?.toString());
-
-    if (image) formData.append("image", image);
-    if (pdf) formData.append("pdf", pdf);
-
+    if (image != undefined) formData.append("image", image);
+    if (pdf != undefined) formData.append("pdf", pdf);
+    
     dispatch(editCatalogue(formData)).then(() => {
       const usersListData = { page: 1 };
       dispatch(getCatalogues(usersListData));
       notify({ type: "success", messgae: "Data Edited Successfully" });
       setOpen(false);
-      formData.append("title", "");
-      formData.append("imageAltText", "");
-      formData.append("image", "");
-      formData.append("pdf", null);
+      setValue("title", "");
+      setValue("imageAltText", "");
+      setImage("");
+      setBannerImage("");
+      setImagePreview("");
+      setPdfPreview("");
+      setPdf("");
     });
   };
 
   const handleBannerPictures = (e) => {
     setImage(e.target.files[0]);
+    setImagePreview(URL.createObjectURL(e.target.files[0]));
     setBannerImage("");
   };
   const handleBannerPdf = (e) => {
+    setPdfFile(URL.createObjectURL(e.target.files[0]));
     setPdf(e.target.files[0]);
     setPdfPreview("");
   };
@@ -140,14 +151,37 @@ const EditCatalogue = (props) => {
             onChange={handleBannerPdf}
           />
 
+          {pdfFile && (
+            <Box
+              sx={{
+                margin: "1rem 0",
+              }}
+            >
+              <FMTypography
+                displayText={"Pdf Preview"}
+                styleData={commonStyle.commonModalTitleStyle}
+              />
+              <embed
+                src={pdfFile}
+                type="application/pdf"
+                frameBorder="0"
+                scrolling="auto"
+                height="200px"
+                width="100%"
+              ></embed>
+            </Box>
+          )}
           {pdfPreview && (
             <Box className="mt-2">
-              <div
-                style={commonStyle.commonModalTitleStyle}
-              >{`Pdf Preview`}</div>
-              <div style={{ width: "auto" }}>
-                <p>{pdfPreview}</p>
-              </div>
+              <FMTypography displayText={"Pdf Preview"} />
+              <embed
+                src={pdfPreview}
+                type="application/pdf"
+                frameBorder="0"
+                scrolling="auto"
+                height="200px"
+                width="100%"
+              ></embed>
             </Box>
           )}
         </Col>
@@ -178,13 +212,34 @@ const EditCatalogue = (props) => {
           />
         </Col>
         {bannerImage && (
-          <Box className="mt-2">
-            <div
-              style={commonStyle.commonModalTitleStyle}
-            >{`Image Preview`}</div>
-            <div style={{ width: "auto" }}>
-              <img src={bannerImage} alt="img" width="200px" height="200px" />
+          <Box className="mt-4">
+            <div style={commonStyle.commonModalTitleStyle}>
+              {`Image Preview`}
             </div>
+            <img
+              src={bannerImage}
+              style={{
+                width: "200px",
+                height: "200px",
+                marginTop: "4px",
+              }}
+            />
+          </Box>
+        )}
+
+        {imagePreview && (
+          <Box className="mt-4">
+            <div style={commonStyle.commonModalTitleStyle}>
+              {`Image Preview`}
+            </div>
+            <img
+              src={imagePreview}
+              style={{
+                width: "200px",
+                height: "200px",
+                marginTop: "4px",
+              }}
+            />
           </Box>
         )}
       </Row>

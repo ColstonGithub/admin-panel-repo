@@ -6,9 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { getCatalogueDetail } from "redux/Slices/Catalogue/Catalogue";
 import ModalWrapper from "container/HomePage/Modal";
+import { commonStyle } from "Styles/commonStyles";
 
 const CataloguesDetailPage = (props) => {
-  const { setOpen, open, id,  } = props;
+  const { setOpen, open, id } = props;
   const dispatch = useDispatch();
 
   const handleClose = () => {
@@ -21,7 +22,6 @@ const CataloguesDetailPage = (props) => {
   useEffect(() => {
     dispatch(getCatalogueDetail(id));
   }, [id, dispatch]);
-
 
   const cataloguesDetail = useSelector(
     (state) => state?.catalogues?.getCatalogueData?.Catalogue
@@ -64,6 +64,28 @@ const CataloguesDetailPage = (props) => {
             displayText={cataloguesDetail?.imageAltText}
             styleData={{ color: "#717171" }}
           />
+        </Col>
+      </Row>
+      <Row style={{ marginTop: "1rem" }}>
+        <Col>
+          <Box
+            sx={{
+              margin: "1rem 0",
+            }}
+          >
+            <FMTypography
+              displayText={"Pdf Preview"}
+              styleData={commonStyle.commonModalTitleStyle}
+            />
+            <embed
+              src={cataloguesDetail?.pdf}
+              type="application/pdf"
+              frameBorder="0"
+              scrolling="auto"
+              height="200px"
+              width="100%"
+            ></embed>
+          </Box>
         </Col>
       </Row>
 

@@ -253,16 +253,7 @@ export const corporateBannerTableConfig = (type) => [
       );
     },
   },
-  {
-    headername: "bannerImageText",
-    field: "bannerImageText",
-    width: "20%",
-  },
-  // {
-  //   headername: "Text",
-  //   field: "Text",
-  //   width: "20%",
-  // },
+
   {
     headername: "Actions",
     field: "Actions",
@@ -330,27 +321,6 @@ export const newsPressBannerConfig = (type) => [
         <>
           <img
             src={row?.Images}
-            alt="img"
-            width="50px"
-            height="40px"
-            className="img-responsive img-fluid "
-            loading="lazy"
-          />
-        </>
-      );
-    },
-  },
-
-  {
-    headername: "BannerImages",
-    field: "BannerImages",
-    align: "left",
-    width: "20%",
-    renderColumn: (row) => {
-      return (
-        <>
-          <img
-            src={row?.BannerImages}
             alt="img"
             width="50px"
             height="40px"
@@ -686,27 +656,6 @@ export const brandPageBannerConfig = (type) => [
   },
 
   {
-    headername: "BannerImageText",
-    field: "BannerImageText",
-    align: "left",
-    width: "17%",
-    renderColumn: (row) => {
-      return (
-        <>
-          <img
-            src={row?.BannerImageText}
-            alt="img"
-            width="50px"
-            height="40px"
-            className="img-responsive img-fluid "
-            loading="lazy"
-          />
-        </>
-      );
-    },
-  },
-
-  {
     headername: "Actions",
     field: "Actions",
     width: "20%",
@@ -746,26 +695,6 @@ export const categoryBannerConfig = (type) => [
     },
   },
 
-  // {
-  //   headername: "BannerImageText",
-  //   field: "BannerImageText",
-  //   align: "left",
-  //   width: "17%",
-  //   renderColumn: (row) => {
-  //     return (
-  //       <>
-  //         <img
-  //           src={row?.BannerImageText}
-  //           alt="img"
-  //           width="50px"
-  //           height="40px"
-  //           className="img-responsive img-fluid "
-  //           loading="lazy"
-  //         />
-  //       </>
-  //     );
-  //   },
-  // },
 
   {
     headername: "Actions",
@@ -796,27 +725,6 @@ export const aboutUsConfig = (type) => [
         <>
           <img
             src={row?.Images}
-            alt="img"
-            width="50px"
-            height="40px"
-            className="img-responsive img-fluid "
-            loading="lazy"
-          />
-        </>
-      );
-    },
-  },
-
-  {
-    headername: "BannerImageText",
-    field: "BannerImageText",
-    align: "left",
-    width: "20%",
-    renderColumn: (row) => {
-      return (
-        <>
-          <img
-            src={row?.BannerImageText}
             alt="img"
             width="50px"
             height="40px"
@@ -1032,11 +940,6 @@ export const homepageExploreCatSectionConfig = (type) => [
         </>
       );
     },
-  },
-  {
-    headername: "Banner Image Text",
-    field: "BannerImageText",
-    width: "20%",
   },
   {
     headername: "Actions",

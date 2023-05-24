@@ -1,38 +1,36 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { Grid, Modal, Box, TextField } from "@mui/material";
+import { TextField, Box } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FMButton from "components/FMButton/FMButton";
 import FMTypography from "components/FMTypography/FMTypography";
 import FMInput from "components/FMInput/FMInput";
-import crossIcon from "assets/crossIcon.svg";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { addBrandPageSchema } from "validationSchema/HomePage/AddBannerSchema";
 import { addBrandPage, getBrandPage } from "redux/Slices/BrandPage/BrandPage";
 import { notify } from "constants/utils";
+import ModalWrapper from "container/HomePage/Modal";
+import { commonStyle } from "Styles/commonStyles";
 
 const AddBrandPageComponent = (props) => {
   const { setOpen, open } = props;
-
-  const [productTypes, setProductTypes] = React.useState("");
-  const [categoryImage, setCategoryImage] = useState("");
-
-  const handleChange = (event) => {
-    setProductTypes(event.target.value);
-  };
+  const [imagePreview, setImagePreview] = useState(null);
+  const [image, setImage] = useState("");
 
   const handleClose = () => {
     setOpen(false);
-    setValue("text", "");
     setValue("title", "");
-    setCategoryImage(" ");
+    setValue("text", "");
+    setValue("imageAltText", "");
+    setImage("");
   };
   const setCloseDialog = () => {
     setOpen(false);
-    setValue("text", "");
     setValue("title", "");
-    setCategoryImage(" ");
+    setValue("text", "");
+    setValue("imageAltText", "");
+    setImage("");
   };
 
   const {
@@ -52,7 +50,7 @@ const AddBrandPageComponent = (props) => {
     formData.append("title", data?.title?.toString());
     formData.append("text", data?.text?.toString());
     formData.append("imageAltText", data?.imageAltText?.toString());
-    formData.append("image", categoryImage);
+    formData.append("image", image);
 
     dispatch(addBrandPage(formData)).then(() => {
       const usersListData = { page: 1 };
@@ -60,136 +58,125 @@ const AddBrandPageComponent = (props) => {
       setOpen(false);
       setValue("title", "");
       setValue("text", "");
-      setCategoryImage(" ");
+      setValue("imageAltText", "");
+      setImage("");
     });
     notify({ type: "success", messgae: "Data Added Successfully" });
   };
 
   const handleProductPictures = (e) => {
-    setCategoryImage(e.target.files[0]);
+    setImagePreview(URL.createObjectURL(e.target.files[0]));
+    setImage(e.target.files[0]);
   };
 
   return (
-    <Modal
+    <ModalWrapper
       open={open}
-      onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
+      setOpen={setOpen}
+      handleClose={handleClose}
+      setCloseDialog={setCloseDialog}
+      modalTitle={"Add Brand Product"}
     >
-      <Grid
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          transform: "translate(0, 30%)",
-        }}
-      >
-        <Grid
-          sx={{
-            backgroundColor: "white",
-            width: "36.5rem",
-            padding: "2.125rem",
-            borderRadius: "0.5rem",
-            marginTop: "2rem",
-            // height: "43.75rem",
-            height: "auto",
-          }}
-        >
-          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-            <img
-              src={crossIcon}
-              alt="cross-icon"
-              style={{ cursor: "pointer", width: "1rem" }}
-              onClick={setCloseDialog}
-            />
-          </Box>
-          <FMTypography
-            displayText="Brand Page"
-            styleData={{
-              fontWeight: "600",
-              fontSize: "1.125rem",
-              marginBottom: "1.5rem",
-              fontFamily: " 'Inter', sans-serif", 
-            }}
+      <Row style={{ marginTop: "1rem" }}>
+        <Col>
+          <FMInput
+            required
+            readOnly={false}
+            displayText="Title"
+            id="title"
+            name="title"
+            register={register("title")}
+            error={errors.title}
+            errorDisplayText={errors.title?.message}
           />
-
-          <Container>
-            <Row>
-              <Col>
-                <FMInput
-                  required
-                  readOnly={false}
-                  displayText="Title"
-                  id="title"
-                  name="title"
-                  register={register("title")}
-                  error={errors.title}
-                  errorDisplayText={errors.title?.message}
-                />
-              </Col>
-
-              <Col>
-                <FMTypography
-                  displayText={"Text"}
-                  styleData={{ color: "#717171" }}
-                />
-                <TextField
-                  placeholder="Text"
-                  multiline
-                  rows={2}
-                  maxRows={4}
-                  id="text"
-                  {...register("text")}
-                  error={errors.text ? true : false}
-                />
-                {errors.text && (
-                  <FMTypography
-                    displayText={errors.text?.message}
-                    styleData={{ color: "red" }}
-                  />
-                )}
-              </Col>
-            </Row>
-            <Row style={{ marginTop: "2rem" }}>
-              <Col>
-                <FMInput
-                  required
-                  readOnly={false}
-                  displayText="Image Alt Text"
-                  id="imageAltText"
-                  name="imageAltText"
-                  register={register("imageAltText")}
-                  error={errors.imageAltText}
-                  errorDisplayText={errors.imageAltText?.message}
-                />
-              </Col>
-
-              <Col style={{ marginTop: "2rem" }}>
-                <input
-                  type="file"
-                  name="categoryImage"
-                  id="categoryImage"
-                  onChange={handleProductPictures}
-                />
-              </Col>
-            </Row>
-            <FMButton
-              displayText="Add Brand Page"
-              variant="contained"
-              disabled={false}
-              styleData={{
-                textTransform: "capitalize",
-                marginTop: "2rem",
-                "&:hover": {
-                  border: "none",
-                  textDecoration: "none",
-                },
-              }}
-              onClick={handleSubmit(onSubmit)}
-            />
-          </Container>
-        </Grid>
-      </Grid>
-    </Modal>
+        </Col>
+      </Row>
+      <Row style={{ marginTop: "1rem", padding: " 0.75rem" }}>
+        <FMTypography
+          displayText={"Text"}
+          styleData={{
+            ...commonStyle.commonModalTitleStyle,
+            marginLeft: "-11px",
+            opacity: "0.9",
+            marginBottom: "4px",
+          }}
+        />
+        <TextField
+          required
+          multiline
+          rows={3}
+          id="text"
+          {...register("text")}
+          error={errors.text ? true : false}
+        />
+        {errors.text && (
+          <FMTypography
+            displayText={errors.text?.message}
+            styleData={{ color: "red" }}
+          />
+        )}
+      </Row>
+      <Row style={{ marginTop: "1rem" }}>
+        <Col md={6}>
+          <FMInput
+            required
+            customInputLabelStyle={{
+              ...commonStyle.commonModalTitleStyle,
+            }}
+            readOnly={false}
+            displayText={"Image"}
+            type="file"
+            accept="image/*"
+            name="image"
+            id="image"
+            onChange={handleProductPictures}
+          />
+        </Col>
+        <Col md={6}>
+          <FMInput
+            required
+            readOnly={false}
+            displayText="Image Alt Text"
+            id="imageAltText"
+            name="imageAltText"
+            register={register("imageAltText")}
+            error={errors.imageAltText}
+            errorDisplayText={errors.imageAltText?.message}
+          />
+        </Col>
+        <Col>
+          {imagePreview && (
+            <Box className="mt-4">
+              <div style={commonStyle.commonModalTitleStyle}>
+                {`Image Preview`}
+              </div>
+              <img
+                src={imagePreview}
+                style={{
+                  width: "200px",
+                  height: "200px",
+                  marginTop: "4px",
+                }}
+              />
+            </Box>
+          )}
+        </Col>
+      </Row>
+      <FMButton
+        displayText="Submit"
+        variant="contained"
+        disabled={false}
+        styleData={{
+          textTransform: "capitalize",
+          marginTop: "2rem",
+          "&:hover": {
+            border: "none",
+            textDecoration: "none",
+          },
+        }}
+        onClick={handleSubmit(onSubmit)}
+      />
+    </ModalWrapper>
   );
 };
 

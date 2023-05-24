@@ -132,18 +132,18 @@ const careCleanSlice = createSlice({
     //
 
     builder.addCase(addCareClean.pending, (state) => {
-      state.addCareCleanDatas = [];
+      state.addCareCleanData = [];
       state.isFetching = true;
       state.isError = false;
     });
 
     builder.addCase(addCareClean.fulfilled, (state, action) => {
-      state.addCareCleanDatas = action.payload?.data;
+      state.addCareCleanData = action.payload?.data;
       state.isFetching = false;
       state.isError = false;
     });
     builder.addCase(addCareClean.rejected, (state, action) => {
-      state.addCareCleanDatas = [];
+      state.addCareCleanData = [];
       state.isFetching = false;
       state.isError = true;
     });

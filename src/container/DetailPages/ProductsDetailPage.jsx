@@ -72,7 +72,7 @@ const ProductDetailPage = (props) => {
                     <img
                       src={ele.img}
                       alt={ele.imageAltText}
-                      style={{ width: "100px", height: "50px" }}
+                      style={{ width: "200px", height: "200px" }}
                     />
                   </Box>
                 </Box>
@@ -108,8 +108,8 @@ const ProductDetailPage = (props) => {
         <img
           src={elem?.img}
           alt="img"
-          width="100px"
-          height="100px"
+          width="200px"
+          height="200px"
           style={{ marginLeft: "2rem" }}
         />
       ))}

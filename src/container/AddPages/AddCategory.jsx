@@ -105,7 +105,7 @@ const AddBanner = (props) => {
       setOpen={setOpen}
       handleClose={handleClose}
       setCloseDialog={setCloseDialog}
-      modalTitle={"Edit Category"}
+      modalTitle={"Add Category"}
     >
       <Row style={{ marginTop: "1rem" }}>
         <Col>
@@ -204,7 +204,7 @@ const AddBanner = (props) => {
         <Col>
           {imagePreview && (
             <Box className="mt-4">
-              <div style={commonStyle.commonModalTitleStyle}>{`Preview`} </div>
+              <div style={commonStyle.commonModalTitleStyle}>{`Image Preview`} </div>
               <img
                 src={imagePreview}
                 style={{

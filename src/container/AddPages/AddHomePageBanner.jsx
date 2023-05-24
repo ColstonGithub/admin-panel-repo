@@ -23,13 +23,16 @@ const AddHomePageBanner = (props) => {
   const handleClose = () => {
     setOpen(false);
     setValue("title", "");
+    setValue("imageAltText", "");
     setBanner("");
+    setImagePreview("");
   };
   const setCloseDialog = () => {
     setOpen(false);
     setValue("title", "");
     setValue("imageAltText", "");
     setBanner("");
+    setImagePreview("");
   };
 
   const {
@@ -59,11 +62,11 @@ const AddHomePageBanner = (props) => {
       const usersListData = { page: 1 };
       dispatch(getHomePageBanners(usersListData));
     });
-
     setOpen(false);
     setValue("title", "");
     setValue("imageAltText", "");
     setBanner("");
+    setImagePreview("");
     notify({ type: "success", messgae: "Data Added Successfully" });
   };
 
@@ -123,8 +126,8 @@ const AddHomePageBanner = (props) => {
               <img
                 src={imagePreview}
                 style={{
-                  width: "100px",
-                  height: "100px",
+                  width: "200px",
+                  height: "200px",
                 }}
               />
             </Box>

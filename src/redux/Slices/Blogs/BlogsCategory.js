@@ -5,6 +5,7 @@ import {
   ADD_BLOG_CATEGORY,
   BLOGS_CATEGORY_DETAILS,
   EDIT_BLOGS_CATEGORY,
+  DELETE_BLOG_CATEGORY,
 } from "./type";
 import { PER_PAGE_LIMIT } from "constants/AppConstant";
 
@@ -14,7 +15,7 @@ export const getBlogCategory = createAsyncThunk(
     const { page } = usersListData;
     try {
       const response = await axiosInstance.get(
-        `api/blogcategory/getblogcategory?page=${1}&limit=${PER_PAGE_LIMIT}`
+        `api/blogcategory/getblogcategory?page=${page}&limit=${PER_PAGE_LIMIT}`
       );
       return response.data;
     } catch (error) {
@@ -67,7 +68,20 @@ export const addBlogCategory = createAsyncThunk(
     }
   }
 );
+export const deleteBlogCategory = createAsyncThunk(
+  DELETE_BLOG_CATEGORY,
+  async (cId, thunkAPI) => {
+    try {
+      const response = await axiosInstance.post(`api/blogcategory/delete`, {
+        id: cId,
+      });
 
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ error: error });
+    }
+  }
+);
 const blogsCategorySlice = createSlice({
   name: "blogsCategorySlice",
   initialState: {

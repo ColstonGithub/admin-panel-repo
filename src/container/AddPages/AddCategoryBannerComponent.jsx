@@ -166,7 +166,7 @@ const AddCategoryBannerComponent = (props) => {
         </Col>
         <Col>
           {imagePreview && (
-            <Box className="mt-3">
+            <Box className="mt-2">
               <div style={commonStyle.commonModalTitleStyle}>
                 {`Image Preview`}{" "}
               </div>

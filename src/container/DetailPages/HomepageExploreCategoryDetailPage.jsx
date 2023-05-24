@@ -38,7 +38,7 @@ const HomepageExploreCategoryDetailPage = (props) => {
     >
       <Row style={{ marginBottom: "1rem" }}>
         <Col>
-          <FMTypography displayText={"Title"} />
+          <FMTypography displayText={"Image Title"} />
           <FMTypography
             displayText={homepageExploreCatData?.imageTitle}
             styleData={{ color: "#717171" }}

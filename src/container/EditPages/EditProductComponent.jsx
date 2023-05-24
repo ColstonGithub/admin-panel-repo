@@ -516,8 +516,8 @@ const EditProductComponent = () => {
                                       : picture.picturePreview
                                   }
                                   style={{
-                                    width: "100px",
-                                    height: "100px",
+                                    width: "200px",
+                                    height: "200px",
                                   }}
                                 />
                               </Box>
@@ -597,8 +597,8 @@ const EditProductComponent = () => {
                                       : picture.picturePreview
                                   }
                                   style={{
-                                    width: "100px",
-                                    height: "100px",
+                                    width: "200px",
+                                    height: "200px",
                                   }}
                                 />
                               </Box>

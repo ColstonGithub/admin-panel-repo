@@ -21,13 +21,8 @@ import { commonStyle } from "Styles/commonStyles";
 const EditCategoryBanner = (props) => {
   const { setOpen, open, id } = props;
   const [imagePreview, setImagePreview] = useState(null);
-
   const [bannerImage, setBannerImage] = useState("");
   const [image, setImage] = useState([]);
-
-  const [bannerTextImage, setBannerTextImage] = useState("");
-  const [imageText, setImageText] = useState([]);
-
   const [productTypes, setProductTypes] = React.useState("");
 
   const handleChange = (event) => {
@@ -78,10 +73,8 @@ const EditCategoryBanner = (props) => {
       title: getCategoryBannerDetails?.title,
       buttonText: getCategoryBannerDetails?.buttonText,
       bannerImageAltText: getCategoryBannerDetails?.bannerImageAltText,
-      bannerImageTextAltText: getCategoryBannerDetails?.bannerImageTextAltText,
     });
     setBannerImage(getCategoryBannerDetails?.bannerImage);
-    setBannerTextImage(getCategoryBannerDetails?.bannerImageText);
     setProductTypes(getCategoryBannerDetails?.categoryId);
   }, [getCategoryBannerDetails, reset]);
 

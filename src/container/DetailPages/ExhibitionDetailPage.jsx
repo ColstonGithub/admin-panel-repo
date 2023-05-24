@@ -1,11 +1,11 @@
-import { Box, Grid, Modal } from "@mui/material";
+import { Box } from "@mui/material";
 import FMTypography from "components/FMTypography/FMTypography";
 import React, { useEffect } from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import crossIcon from "assets/crossIcon.svg";
+import { Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { getExhibitionBannerDetail } from "redux/Slices/Exhibition/ExhibitionBanner";
+import ModalWrapper from "container/HomePage/Modal";
 
 const ExhibitionDetailPage = (props) => {
   const { setOpen, open, id, type } = props;
@@ -25,134 +25,57 @@ const ExhibitionDetailPage = (props) => {
   const exhibitionBannerDetail = useSelector(
     (state) => state?.exhibitionBanner?.getExhibtionBannerData?.banner
   );
-  
+
   return (
-    <div
-      style={{
-        position: "absolute",
-        backgroundColor: "#FFF",
-        padding: "15px",
-        zIndex: "1000",
-        width: "35%",
-        borderRadius: ".5em",
-      }}
+    <ModalWrapper
+      open={open}
+      setOpen={setOpen}
+      handleClose={handleClose}
+      setCloseDialog={setCloseDialog}
+      modalTitle={"Exhibition Details"}
     >
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          top: "0",
-          left: "0",
-          width: "100%",
-          height: "100%",
-          backgroundColor: "rgba(0,0,0, .8)",
-          zIndex: "1000",
-          overflowY: "auto",
-        }}
-      >
-        <Grid
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            transform: "translate(0, 30%)",
-            height: "fit-content",
-          }}
-        >
-          <Grid
-            sx={{
-              backgroundColor: "white",
-              width: "36.5rem",
-              borderRadius: "0.5rem",
-              height: "auto",
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                boxShadow: " 0px 1px 12px rgba(181, 180, 180, 0.12)",
-              }}
-            >
-              <Col className="col-11">
-                <FMTypography
-                  displayText={"Product Details"}
-                  styleData={{
-                    fontWeight: "500",
-                    fontSize: "1.125rem",
-                    fontFamily: " 'Inter', sans-serif",
-                    margin: "1rem",
-                    textAlign: "center",
-                  }}
-                />
-              </Col>
-              <Col className="col-1">
-                <img
-                  src={crossIcon}
-                  alt="cross-icon"
-                  style={{ cursor: "pointer", width: "1rem", margin: "1rem" }}
-                  onClick={setCloseDialog}
-                />
-              </Col>
-            </Box>
+      <Row style={{ marginBottom: "1rem" }}>
+        <Col>
+          <FMTypography displayText={"Title"} />
+          <FMTypography
+            displayText={exhibitionBannerDetail?.title}
+            styleData={{ color: "#717171" }}
+          />
+        </Col>
+        <Col>
+          <FMTypography displayText={"Date"} />
+          <FMTypography
+            displayText={moment(exhibitionBannerDetail?.createdAt).format(
+              "DD/MM/YYYY"
+            )}
+            styleData={{ color: "#717171" }}
+          />
+        </Col>
+      </Row>
 
-            <Grid sx={{ margin: "1rem" }}>
-              <Row style={{ marginBottom: "1rem" }}>
-                <Col>
-                  <FMTypography displayText={"Title"} />
-                  <FMTypography
-                    displayText={exhibitionBannerDetail?.title}
-                    styleData={{ color: "#717171" }}
-                  />
-                </Col>
-                <Col>
-                  <FMTypography displayText={"Date"} />
-                  <FMTypography
-                    displayText={moment(
-                      exhibitionBannerDetail?.createdAt
-                    ).format("DD/MM/YYYY")}
-                    styleData={{ color: "#717171" }}
-                  />
-                </Col>
-              </Row>
+      <Row style={{ marginBottom: "1rem" }}>
+        <Col>
+          <FMTypography displayText={"Banner Image Alt Text"} />
+          <FMTypography
+            displayText={exhibitionBannerDetail?.bannerImageAltText}
+            styleData={{ color: "#717171" }}
+          />
+        </Col>
+      </Row>
 
-              <Row style={{ marginBottom: "1rem" }}>
-                <Col>
-                  <FMTypography displayText={"Banner Image Alt Text"} />
-                  <FMTypography
-                    displayText={exhibitionBannerDetail?.bannerImageAltText}
-                    styleData={{ color: "#717171" }}
-                  />
-                </Col>
-                <Col></Col>
-              </Row>
-
-              <FMTypography
-                displayText={"Images"}
-              />
-              {/* {exhibitionBannerDetail?.map((elem) => (
-                <img
-                  src={elem?.bannerImage}
-                  alt="img"
-                  width="100px"
-                  height="100px"
-                  style={{ marginLeft: "2rem" }}
-                />
-              ))} */}
-              <img
-                src={exhibitionBannerDetail?.bannerImage}
-                alt="img"
-                width="450px"
-                height="auto"
-                style={{ marginLeft: "3rem" }}
-              />
-            </Grid>
-          </Grid>
-        </Grid>
-      </Modal>
-    </div>
+      <FMTypography
+        displayText={"Image"}
+        styleData={{ marginBottom: "4px", marginTop: "1rem" }}
+      />
+      <Box style={{ display: "flex", justifyContent: "center" }}>
+        <img
+          src={exhibitionBannerDetail?.bannerImage}
+          alt="img"
+          height="200px"
+          width="100%"
+        />
+      </Box>
+    </ModalWrapper>
   );
 };
 

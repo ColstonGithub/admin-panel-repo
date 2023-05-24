@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { Grid, Modal, Box, TextField } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FMButton from "components/FMButton/FMButton";
 import FMTypography from "components/FMTypography/FMTypography";
 import FMInput from "components/FMInput/FMInput";
-import crossIcon from "assets/crossIcon.svg";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import {
   editAboutUs,
   getAboutUsData,
@@ -19,21 +18,23 @@ import { commonStyle } from "Styles/commonStyles";
 import ModalWrapper from "container/HomePage/Modal";
 const EditAboutUs = (props) => {
   const { setOpen, open, id } = props;
-
-  const [image, setImage] = useState([]);
-  const [bannerImage, setBannerImage] = useState("");
+  const [image, setImage] = useState("");
+  const [imagePreview, setImagePreview] = useState("");
 
   const handleClose = () => {
     setOpen(false);
+    setValue("text", "");
     setValue("title", "");
-    setValue("imageAltText", "");
-    setValue("image", "");
-    setValue("pdf", null);
+    setValue("bannerImageAltText", "");
+    setImage("");
+    setImagePreview("");
   };
   const setCloseDialog = () => {
     setOpen(false);
     setValue("text", "");
     setValue("title", "");
+    setValue("bannerImageAltText", "");
+    setImagePreview("");
   };
   const dispatch = useDispatch();
 
@@ -61,11 +62,8 @@ const EditAboutUs = (props) => {
       title: aboutUsDetail?.title,
       text: aboutUsDetail?.text,
       bannerImageAltText: aboutUsDetail?.bannerImageAltText,
-      bannerImageTextAltText: aboutUsDetail?.bannerImageTextAltText,
-      image: aboutUsDetail?.bannerImage,
     });
-    setImage(aboutUsDetail?.bannerImage);
-    setBannerImage(aboutUsDetail?.bannerImageText);
+    setImagePreview(aboutUsDetail?.bannerImage);
   }, [reset, aboutUsDetail]);
 
   const onSubmit = (data) => {
@@ -73,35 +71,26 @@ const EditAboutUs = (props) => {
     formData.append("_id", id);
     formData.append("title", data?.title);
     formData.append("text", data?.text);
-    formData.append("bannerImageTextAltText", data?.bannerImageTextAltText);
     formData.append("bannerImageAltText", data?.bannerImageAltText);
     if (image) formData.append("bannerImage", image);
-    if (bannerImage) formData.append("bannerImageText", bannerImage);
 
     dispatch(editAboutUs(formData)).then(() => {
       const usersListData = { page: 1 };
       dispatch(getAboutUsData(usersListData));
       setOpen(false);
       notify({ type: "success", messgae: "Data Edited Successfully" });
-      formData.append("title", "");
-      formData.append("imageAltText", "");
-      formData.append("image", "");
-      formData.append("pdf", null);
+      setValue("text", "");
+      setValue("title", "");
+      setValue("bannerImageAltText", "");
+      setImage("");
+      setImagePreview("");
     });
   };
 
   const handleBannerPictures = (e) => {
     setImage(e.target.files[0]);
-    setBannerImage("");
+    setImagePreview(URL.createObjectURL(e.target.files[0]));
   };
-  // const handleBannerPdf = (e) => {
-  //   setPdf(e.target.files[0]);
-  //   setPdfPreview("");
-  // };
-  const handleBannerImageTextPictures = (e) => {
-    setBannerImage(e.target.files[0]);
-  };
-
   return (
     <ModalWrapper
       open={open}
@@ -126,32 +115,35 @@ const EditAboutUs = (props) => {
       </Row>
 
       <Row style={{ marginTop: "1rem", padding: " 0.75rem" }}>
-          <FMTypography
-            displayText={"Text"}
-            styleData={{
-              ...commonStyle.commonModalTitleStyle,
-              marginLeft: "-11px",
-              opacity: "0.9",
-              marginBottom: "4px",
-            }}
-          />
-          <TextField
-            required
-            multiline
-            rows={3}
-            id="text"
-            name="text"
-            {...register("text")}
-            error={errors.text ? true : false}
-          />
-        </Row>
+        <FMTypography
+          displayText={"Text"}
+          styleData={{
+            ...commonStyle.commonModalTitleStyle,
+            marginLeft: "-11px",
+            opacity: "0.9",
+            marginBottom: "4px",
+          }}
+        />
+        <TextField
+          required
+          multiline
+          rows={3}
+          id="text"
+          name="text"
+          {...register("text")}
+          error={errors.text ? true : false}
+        />
+      </Row>
 
       <Row style={{ marginTop: "1rem" }}>
         <Col>
           <FMInput
             required
+            customInputLabelStyle={{
+              ...commonStyle.commonModalTitleStyle,
+            }}
             readOnly={false}
-            displayText={"Banner Image"}
+            displayText={"Image"}
             type="file"
             accept="image/*"
             name="banner"
@@ -159,10 +151,14 @@ const EditAboutUs = (props) => {
             onChange={handleBannerPictures}
           />
         </Col>
+
         <Col>
           <FMInput
             required
             readOnly={false}
+            customInputLabelStyle={{
+              ...commonStyle.commonModalTitleStyle,
+            }}
             displayText="Banner Image Alt Text"
             id="bannerImageAltText"
             name="bannerImageAltText"
@@ -171,53 +167,22 @@ const EditAboutUs = (props) => {
             errorDisplayText={errors.bannerImageAltText?.message}
           />
         </Col>
-
-        <div style={{...commonStyle.commonModalTitleStyle, marginTop:"10px"}}>{`Banner Image Preview`} </div>
-        {image && (
-          <Box>
-            <div style={{ width: "auto" }}>
-              <img src={image} alt="img" width="200px" height="200px" />
+        {imagePreview && (
+          <Box className="mt-2">
+            <div style={commonStyle.commonModalTitleStyle}>
+              {`Image Preview`}{" "}
             </div>
+            <img
+              src={imagePreview}
+              style={{
+                width: "200px",
+                height: "200px",
+              }}
+            />
           </Box>
         )}
       </Row>
 
-      <Row style={{ marginTop: "1rem" }}>
-        <Col>
-          <FMInput
-            required
-            readOnly={false}
-            displayText={"Banner Image Text"}
-            type="file"
-            accept="image/*"
-            name="bannerImageText"
-            id="bannerImageText"
-            onChange={handleBannerImageTextPictures}
-          />
-        </Col>
-
-        <Col>
-          <FMInput
-            required
-            readOnly={false}
-            displayText="Banner Image Text Alt Text"
-            id="bannerImageTextAltText"
-            name="bannerImageTextAltText"
-            register={register("bannerImageTextAltText")}
-            error={errors.bannerImageTextAltText}
-            errorDisplayText={errors.bannerImageTextAltText?.message}
-          />
-        </Col>
-
-        <div style={{...commonStyle.commonModalTitleStyle, marginTop:"10px"}}>{`Banner Image Text Preview`} </div>
-        {bannerImage && (
-          <Box>
-            <div style={{ width: "auto" }}>
-              <img src={bannerImage} alt="img" width="200px" height="200px" />
-            </div>
-          </Box>
-        )}
-      </Row>
       <FMButton
         displayText="Update"
         variant="contained"

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import {Box, FormControl, Select } from "@mui/material";
+import { Box, FormControl, Select } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FMButton from "components/FMButton/FMButton";
 import FMTypography from "components/FMTypography/FMTypography";
@@ -23,19 +23,20 @@ const AddHomepageExploreCategoryComponent = (props) => {
   const [categoryId, setCategoryId] = useState("");
   const dispatch = useDispatch();
 
-
   const handleClose = () => {
     setValue("imageTitle", "");
     setValue("imageAltText", "");
     setCategoryId("");
     setImgFile("");
+    setImagePreview("");
   };
   const setCloseDialog = () => {
     setOpen(false);
-    setValue("name", "");
+    setValue("imageTitle", "");
     setValue("imageAltText", "");
     setCategoryId("");
     setImgFile("");
+    setImagePreview("");
   };
 
   const {
@@ -66,10 +67,11 @@ const AddHomepageExploreCategoryComponent = (props) => {
       const usersListData = { page: 1 };
       dispatch(getHomePageExploreCat(usersListData));
       setOpen(false);
-      setValue("name", "");
+      setValue("imageTitle", "");
       setValue("imageAltText", "");
       setCategoryId("");
       setImgFile("");
+      setImagePreview("");
     });
     notify({ type: "success", messgae: "Data Added Successfully" });
   };
@@ -107,7 +109,13 @@ const AddHomepageExploreCategoryComponent = (props) => {
         <Col>
           <FMTypography
             displayText={"Select Category"}
-            styleData={{ color: "#a3a3a3", fontSize: "14px" }}
+            styleData={{
+              fontFamily: "Inter",
+              fontStyle: "normal",
+              fontWeight: "500",
+              fontSize: "16px",
+              color: "#222222",
+            }}
           />
 
           <FormControl fullWidth sx={{ minWidth: "13rem" }}>

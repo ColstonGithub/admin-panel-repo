@@ -922,27 +922,26 @@ const HomePageBanners = (props) => {
                   }}
                 >
                   <FMTypography
-                    displayText={"FAQs"}
-                    styleData={{
-                      color: "#717171",
-                      cursor: "pointer",
-                      marginBottom: "10px",
-                      marginTop: "10px",
-                      fontSize: "16px",
-                      fontFamily: " 'Inter', sans-serif",
-                    }}
-                    onClick={faqsNavigator}
-                  />
-
-                  <FMTypography
                     displayText={"FAQs Category"}
                     styleData={{
                       color: "#717171",
                       cursor: "pointer",
                       fontSize: "16px",
+                      marginBottom: "10px",
+                      marginTop: "10px",
                       fontFamily: " 'Inter', sans-serif",
                     }}
                     onClick={faqCategoryNavigator}
+                  />
+                  <FMTypography
+                    displayText={"FAQs"}
+                    styleData={{
+                      color: "#717171",
+                      cursor: "pointer",
+                      fontSize: "16px",
+                      fontFamily: " 'Inter', sans-serif",
+                    }}
+                    onClick={faqsNavigator}
                   />
                 </Box>
               </div>
@@ -1055,15 +1054,15 @@ const HomePageBanners = (props) => {
                     : type === "brandProductString"
                     ? "Products"
                     : type === "brandPageString"
-                    ? "Brand Page"
+                    ? "Brand Products"
                     : type === "corporateProductString"
                     ? "Corporate Products"
                     : type === "corporateBannerString"
                     ? "Corporate Banners"
                     : type === "exhibitionBannerString"
-                    ? "Exhibition Banner"
+                    ? "Exhibition Banners"
                     : type === "newsPressProductString"
-                    ? "News & Press Product"
+                    ? "News & Press Products"
                     : type === "newsPressBannerString"
                     ? "News & Press Banners"
                     : type === "virtualTourBannerString"
@@ -1075,28 +1074,30 @@ const HomePageBanners = (props) => {
                     : type === "blogsString"
                     ? "Blogs"
                     : type === "blogsCategoryString"
-                    ? "Blogs Category"
+                    ? "Blogs Categories"
                     : type === "catalogueString"
                     ? "Catalogues"
                     : type === "categoryBannerString"
                     ? "Category Banners"
                     : type === "brandPageBannerString"
-                    ? "Brand Page Banner"
+                    ? "Brand Page Banners"
                     : type === "aboutUsString"
-                    ? "About us"
+                    ? "About Us"
                     : type === "faqsString"
                     ? "FAQS"
                     : type === "faqCategoryString"
-                    ? "FAQ Category"
+                    ? "FAQ Categories"
                     : type === "warrantyRegistrationString"
                     ? "Warranty Registration"
                     : type === "quotationSectionString"
-                    ? "Quotation Section"
+                    ? "Quotation"
                     : type === "careerSectionString"
-                    ? "Career section"
+                    ? "Career"
                     : type === "contactUsSectionString"
-                    ? "Contact Us Section"
-                    : "HomePage Explore Category"
+                    ? "Contact Us"
+                    : type === "homepageExploreCategory"
+                    ? "Homepage Explore Category"
+                    : "New Page"
                 }
                 styleData={{
                   fontWeight: "500",

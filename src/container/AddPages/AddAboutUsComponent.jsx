@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { Grid, Box, TextField } from "@mui/material";
+import { TextField, Box } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FMButton from "components/FMButton/FMButton";
 import FMTypography from "components/FMTypography/FMTypography";
 import FMInput from "components/FMInput/FMInput";
-import crossIcon from "assets/crossIcon.svg";
-import { Col, Container, Row } from "react-bootstrap";
-import { addCareCleanSchema } from "validationSchema/AddCareCleanSchema";
-import { addCareClean, getCareClean } from "redux/Slices/CareClean/CareClean";
+import { Col, Row } from "react-bootstrap";
 import { addNewAboutUs, getAboutUsData } from "redux/Slices/AboutUs/AboutUs";
 import { addAboutUsSchema } from "validationSchema/AddAboutUsSchema";
 import { notify } from "constants/utils";
@@ -17,25 +14,24 @@ import { commonStyle } from "Styles/commonStyles";
 import ModalWrapper from "container/HomePage/Modal";
 const AddAboutUsComponent = (props) => {
   const { setOpen, open } = props;
-
-  const [productTypes, setProductTypes] = React.useState("");
-
-  const [image, setImage] = useState([]);
-  const [bannerImage, setBannerImage] = useState([]);
-
-  const handleChange = (event) => {
-    setProductTypes(event.target.value);
-  };
+  const [image, setImage] = useState("");
+  const [imagePreview, setImagePreview] = useState("");
 
   const handleClose = () => {
     setOpen(false);
     setValue("text", "");
     setValue("title", "");
+    setValue("bannerImageAltText", "");
+    setImage("");
+    setImagePreview("");
   };
   const setCloseDialog = () => {
     setOpen(false);
     setValue("text", "");
     setValue("title", "");
+    setValue("bannerImageAltText", "");
+    setImage("");
+    setImagePreview("");
   };
 
   const {
@@ -54,34 +50,36 @@ const AddAboutUsComponent = (props) => {
     const formData = new FormData();
     formData.append("title", data?.title?.toString());
     formData.append("text", data?.text?.toString());
-    formData.append(
-      "bannerImageTextAltText",
-      data?.bannerImageTextAltText?.toString()
-    );
     formData.append("bannerImageAltText", data?.bannerImageAltText?.toString());
     formData.append("bannerImage", image);
-    formData.append("bannerImageText", bannerImage);
 
     dispatch(addNewAboutUs(formData)).then(() => {
       const usersListData = { page: 1 };
       dispatch(getAboutUsData(usersListData));
       setOpen(false);
-      setValue("title", "");
       setValue("text", "");
+      setValue("title", "");
+      setValue("bannerImageAltText", "");
+      setImage("");
+      setImagePreview("");
     });
     notify({ type: "success", messgae: "Data Added Successfully" });
   };
 
   const handleBannerPictures = (e) => {
     setImage(e.target.files[0]);
-  };
-  const handleBannerImageTextPictures = (e) => {
-    setBannerImage(e.target.files[0]);
+    setImagePreview(URL.createObjectURL(e.target.files[0]));
   };
 
   return (
     <>
-      <ModalWrapper open={open} setOpen={setOpen} setCloseDialog={setCloseDialog} handleClose={handleClose} modalTitle={"Add About Us"}>
+      <ModalWrapper
+        open={open}
+        setOpen={setOpen}
+        setCloseDialog={setCloseDialog}
+        handleClose={handleClose}
+        modalTitle={"Add About Us"}
+      >
         <Row style={{ marginTop: "1rem" }}>
           <Col>
             <FMInput
@@ -122,8 +120,11 @@ const AddAboutUsComponent = (props) => {
           <Col>
             <FMInput
               required
+              customInputLabelStyle={{
+                ...commonStyle.commonModalTitleStyle,
+              }}
               readOnly={false}
-              displayText={"Banner Image"}
+              displayText={"Image"}
               type="file"
               accept="image/*"
               name="banner"
@@ -131,10 +132,14 @@ const AddAboutUsComponent = (props) => {
               onChange={handleBannerPictures}
             />
           </Col>
+
           <Col>
             <FMInput
               required
               readOnly={false}
+              customInputLabelStyle={{
+                ...commonStyle.commonModalTitleStyle,
+              }}
               displayText="Banner Image Alt Text"
               id="bannerImageAltText"
               name="bannerImageAltText"
@@ -143,33 +148,20 @@ const AddAboutUsComponent = (props) => {
               errorDisplayText={errors.bannerImageAltText?.message}
             />
           </Col>
+          {imagePreview && (
+            <Box className="mt-3">
+              <div style={commonStyle.commonModalTitleStyle}>{`Preview`} </div>
+              <img
+                src={imagePreview}
+                style={{
+                  width: "200px",
+                  height: "200px",
+                }}
+              />
+            </Box>
+          )}
         </Row>
-        <Row style={{ marginTop: "1rem" }}>
-          <Col>
-            <FMInput
-              required
-              readOnly={false}
-              displayText={"Banner Image Text"}
-              type="file"
-              accept="image/*"
-              name="bannerImageText"
-              id="bannerImageText"
-              onChange={handleBannerImageTextPictures}
-            />
-          </Col>
-          <Col>
-            <FMInput
-              required
-              readOnly={false}
-              displayText="Banner Image Text Alt Text"
-              id="bannerImageTextAltText"
-              name="bannerImageTextAltText"
-              register={register("bannerImageTextAltText")}
-              error={errors.bannerImageTextAltText}
-              errorDisplayText={errors.bannerImageTextAltText?.message}
-            />
-          </Col>
-        </Row>
+
         <FMButton
           displayText="Submit"
           variant="contained"

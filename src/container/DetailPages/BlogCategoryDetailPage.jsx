@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
+import { getBlogCategoryDetails } from "redux/Slices/Blogs/BlogsCategory";
 import FMTypography from "components/FMTypography/FMTypography";
-import { getFaqCategoryById } from "redux/Slices/FAQS/FaqCategorySlice";
 import ModalWrapper from "container/HomePage/Modal";
 
-const FaqCategoryDetailPage = (props) => {
+const BlogCategoryDetailPage = (props) => {
   const { setOpen, open, id } = props;
   const dispatch = useDispatch();
 
@@ -18,34 +18,33 @@ const FaqCategoryDetailPage = (props) => {
   };
 
   useEffect(() => {
-    dispatch(getFaqCategoryById(id));
+    dispatch(getBlogCategoryDetails(id));
   }, [id, dispatch]);
 
-  const faqCategoryDetail = useSelector(
-    (state) => state?.faqCategory?.getFaqCategoryData?.faqCategory
+  const blogsDetail = useSelector(
+    (state) => state?.blogsCategory?.getBlogCategoryDetails?.blogCategory
   );
+
   return (
     <ModalWrapper
       open={open}
       setOpen={setOpen}
       handleClose={handleClose}
       setCloseDialog={setCloseDialog}
-      modalTitle={"FAQs Category Details"}
+      modalTitle={"Blog Category Details"}
     >
       <Row style={{ marginBottom: "1rem" }}>
         <Col>
           <FMTypography displayText={"Name"} />
           <FMTypography
-            displayText={faqCategoryDetail?.name}
+            displayText={blogsDetail?.name}
             styleData={{ color: "#717171" }}
           />
         </Col>
         <Col>
           <FMTypography displayText={"Date"} />
           <FMTypography
-            displayText={moment(faqCategoryDetail?.createdAt).format(
-              "DD/MM/YYYY"
-            )}
+            displayText={moment(blogsDetail?.createdAt).format("DD/MM/YYYY")}
             styleData={{ color: "#717171" }}
           />
         </Col>
@@ -54,4 +53,4 @@ const FaqCategoryDetailPage = (props) => {
   );
 };
 
-export default FaqCategoryDetailPage;
+export default BlogCategoryDetailPage;

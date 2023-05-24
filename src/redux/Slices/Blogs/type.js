@@ -7,3 +7,4 @@ export const BLOGS_CATEGORY_DATA = "blogs-cateogry-data";
 export const BLOGS_CATEGORY_DETAILS = "blogs-cateogry-details";
 export const EDIT_BLOGS_CATEGORY = "Edit_blogs-cateogry";
 export const ADD_BLOG_CATEGORY = "add-blogs-cateogry";
+export const DELETE_BLOG_CATEGORY = "delete-blog-category";

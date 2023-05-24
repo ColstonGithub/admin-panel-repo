@@ -147,7 +147,7 @@ const EditBlogs = (props) => {
                 }}
               >
                 <FMTypography
-                  displayText="Update"
+                  displayText="Edit Blog"
                   styleData={{
                     fontWeight: "600",
                     fontSize: "2rem",
@@ -299,8 +299,8 @@ const EditBlogs = (props) => {
                     <img
                       src={imagePreview}
                       style={{
-                        width: "100px",
-                        height: "100px",
+                        width: "200px",
+                        height: "200px",
                       }}
                     />
                   </Box>

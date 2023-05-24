@@ -126,7 +126,7 @@ import EditCategoryBanner from "container/EditPages/EditCategoryBanner";
 import EditCatalogue from "container/EditPages/EditCatalogue";
 import EditAboutUs from "container/EditPages/EditAboutUs";
 import EditFaqCategory from "container/EditPages/EditFaqCategory";
-import { getBlogCategory } from "redux/Slices/Blogs/BlogsCategory";
+import { deleteBlogCategory, getBlogCategory } from "redux/Slices/Blogs/BlogsCategory";
 import { deleteAboutUs, getAboutUsData } from "redux/Slices/AboutUs/AboutUs";
 import EditBlogsCategory from "container/EditPages/EditBlogsCategory";
 import EditBlogs from "container/EditPages/EditBlogs";
@@ -168,6 +168,7 @@ import { InfinitySpin } from "react-loader-spinner";
 import HomepageCategoryBannerDetailPage from "container/DetailPages/HomepageBannerDetailPage";
 import EditExploreCategoryComponent from "container/EditPages/EditExploreCategory";
 import HomepageExploreCategoryDetailPage from "container/DetailPages/HomepageExploreCategoryDetailPage";
+import BlogCategoryDetailPage from "container/DetailPages/BlogCategoryDetailPage";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -222,6 +223,8 @@ export default function TabsTable({ type }) {
   const [exhibitionDetailPage, setOpenExhibitionDetailPage] =
     React.useState(false);
   const [openBlogDetailPage, setOpenBlogDetailPage] = React.useState(false);
+  const [openBlogCategoryDetailPage, setOpenBlogCategoryDetailPage] = React.useState(false);
+
   const [openCatalogueDetailPage, setOpenCatalogueDetailPage] =
     React.useState(false);
   const [openVideoDetailPage, setOpenVideoDetailPage] = React.useState(false);
@@ -271,6 +274,7 @@ export default function TabsTable({ type }) {
   const [exhibitionPageId, setExhibitionPageId] = React.useState(null);
 
   const [blogPageId, setBlogPageId] = React.useState(null);
+  const [blogCategoryPageId, setBlogCategoryPageId] = React.useState(null);
   const [cataloguePageId, setCataloguePageId] = React.useState(null);
   const [videoPageId, setVideoPageId] = React.useState(null);
   const [careCleanPageId, setCareCleanPageId] = React.useState(null);
@@ -660,6 +664,15 @@ export default function TabsTable({ type }) {
   }, [blogPageId]);
 
   useEffect(() => {
+    if (blogCategoryPageId !== null && blogCategoryPageId) {
+      setOpenBlogCategoryDetailPage(true);
+    } else {
+      setOpenBlogCategoryDetailPage(false);
+    }
+  }, [blogCategoryPageId]);
+
+
+  useEffect(() => {
     if (cataloguePageId !== null && cataloguePageId) {
       setOpenCatalogueDetailPage(true);
     }
@@ -919,6 +932,9 @@ export default function TabsTable({ type }) {
   const blogDetailPageHandler = (cId) => {
     setBlogPageId(cId);
   };
+  const blogCategoryDetailPageHandler = (cId) => {
+    setBlogCategoryPageId(cId);
+  };
   const catalogueDetailPageHandler = (cId) => {
     setCataloguePageId(cId);
   };
@@ -1082,6 +1098,12 @@ export default function TabsTable({ type }) {
       dispatch(deleteBlog(cId)).then((res) => {
         if (res) {
           dispatch(getBlogs(usersListData));
+        }
+      });
+    else if (type === "blogsCategoryString")
+      dispatch(deleteBlogCategory(cId)).then((res) => {
+        if (res) {
+          dispatch(getBlogCategory(usersListData));
         }
       });
     else if (type === "catalogueString")
@@ -1425,7 +1447,6 @@ export default function TabsTable({ type }) {
         "S.NO.": index + 1,
         Title: element?.title,
         Images: element?.bannerImage,
-        bannerImageText: element?.bannerImageAltText,
         id: element?._id,
         Actions: (
           <Grid>
@@ -1528,7 +1549,6 @@ export default function TabsTable({ type }) {
         "S.NO.": index + 1,
         Title: element?.title,
         Images: element?.bannerImage,
-        BannerImages: element?.bannerImageText,
         id: element?._id,
         Actions: (
           <Grid>
@@ -1848,7 +1868,7 @@ export default function TabsTable({ type }) {
               height="20px"
               className="img-responsive img-fluid "
               loading="lazy"
-              onClick={() => blogDetailPageHandler(element?._id)}
+              onClick={() => blogCategoryDetailPageHandler(element?._id)}
               style={{ cursor: "pointer" }}
             />
             <img
@@ -1939,7 +1959,6 @@ export default function TabsTable({ type }) {
         "S.NO.": index + 1,
         Title: element?.title,
         Images: element?.bannerImage,
-        BannerImageText: element?.bannerImageText,
         id: element?._id,
         Actions: (
           <Grid>
@@ -1991,9 +2010,7 @@ export default function TabsTable({ type }) {
         "S.NO.": index + 1,
         Title: element?.title,
         Images: element?.bannerImage,
-        BannerImageText: element?.bannerImageText,
         Text: element?.text,
-        bannerImageTextAltText: element?.bannerImageTextAltText,
         bannerImageAltText: element?.bannerImageAltText,
         id: element?._id,
         Actions: (
@@ -2098,7 +2115,6 @@ export default function TabsTable({ type }) {
         "S.NO.": index + 1,
         Title: element?.title,
         Images: element?.bannerImage,
-        // BannerImageText: element?.bannerImageText,
         id: element?._id,
         Actions: (
           <Grid>
@@ -2384,7 +2400,6 @@ export default function TabsTable({ type }) {
         "S.NO.": index + 1,
         Title: element?.imageTitle,
         Images: element?.image,
-        BannerImageText: element?.imageAltText,
         id: element?._id,
         Actions: (
           <Grid>
@@ -2674,6 +2689,17 @@ export default function TabsTable({ type }) {
             setBlogPageId(null);
           }}
           id={blogPageId}
+          type={type}
+        />
+      )}
+            {blogCategoryPageId && (
+        <BlogCategoryDetailPage
+          open={openBlogCategoryDetailPage}
+          setOpen={() => {
+            setOpenBlogCategoryDetailPage(false);
+            setBlogCategoryPageId(null);
+          }}
+          id={blogCategoryPageId}
           type={type}
         />
       )}

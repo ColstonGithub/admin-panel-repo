@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, FormControl, Select, MenuItem } from "@mui/material";
+import { Box, FormControl, Select } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FMButton from "components/FMButton/FMButton";
 import FMTypography from "components/FMTypography/FMTypography";
@@ -17,6 +17,7 @@ import { getHomePageExploreCatById } from "redux/Slices/HomePage/HomepageExplore
 import ModalWrapper from "container/HomePage/Modal";
 import { commonStyle } from "Styles/commonStyles";
 import { getHomePageCategories } from "redux/Slices/HomePage/HomePageCategories";
+
 const EditExploreCategoryComponent = (props) => {
   const { setOpen, open, id } = props;
   const [imagePreview, setImagePreview] = useState(null);
@@ -65,7 +66,6 @@ const EditExploreCategoryComponent = (props) => {
     formData.append("image", imgFile);
     formData.append("_id", id);
 
-
     dispatch(editHomepageExploreCategory(formData)).then(() => {
       const usersListData = { page: 1 };
       dispatch(getHomePageExploreCat(usersListData));
@@ -75,6 +75,7 @@ const EditExploreCategoryComponent = (props) => {
       setCategoryId("");
       setImgFile("");
     });
+
     notify({ type: "success", messgae: "Data Added Successfully" });
   };
 
@@ -91,7 +92,6 @@ const EditExploreCategoryComponent = (props) => {
     const usersListData = { page: 1 };
     dispatch(getHomePageCategories(usersListData));
   }, []);
-
 
   const productListingData = useSelector(
     (state) => state?.exploreCategories?.getCategoriesListData?.categoryList
@@ -131,7 +131,13 @@ const EditExploreCategoryComponent = (props) => {
         <Col>
           <FMTypography
             displayText={"Select Category"}
-            styleData={{ color: "#a3a3a3", fontSize: "14px" }}
+            styleData={{
+              fontFamily: "Inter",
+              fontStyle: "normal",
+              fontWeight: "500",
+              fontSize: "16px",
+              color: "#222222",
+            }}
           />
 
           <FormControl fullWidth sx={{ minWidth: "13rem" }}>

@@ -1,12 +1,12 @@
-import { Box, Grid, Modal } from "@mui/material";
+import { Box } from "@mui/material";
 import FMTypography from "components/FMTypography/FMTypography";
 import React, { useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
-import crossIcon from "assets/crossIcon.svg";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { getAboutusById } from "redux/Slices/AboutUs/AboutUs";
 import ModalWrapper from "container/HomePage/Modal";
+
 const AboutUsDetailPage = (props) => {
   const { setOpen, open, id } = props;
   const dispatch = useDispatch();
@@ -21,10 +21,6 @@ const AboutUsDetailPage = (props) => {
   useEffect(() => {
     dispatch(getAboutusById(id));
   }, [id, dispatch]);
-
-  const getNewsPressProductDetails = useSelector(
-    (state) => state?.newsPressProduct?.getNewsPressProductData?.newsPress
-  );
 
   const aboutUsDetail = useSelector(
     (state) => state?.aboutUs?.getAboutUsData?.AboutUs
@@ -61,13 +57,6 @@ const AboutUsDetailPage = (props) => {
             styleData={{ color: "#717171" }}
           />
         </Col>
-        <Col>
-          <FMTypography displayText={"Banner Image Text Alt Text"} />
-          <FMTypography
-            displayText={aboutUsDetail?.bannerImageTextAltText}
-            styleData={{ color: "#717171" }}
-          />
-        </Col>
       </Row>
       <Row>
         <Col>
@@ -87,18 +76,6 @@ const AboutUsDetailPage = (props) => {
         <Box style={{ display: "flex", justifyContent: "center" }}>
           <img
             src={aboutUsDetail?.bannerImage}
-            alt="img"
-            height="200px"
-            width="100%"
-          />
-        </Box>
-        <FMTypography
-          displayText={"Banner Image Text"}
-          styleData={{ marginBottom: "4px", marginTop: "1rem" }}
-        />
-        <Box style={{ display: "flex", justifyContent: "center" }}>
-          <img
-            src={aboutUsDetail?.bannerImageText}
             alt="img"
             height="200px"
             width="100%"

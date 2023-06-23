@@ -39,6 +39,7 @@ const AddFaqCategoryComponent = (props) => {
       const usersListData = { page: 1 };
       dispatch(getFaqCategoryData(usersListData));
       setOpen(false);
+      setValue("name", "");
     });
     notify({ type: "success", messgae: "Data Added Successfully" });
   };

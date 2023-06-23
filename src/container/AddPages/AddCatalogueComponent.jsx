@@ -30,15 +30,15 @@ const AddCatalogueComponent = (props) => {
   const handleClose = () => {
     setValue("title", "");
     setValue("imageAltText", "");
-    setValue("image", "");
-    setValue("pdf", null);
+    setImage("");
+    setPdf("");
   };
   const setCloseDialog = () => {
     setOpen(false);
     setValue("title", "");
     setValue("imageAltText", "");
-    setValue("image", "");
-    setValue("pdf", null);
+    setImage("");
+    setPdf("");
   };
 
   const {
@@ -64,10 +64,10 @@ const AddCatalogueComponent = (props) => {
       const usersListData = { page: 1 };
       dispatch(getCatalogues(usersListData));
       setOpen(false);
-      formData.append("title", "");
-      formData.append("imageAltText", "");
-      formData.append("image", "");
-      formData.append("pdf", null);
+      setValue("title", "");
+      setValue("imageAltText", "");
+      setImage("");
+      setPdf("");
     });
     notify({ type: "success", messgae: "Data Added Successfully" });
   };
@@ -167,7 +167,9 @@ const AddCatalogueComponent = (props) => {
         <Col>
           {imagePreview && (
             <Box className="mt-4">
-              <div style={commonStyle.commonModalTitleStyle}>{`Image Preview`} </div>
+              <div style={commonStyle.commonModalTitleStyle}>
+                {`Image Preview`}{" "}
+              </div>
               <img
                 src={imagePreview}
                 style={{

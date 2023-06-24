@@ -24,7 +24,7 @@ const BlogDetailPage = (props) => {
 
   const blogsDetail = useSelector((state) => state?.blogs?.getBlogsData?.Blogs);
 
-  const replacedString = blogsDetail?.image.replace("uploads", "public");
+
   return (
     <ModalWrapper
       open={open}
@@ -101,7 +101,7 @@ const BlogDetailPage = (props) => {
             displayText={"Images"}
             styleData={{ color: "#222", marginBottom: "5px" }}
           />
-          <img src={replacedString} alt="img" width="450px" height="auto" />
+          <img src={blogsDetail?.image} alt="img" width="450px" height="auto" />
         </Col>
       </Row>
     </ModalWrapper>

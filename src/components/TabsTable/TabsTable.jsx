@@ -126,7 +126,10 @@ import EditCategoryBanner from "container/EditPages/EditCategoryBanner";
 import EditCatalogue from "container/EditPages/EditCatalogue";
 import EditAboutUs from "container/EditPages/EditAboutUs";
 import EditFaqCategory from "container/EditPages/EditFaqCategory";
-import { deleteBlogCategory, getBlogCategory } from "redux/Slices/Blogs/BlogsCategory";
+import {
+  deleteBlogCategory,
+  getBlogCategory,
+} from "redux/Slices/Blogs/BlogsCategory";
 import { deleteAboutUs, getAboutUsData } from "redux/Slices/AboutUs/AboutUs";
 import EditBlogsCategory from "container/EditPages/EditBlogsCategory";
 import EditBlogs from "container/EditPages/EditBlogs";
@@ -223,7 +226,8 @@ export default function TabsTable({ type }) {
   const [exhibitionDetailPage, setOpenExhibitionDetailPage] =
     React.useState(false);
   const [openBlogDetailPage, setOpenBlogDetailPage] = React.useState(false);
-  const [openBlogCategoryDetailPage, setOpenBlogCategoryDetailPage] = React.useState(false);
+  const [openBlogCategoryDetailPage, setOpenBlogCategoryDetailPage] =
+    React.useState(false);
 
   const [openCatalogueDetailPage, setOpenCatalogueDetailPage] =
     React.useState(false);
@@ -279,7 +283,8 @@ export default function TabsTable({ type }) {
   const [videoPageId, setVideoPageId] = React.useState(null);
   const [careCleanPageId, setCareCleanPageId] = React.useState(null);
   const [categoryBannerPageId, setCategoryBannerPageId] = React.useState(null);
-  const [homepageExploreCategoryPageId, setHomepageExploreCategoryPageId] = React.useState(null);
+  const [homepageExploreCategoryPageId, setHomepageExploreCategoryPageId] =
+    React.useState(null);
   const [homepageCategoryBannerPageId, setHomepageCategoryBannerPageId] =
     React.useState(null);
   const [corporateProductPageId, setCorporateProductPageId] =
@@ -515,7 +520,8 @@ export default function TabsTable({ type }) {
     (state) => state?.faqCategory?.getFaqCategoryListData?.pagination
   );
 
-  const faqData = useSelector((state) => state?.faq?.getFaqListData?.faqData);
+  const faqData = useSelector((state) => state?.faq?.getFaqListData?.faqList);
+
   const faqPagination = useSelector(
     (state) => state?.faq?.getFaqListData?.pagination
   );
@@ -617,6 +623,7 @@ export default function TabsTable({ type }) {
     } else if (type === "homepageExploreCategory") {
       dispatch(getHomePageExploreCat(usersListData));
     }
+    console.log("faqData 2 ", faqData);
   }, [dispatch, type, usersListData]);
 
   useEffect(() => {
@@ -671,7 +678,6 @@ export default function TabsTable({ type }) {
     }
   }, [blogCategoryPageId]);
 
-
   useEffect(() => {
     if (cataloguePageId !== null && cataloguePageId) {
       setOpenCatalogueDetailPage(true);
@@ -701,13 +707,15 @@ export default function TabsTable({ type }) {
       setOpenHomepageCategoryBannerDetailPage(true);
     }
   }, [homepageCategoryBannerPageId]);
-  
+
   useEffect(() => {
-    if (homepageExploreCategoryPageId !== null && homepageExploreCategoryPageId) {
+    if (
+      homepageExploreCategoryPageId !== null &&
+      homepageExploreCategoryPageId
+    ) {
       setOpenHomepageExploreCategoryDetailPage(true);
     }
   }, [homepageExploreCategoryPageId]);
-
 
   useEffect(() => {
     if (corporateProductPageId !== null && corporateProductPageId) {
@@ -2692,7 +2700,7 @@ export default function TabsTable({ type }) {
           type={type}
         />
       )}
-            {blogCategoryPageId && (
+      {blogCategoryPageId && (
         <BlogCategoryDetailPage
           open={openBlogCategoryDetailPage}
           setOpen={() => {

@@ -39,7 +39,6 @@ const AddProductComponent = () => {
     (state) => state?.exploreCategories?.getCategoriesListData?.categoryList
   );
   
-
   const [banner, setBanner] = useState([""]);
   const [productPdf, setProductPdf] = useState("");
   const dispatch = useDispatch();

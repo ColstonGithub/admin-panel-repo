@@ -222,40 +222,45 @@ const EditProductComponent = () => {
   };
 
   const onSubmit = (data) => {
-    window.event.preventDefault();
     const formData = new FormData();
-    if (data?.name) formData.append("name", data.name?.toString());
-
+    if (data?.name) formData.append("name", data?.name?.toString());
     if (data?.description)
-      formData.append("description", data.description?.toString());
-
+      formData.append("description", data?.description?.toString());
     if (id) formData.append("_id", id?.toString());
     if (categoryId) formData.append("category", categoryId);
     if (data?.specification)
-      formData.append("specification", data.specification?.toString());
+      formData.append("specification", data?.specification?.toString());
     if (productPdf) formData.append("pdf", productPdf);
-    if (bannerPicture && bannerPicture?.length > 1) {
+
+    if (bannerPicture != [] && bannerPicture?.length > 1) {
+      console.log("bannerPicture 1 ", bannerPicture);
       bannerPicture?.map((file, index) => {
         return {
-          img: formData.append("productPicture", file.img),
-          imageAltText: formData.append("imageAltText", file.imageAltText),
+          img: formData.append("productPicture", file?.img),
+          imageAltText: formData.append("imageAltText", file?.imageAltText),
         };
       });
-    } else if (bannerPicture && bannerPicture?.length === 1) {
+    } else if (bannerPicture[0]?.img != "" && bannerPicture?.length === 1) {
+      console.log("bannerPicture 2 ", bannerPicture);
       bannerPicture[0]?.img &&
         formData.append("productPicture", bannerPicture[0]?.img);
       bannerPicture[0]?.imageAltText &&
-        formData.append("imageAltText", bannerPicture[0]?.imageAltText);
+        formData.append(
+          "imageAltText",
+          bannerPicture[0]?.imageAltText
+            ? bannerPicture[0]?.imageAltText
+            : "alt text"
+        );
     }
 
     if (colors && colors?.length > 0) {
       colors?.map((color, index) => {
         const productPictures = color?.productPictures?.map((picture, i) => {
           return {
-            img: formData.append(`colorPicture${index}`, picture.img),
+            img: formData.append(`colorPicture${index}`, picture?.img),
             colorImageAltText: formData.append(
               "colorImageAltText",
-              picture.colorImageAltText
+              picture?.colorImageAltText
             ),
           };
         });
@@ -270,10 +275,10 @@ const EditProductComponent = () => {
     dispatch(editProducts(formData)).then(() => {
       const usersListData = { page: 1 };
       dispatch(getBannerProducts(usersListData)).then(() => {
-        toast("product updated successfully redirecting to previous page");
         setTimeout(() => {
           navigate(-1);
         }, 1000);
+        toast("product updated successfully redirecting to previous page");
       });
     });
   };

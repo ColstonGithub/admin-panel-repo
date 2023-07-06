@@ -1,7 +1,4 @@
 import React, { useRef } from "react";
-import detailIcon from "assets/detailIcon.svg";
-import editIcon from "assets/editIcon.svg";
-import deleteIcon from "assets/deleteIcon.svg";
 import { styles } from "./FMTable.styles";
 import { InfinitySpin } from 'react-loader-spinner'
 import {
@@ -15,7 +12,6 @@ import {
   Box,
 } from "@mui/material";
 import FMCustomPagination from "components/FMCustomPagination/FMCustomPagination";
-import FMTypography from "components/FMTypography/FMTypography";
 
 const FMTable = ({
   columns,

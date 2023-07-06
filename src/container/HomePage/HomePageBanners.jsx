@@ -1048,7 +1048,7 @@ const HomePageBanners = (props) => {
               <FMTypography
                 displayText={
                   type === "homePageCategoryString"
-                    ? "Explore Categories"
+                    ? "Categories"
                     : type === "homePageBannerString"
                     ? "Banners"
                     : type === "brandProductString"

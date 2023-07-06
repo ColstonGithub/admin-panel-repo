@@ -11,11 +11,9 @@ import editIcon from "assets/editIcon.svg";
 import deleteIcon from "assets/deleteIcon.svg";
 
 import ExploreCategoryDetailPage from "container/DetailPages/ExploreCategoryDetailPage";
-import {
-  deleteCategory,
-} from "redux/Slices/HomePage/HomePageCategories";
+import { deleteCategory } from "redux/Slices/HomePage/HomePageCategories";
 import EditHomePageCategoryChildren from "container/EditPages/EditExploreCategoryChildren";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 // import ExploreCategoryChildrenTableConfig from "./tableConfig";
 
 export const ExploreCategoryChildrenTableConfig = (type) => [
@@ -189,18 +187,27 @@ const ExploreCategoryChildren = () => {
 
     return rowDataVal;
   };
-  const navigate= useNavigate()
+  const navigate = useNavigate();
 
   return (
     <>
       <Header />
 
       <Grid sx={{ padding: "5rem" }}>
-        <Box sx={{ padding: "0 2rem 2rem 2rem", display:'flex', alignItems:'center' }}>
-        <ArrowBackIcon sx={{marginRight:'3rem', cursor:'pointer'}} onClick={()=>navigate(-1)} />
+        <Box
+          sx={{
+            padding: "0 2rem 2rem 2rem",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <ArrowBackIcon
+            sx={{ marginRight: "3rem", cursor: "pointer" }}
+            onClick={() => navigate(-1)}
+          />
           <FMTypography
             displayText={exploreCategoryChildTitle?.pageTitle}
-            styleData={{ fontSize: "2rem",fontFamily: "Inter" }}
+            styleData={{ fontSize: "2rem", fontFamily: "Inter" }}
           />
         </Box>
         <Box>

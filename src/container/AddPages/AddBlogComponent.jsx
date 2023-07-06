@@ -75,14 +75,15 @@ const AddBlogComponent = () => {
   };
 
   const handleChildData = (childData) => {
-    const div = document.createElement("div");
-    div.innerHTML = childData;
-    const text = div.textContent || div.innerText || "";
-    setDataText(text);
+    // const div = document.createElement("div");
+    //  div.innerHTML = childData;
+    // const text = div.textContent || div.innerText || "";
+
+    setDataText(childData);
   };
 
   return (
-    <div>
+    <>
       <Grid
         sx={{
           backgroundColor: "#f8f8f8",
@@ -277,7 +278,7 @@ const AddBlogComponent = () => {
                       color: "#222222",
                     }}
                   />
-                  <Editor onData={handleChildData} />
+                  <Editor onData={handleChildData} dataText={dataText} />
                 </Col>
               </Row>
               <FMButton
@@ -287,6 +288,7 @@ const AddBlogComponent = () => {
                 styleData={{
                   ...commonStyle.commonModalTitleStyle,
                   textTransform: "capitalize",
+                  color: "#fff",
                   marginTop: "2rem",
                   "&:hover": {
                     border: "none",
@@ -299,7 +301,7 @@ const AddBlogComponent = () => {
           </Row>
         </Container>
       </Grid>
-    </div>
+    </>
   );
 };
 

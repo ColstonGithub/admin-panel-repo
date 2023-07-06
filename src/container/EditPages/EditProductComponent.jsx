@@ -406,7 +406,7 @@ const EditProductComponent = () => {
                     styleData={{
                       color: "#a3a3a3",
                       fontSize: "0.875rem",
-                      fontFamily: " 'Inter', sans-serif",
+                      fontFamily: "'Inter', sans-serif",
                       fontWeight: "500",
                     }}
                   />

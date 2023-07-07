@@ -1679,7 +1679,7 @@ export default function TabsTable({ type }) {
           "S.NO.": index + 1,
           City: element?.city,
           CenterName: element?.centerName,
-          CenterAddress: element?.centerAddress,
+          centerAddress: element?.centerAddress,
           id: element?._id,
           Actions: (
             <Grid>

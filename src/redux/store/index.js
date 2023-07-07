@@ -30,6 +30,8 @@ import careerSectionSlice from "../Slices/CareerSection/CareerSection";
 import contactUsSectionSlice from "../Slices/ContactUsSection/ContactUsSection";
 import homepageExploreCategorySlice from "../Slices/HomePage/HomepageExploreCategory";
 
+import orientationCenterSlice from "../Slices/OrientationCenter/orientation";
+
 const rootReducer = combineReducers({
   auth: authReducer,
   exploreCategories: exploreCategoriesSlice,
@@ -58,6 +60,9 @@ const rootReducer = combineReducers({
   homepageExploreCategory: homepageExploreCategorySlice,
   // children
   ExploreCategoryChildren: ExploreCategoryChildrenSlice,
+
+  orientationCenter: orientationCenterSlice,
+  
 });
 
 const initializeStore = () =>

@@ -65,8 +65,8 @@ const AddNewsPressProductComponent = (props) => {
       setValue("imageAltText", "");
       setImage("");
       setImagePreview("");
+      notify({ type: "success", messgae: "Data Added Successfully" });
     });
-    notify({ type: "success", messgae: "Data Added Successfully" });
   };
 
   const handleBannerPictures = (e) => {

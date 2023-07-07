@@ -35,6 +35,7 @@ import {
   VIDEO,
   VIRTUAL_TOUR_BANNER,
   WARRANTY_REGISTRATION,
+  orientationCenter,
 } from "Routes/Routes";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
@@ -57,6 +58,8 @@ import AddFaqCategoryComponent from "container/AddPages/AddFaqCategoryComponent"
 import AddFAQs from "container/AddPages/AddFAQs";
 import AddHomepageExploreCategoryComponent from "container/AddPages/AddHomepageExploreCategoryComponent";
 
+import AddOrientationCenter from "container/AddPages/AddOrientationCenter";
+
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import productIcon from "assets/product.svg";
@@ -75,6 +78,8 @@ import warrantyRegIcon from "assets/warrantyReg.svg";
 import quotationSecIcon from "assets/quotationSec.svg";
 import careerSecIcon from "assets/careerSec.svg";
 import contactUsIcon from "assets/contactUs.svg";
+import orientationIcon from "assets/orientation.svg";
+
 
 const HomePageBanners = (props) => {
   const navigate = useNavigate();
@@ -99,13 +104,16 @@ const HomePageBanners = (props) => {
   const [addCorporateProduct, setAddCorporateProduct] = useState(false);
   const [addCorporateBanner, setAddCorporateBanner] = useState(false);
   const [addBrandPageBanner, setAddBrandPageBanner] = useState(false);
+  const [addOrientationCenter, setAddOrientationCenter] = useState(false);
   const [addCategoryBanner, setAddCategoryBanner] = useState(false);
   const [addBlogCategory, setAddBlogCategory] = useState(false);
   const [addAboutUs, setAddAboutUs] = useState(false);
   const [addFaqCategory, setAddFaqCategory] = useState(false);
+
   const [addHomepageExploreCategory, setAddHomepageExploreCategory] =
     useState(false);
   const [addFaqs, setAddFaqs] = useState(false);
+
   const handleOptionClick = (option) => {
     setActiveOption(option);
   };
@@ -173,6 +181,10 @@ const HomePageBanners = (props) => {
 
   const addBrandPageBannerModal = () => {
     setAddBrandPageBanner(true);
+  };
+  const addOrientationCenterModal = () => {
+    console.log("calling orientation modal")
+    setAddOrientationCenter(true);
   };
   const addCategoryBannerModal = () => {
     setAddCategoryBanner(true);
@@ -302,6 +314,10 @@ const HomePageBanners = (props) => {
   };
   const catalogueNavigator = () => {
     navigate(CATALOGUE);
+  };
+
+  const orientationNavigator = () => {
+    navigate(orientationCenter);
   };
 
   const faqsNavigator = () => {
@@ -613,7 +629,7 @@ const HomePageBanners = (props) => {
                     style={{ marginRight: "24px", width: "15px" }}
                   />
                   <FMTypography
-                    displayText={"Exhibition"}
+                    displayText={"Exhibitions"}
                     onClick={() => exhibitionNavigator()}
                     styleData={{
                       fontSize: "16px",
@@ -784,6 +800,7 @@ const HomePageBanners = (props) => {
 
                 {/* blog dropdown above */}
               </div>
+
               <div style={{ marginBottom: "20px" }}>
                 <Button
                   sx={{
@@ -1041,6 +1058,31 @@ const HomePageBanners = (props) => {
                   />
                 </Button>
               </div>
+
+              <div style={{ marginBottom: "20px" }}>
+                <Button
+                  sx={{
+                    "&:hover": { background: "#EBECEF", borderRadius: "8px" },
+                  }}
+                >
+                  <img
+                    src={orientationIcon}
+                    alt="icon"
+                    style={{ marginRight: "24px", width: "15px" }}
+                  />
+                  <FMTypography
+                    displayText={"Orientation Center"}
+                    onClick={() => orientationNavigator()}
+                    styleData={{
+                      cursor: "pointer",
+                      fontWeight: "400",
+                      color: "#222222",
+                      fontSize: "16px",
+                      fontFamily: " 'Inter', sans-serif",
+                    }}
+                  />
+                </Button>
+              </div>
             </div>
           </Col>
           <Col className="col-md-9" style={{ padding: "50px 50px 0px 50px" }}>
@@ -1097,6 +1139,8 @@ const HomePageBanners = (props) => {
                     ? "Contact Us"
                     : type === "homepageExploreCategory"
                     ? "Homepage Explore Category"
+                    : type === "orientationCenterString"
+                    ? "Orientation Center"
                     : "New Page"
                 }
                 styleData={{
@@ -1149,6 +1193,8 @@ const HomePageBanners = (props) => {
                       ? addBlogModal
                       : type === "blogsCategoryString"
                       ? addBlogCategoryModal
+                      : type === "orientationCenterString"
+                      ? addOrientationCenterModal
                       : type === "aboutUsString"
                       ? addAboutUsModal
                       : type === "faqsString"
@@ -1222,6 +1268,10 @@ const HomePageBanners = (props) => {
         <AddBrandPageBannerComponent
           open={addBrandPageBanner}
           setOpen={setAddBrandPageBanner}
+        />
+        <AddOrientationCenter
+          open={addOrientationCenter}
+          setOpen={setAddOrientationCenter}
         />
         <AddCategoryBannerComponent
           open={addCategoryBanner}

@@ -28,6 +28,7 @@ import {
   videoConfig,
   virtualTourBannerConfig,
   warrantyRegistrationConfig,
+  orientationCenterConfig,
 } from "./TableInTabs/tableConfig";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -98,6 +99,12 @@ import {
   deleteBrandPageBanner,
   getBrandPageBanner,
 } from "redux/Slices/BrandPage/brandPageBanner";
+
+import {
+  getOrientationCenterData,
+  deleteOrientationCenter,
+} from "redux/Slices/OrientationCenter/orientation";
+
 import HomePageBannerDetailPage from "container/DetailPages/HomepageBannerDetailPage";
 import ExploreCategoryDetailPage from "container/DetailPages/ExploreCategoryDetailPage";
 import ProductDetailPage from "container/DetailPages/ProductsDetailPage";
@@ -563,12 +570,14 @@ export default function TabsTable({ type }) {
     (state) => state?.contactUsSection?.getContactUsSectionListData?.pagination
   );
 
-  const homepageExploreCatSectionData = useSelector(
-    (state) => state?.homepageExploreCategory?.getExploreCategoryListData
+  const orientationCenterData = useSelector(
+    (state) =>
+      state?.orientationCenter?.getOrientationCenterListData
+        ?.orientationProducts
   );
 
-  const homepageExploreCatSectionPagination = useSelector(
-    (state) => state?.contactUsSection?.getContactUsSectionListData?.pagination
+  const orientationCenterPagination = useSelector(
+    (state) => state?.orientationCenter?.getOrientationCenterListData.pagination
   );
 
   useEffect(() => {
@@ -622,6 +631,8 @@ export default function TabsTable({ type }) {
       dispatch(getContactUsSection(usersListData));
     } else if (type === "homepageExploreCategory") {
       dispatch(getHomePageExploreCat(usersListData));
+    } else if (type === "orientationCenterString") {
+      dispatch(getOrientationCenterData(usersListData));
     }
     console.log("faqData 2 ", faqData);
   }, [dispatch, type, usersListData]);
@@ -1180,6 +1191,12 @@ export default function TabsTable({ type }) {
           dispatch(getHomePageExploreCat(usersListData));
         }
       });
+    else if (type === "orientationCenterString")
+      dispatch(deleteOrientationCenter(cId)).then((res) => {
+        if (res) {
+          dispatch(getOrientationCenterData(usersListData));
+        }
+      });
   };
 
   const ViewParticularUserHandler = (id) => {
@@ -1648,6 +1665,59 @@ export default function TabsTable({ type }) {
 
       return rowDataVal.push(rowData);
     });
+
+    return rowDataVal;
+  };
+
+  const getOrientationCenterRowData = () => {
+    let rowDataVal = [];
+
+    orientationCenterData &&
+      orientationCenterData?.map((element, index) => {
+        const rowData = {
+          "S.NO.": index + 1,
+          City: element?.city,
+          CenterName: element?.CenterName,
+          CenterAddress: element?.centerAddress,
+          id: element?._id,
+          Actions: (
+            <Grid>
+              <img
+                src={detailIcon}
+                alt="img"
+                width="20px"
+                height="20px"
+                className="img-responsive img-fluid "
+                loading="lazy"
+                onClick={() => newsPressProductPageHandler(element?._id)}
+                style={{ cursor: "pointer" }}
+              />
+              <img
+                src={editIcon}
+                alt="img"
+                width="20px"
+                height="20px"
+                className="img-responsive img-fluid "
+                loading="lazy"
+                onClick={() => editNewsPressProductFunc(element?._id)}
+                style={{ marginLeft: "1.5rem", cursor: "pointer" }}
+              />
+              <img
+                src={deleteIcon}
+                alt="img"
+                width="17px"
+                height="17px"
+                className="img-responsive img-fluid "
+                loading="lazy"
+                onClick={() => deleteCategoryFunc(element?._id)}
+                style={{ marginLeft: "1.5rem", cursor: "pointer" }}
+              />
+            </Grid>
+          ),
+        };
+
+        return rowDataVal.push(rowData);
+      });
 
     return rowDataVal;
   };
@@ -2399,7 +2469,6 @@ export default function TabsTable({ type }) {
   };
 
   //
-
   const getHomepageExploreCatRowData = () => {
     let rowDataVal = [];
 
@@ -2522,6 +2591,8 @@ export default function TabsTable({ type }) {
                   ? careerSectionConfig()
                   : type === "contactUsSectionString"
                   ? contactUsSectionConfig()
+                  : type === "orientationCenterString"
+                  ? orientationCenterConfig()
                   : homepageExploreCatSectionConfig()
               }
               rows={
@@ -2573,6 +2644,8 @@ export default function TabsTable({ type }) {
                   ? getCareerSectionRowData()
                   : type === "contactUsSectionString"
                   ? getContactUsSectionRowData()
+                  : type === "orientationCenterString"
+                  ? getOrientationCenterRowData()
                   : getHomepageExploreCatRowData()
               }
               pagination
@@ -2627,6 +2700,8 @@ export default function TabsTable({ type }) {
                   ? careerSectionPagination?.totalPages
                   : type === "contactUsSectionString"
                   ? contactUsSectionPagination?.totalPages
+                  : type === "orientationCenterString"
+                  ? orientationCenterPagination?.totalPages
                   : homepageExploreCategoryPagination?.totalPages
               }
               // onRowClick={ViewParticularUserHandler}

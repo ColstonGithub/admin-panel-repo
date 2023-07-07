@@ -44,6 +44,7 @@ import {
   CAREER_SECTION,
   CONTACT_US_SECTION,
   HOME_PAGE_EXPLORE_CATEGORY,
+  orientationCenter,
 } from "Routes/Routes";
 import Login from "./views/Signin/Login";
 import SignUp from "./views/SignUp/SignUp";
@@ -55,11 +56,13 @@ import HomePageBanners from "container/HomePage/HomePageBanners";
 import PrivateRoutes from "Routes/PrivateRoutes";
 
 import AddProductComponent from "container/AddPages/AddProductComponent";
+import AddOrientationCenter from "container/AddPages/AddOrientationCenter";
 import EditProductComponent from "container/EditPages/EditProductComponent";
 import AddBlogComponent from "container/AddPages/AddBlogComponent";
 import EditBlogs from "container/EditPages/EditBlogs";
 // children
 import ExploreCategoryChildren from "container/Children/ExploreCategoryChildren/ExploreCategoryChildren";
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -81,9 +84,10 @@ const App = () => {
           <Route path={EDIT_PRODUCT} element={<EditProductComponent />} />
 
           <Route path={ADD_BLOG} element={<AddBlogComponent />} />
-          <Route path={EDIT_BLOG} element={<EditBlogs  />} />
+          <Route path={EDIT_BLOG} element={<EditBlogs />} />
 
           {/* private routes below */}
+
           <Route
             path={HOME}
             element={
@@ -131,6 +135,16 @@ const App = () => {
                 Component={HomePageBanners}
                 key={BRAND_PAGE}
                 type="brandPageString"
+              />
+            }
+          />
+          <Route
+            path={orientationCenter}
+            element={
+              <PrivateRoutes
+                Component={HomePageBanners}
+                key={orientationCenter}
+                type="orientationCenterString"
               />
             }
           />

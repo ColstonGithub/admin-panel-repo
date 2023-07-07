@@ -42,3 +42,6 @@ export const QUOTATION_SECTION = "/quotation-section";
 export const CAREER_SECTION = "/career-section";
 export const CONTACT_US_SECTION = "/contact-us-section";
 export const HOME_PAGE_EXPLORE_CATEGORY = "/homepage-explore-category";
+
+
+export const orientationCenter = "/orientation-center";

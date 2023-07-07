@@ -22,10 +22,11 @@ export const homePageTableConfig = (
     align: "left",
     width: "15%",
     renderColumn: (row) => {
+      console.log("row ",row)
       return type === "homePageBannerString" ? (
         <>
           <img
-            src={row?.Images?.[0]?.img}
+            src={row?.Images}
             alt="img"
             width="50px"
             height="40px"
@@ -695,7 +696,6 @@ export const categoryBannerConfig = (type) => [
     },
   },
 
-
   {
     headername: "Actions",
     field: "Actions",
@@ -926,7 +926,6 @@ export const homepageExploreCatSectionConfig = (type) => [
     align: "left",
     width: "20%",
     renderColumn: (row) => {
-      
       return (
         <>
           <img
@@ -941,6 +940,35 @@ export const homepageExploreCatSectionConfig = (type) => [
       );
     },
   },
+  {
+    headername: "Actions",
+    field: "Actions",
+    width: "20%",
+  },
+];
+
+export const orientationCenterConfig = (type) => [
+  {
+    headername: "S.NO.",
+    field: "S.NO.",
+    width: "16%",
+  },
+  {
+    headername: "City",
+    field: "City",
+    width: "20%",
+  },
+  {
+    headername: "Center Name",
+    field: "CenterName",
+    width: "20%",
+  },
+  {
+    headername: "Center Address",
+    field: "centerAddress",
+    width: "20%",
+  },
+
   {
     headername: "Actions",
     field: "Actions",

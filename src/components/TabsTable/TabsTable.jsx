@@ -1674,10 +1674,11 @@ export default function TabsTable({ type }) {
 
     orientationCenterData &&
       orientationCenterData?.map((element, index) => {
+        console.log("element", element);
         const rowData = {
           "S.NO.": index + 1,
           City: element?.city,
-          CenterName: element?.CenterName,
+          CenterName: element?.centerName,
           CenterAddress: element?.centerAddress,
           id: element?._id,
           Actions: (

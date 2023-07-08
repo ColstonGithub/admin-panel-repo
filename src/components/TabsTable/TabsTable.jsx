@@ -179,6 +179,8 @@ import HomepageCategoryBannerDetailPage from "container/DetailPages/HomepageBann
 import EditExploreCategoryComponent from "container/EditPages/EditExploreCategory";
 import HomepageExploreCategoryDetailPage from "container/DetailPages/HomepageExploreCategoryDetailPage";
 import BlogCategoryDetailPage from "container/DetailPages/BlogCategoryDetailPage";
+import OrientationCenterDetailPage from "container/DetailPages/OrientationCenter";
+import EditOrientationCenter from "container/EditPages/EditOrientationCenter";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -311,6 +313,7 @@ export default function TabsTable({ type }) {
   const [quotationSectionId, setQuotationSectionId] = React.useState(null);
   const [careerSectionId, setCareerSectionId] = React.useState(null);
   const [contactUsSectionId, setContactUsSectionId] = React.useState(null);
+  const [orientationCenterId, setOrientationCenterId] = React.useState(null);
 
   // edit states
   const [editHomeBanner, setEditHomeBanner] = React.useState(false);
@@ -350,6 +353,8 @@ export default function TabsTable({ type }) {
   const [editBlogs, setEditBlogs] = React.useState(false);
   const [editFAQs, setEditFAQs] = React.useState(false);
   const [editExploreCategory, setEditExploreCategory] = React.useState(false);
+  const [editOrientationCenter, setEditOrientationCenter] =
+    React.useState(false);
 
   const [editFaqCategory, setEditFaqCategory] = React.useState(false);
 
@@ -912,6 +917,10 @@ export default function TabsTable({ type }) {
   const editAboutUsFunc = (cId) => {
     setEditAboutUs(cId);
   };
+  const editOrientationCenterFunc = (cId) => {
+    setEditOrientationCenter(cId);
+    console.log("editOrientationCenter ", editOrientationCenter);
+  };
 
   const editBlogCategoryFunc = (cId) => {
     setEditBlogCategory(cId);
@@ -990,6 +999,9 @@ export default function TabsTable({ type }) {
 
   const newsPressBannerPageHandler = (cId) => {
     setNewsPressBannerPageId(cId);
+  };
+  const orientationCenterPageHandler = (cId) => {
+    setOrientationCenterId(cId);
   };
   const newsPressProductPageHandler = (cId) => {
     setNewsPressProductPageId(cId);
@@ -1690,7 +1702,7 @@ export default function TabsTable({ type }) {
                 height="20px"
                 className="img-responsive img-fluid "
                 loading="lazy"
-                onClick={() => newsPressProductPageHandler(element?._id)}
+                onClick={() => orientationCenterPageHandler(element?._id)}
                 style={{ cursor: "pointer" }}
               />
               <img
@@ -1700,7 +1712,7 @@ export default function TabsTable({ type }) {
                 height="20px"
                 className="img-responsive img-fluid "
                 loading="lazy"
-                onClick={() => editNewsPressProductFunc(element?._id)}
+                onClick={() => editOrientationCenterFunc(element?._id)}
                 style={{ marginLeft: "1.5rem", cursor: "pointer" }}
               />
               <img
@@ -2721,6 +2733,19 @@ export default function TabsTable({ type }) {
           type={type}
         />
       )}
+
+      {orientationCenterId && (
+        <OrientationCenterDetailPage
+          open={openDetailPage}
+          setOpen={() => {
+            setOpenDetailPage(false);
+            setProdId(null);
+          }}
+          id={orientationCenterId}
+          type={type}
+        />
+      )}
+
       {exploreCatId && (
         <ExploreCategoryDetailPage
           open={openExploreCatDetail}
@@ -3066,6 +3091,14 @@ export default function TabsTable({ type }) {
               open={editFaqCategory}
               setOpen={setEditFaqCategory}
               id={editedFaqCategoryId}
+              usersListData={usersListData}
+            />
+          )}
+          {editOrientationCenter && (
+            <EditOrientationCenter
+              open={editOrientationCenter}
+              setOpen={setEditOrientationCenter}
+              id={editOrientationCenter}
               usersListData={usersListData}
             />
           )}

@@ -45,11 +45,9 @@ export const deleteOrientationCenter = createAsyncThunk(
 
 export const orientationCenterDetail = createAsyncThunk(
   ORIENTATION_DETAIL_PAGE,
-  async (orientationCenterById, thunkAPI) => {
+  async (id, thunkAPI) => {
     try {
-      const response = await axiosInstance.get(
-        `api/orientationCenter/${orientationCenterById}`
-      );
+      const response = await axiosInstance.get(`api/orientationCenter/${id}`);
 
       return response.data;
     } catch (error) {
@@ -61,7 +59,6 @@ export const orientationCenterDetail = createAsyncThunk(
 export const addOrientationCenter = createAsyncThunk(
   ADD_ORIENTATION,
   async (formData, thunkAPI) => {
-    console.log("addOrientationCenter ", formData);
     try {
       const response = await axiosInstance.post(
         `api/orientationCenter/create`,
@@ -77,11 +74,12 @@ export const addOrientationCenter = createAsyncThunk(
 
 export const editOrientationCenter = createAsyncThunk(
   EDIT_ORIENTATION,
-  async (editOrientationData, thunkAPI) => {
+  async (payload, thunkAPI) => {
     try {
+      console.log("payload ", payload);
       const response = await axiosInstance.patch(
         `api/orientationCenter/update`,
-        editOrientationData
+        payload
       );
 
       return response.data;

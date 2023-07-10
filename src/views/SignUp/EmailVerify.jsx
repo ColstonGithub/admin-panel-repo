@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import FMTypography from "components/FMTypography/FMTypography";
-import ColstonLogo from "../../assets/ColstonLogo.svg";
+import ColstonLogo from "../../assets/ColstonLogo.png";
 import { HeaderStyle } from "components/SearchBar/HeaderStyle";
 import React from "react";
 import { commonStyle } from "Styles/commonStyles";

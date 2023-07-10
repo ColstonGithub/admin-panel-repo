@@ -80,7 +80,6 @@ import careerSecIcon from "assets/careerSec.svg";
 import contactUsIcon from "assets/contactUs.svg";
 import orientationIcon from "assets/orientation.svg";
 
-
 const HomePageBanners = (props) => {
   const navigate = useNavigate();
   const { children, value, index, type, ...other } = props;
@@ -183,7 +182,7 @@ const HomePageBanners = (props) => {
     setAddBrandPageBanner(true);
   };
   const addOrientationCenterModal = () => {
-    console.log("calling orientation modal")
+    console.log("calling orientation modal");
     setAddOrientationCenter(true);
   };
   const addCategoryBannerModal = () => {
@@ -1071,7 +1070,7 @@ const HomePageBanners = (props) => {
                     style={{ marginRight: "24px", width: "15px" }}
                   />
                   <FMTypography
-                    displayText={"Orientation Center"}
+                    displayText={"Live Display Centre"}
                     onClick={() => orientationNavigator()}
                     styleData={{
                       cursor: "pointer",
@@ -1140,7 +1139,7 @@ const HomePageBanners = (props) => {
                     : type === "homepageExploreCategory"
                     ? "Homepage Explore Category"
                     : type === "orientationCenterString"
-                    ? "Orientation Center"
+                    ? "Live Display Centre"
                     : "New Page"
                 }
                 styleData={{

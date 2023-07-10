@@ -16,7 +16,7 @@ import { FORGOTPASSWORD, SIGNUP } from "../../Routes/Routes";
 import FMButton from "../../components/FMButton/FMButton";
 import FMTypography from "../../components/FMTypography/FMTypography";
 
-import ColstonLogo from "../../assets/ColstonLogo.svg";
+import ColstonLogo from "../../assets/ColstonLogo.png";
 import { login } from "../../redux/Slices/Login/auth.slice";
 
 import { commonStyle } from "../../Styles/commonStyles";
@@ -67,13 +67,15 @@ const Login = () => {
 
   return (
     <>
-      <Box
-        sx={{ ...commonStyle.flexDisplayStyle, padding: "1rem 50px 0 50px" }}
-      >
+      <Box sx={{ padding: "1rem 50px 0 50px" }}>
         <img
           src={ColstonLogo}
           alt="ColstonLogo"
-          style={{ ...HeaderStyle.ColstonLogoStyle, marginTop: "0.6rem" }}
+          style={{
+            ...HeaderStyle.ColstonLogoStyle,
+            marginTop: "0.6rem",
+            width: "300px",
+          }}
         />
       </Box>
       <Grid container sx={commonStyle.mainGridContainer}>

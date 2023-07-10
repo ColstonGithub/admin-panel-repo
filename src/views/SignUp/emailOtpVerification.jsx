@@ -1,7 +1,7 @@
 import { Box, Grid, InputBase } from "@mui/material";
 import FMButton from "../../components/FMButton/FMButton";
 import FMTypography from "../../components/FMTypography/FMTypography";
-import ColstonLogo from "../../assets/ColstonLogo.svg";
+import ColstonLogo from "../../assets/ColstonLogo.png";
 import { HeaderStyle } from "../../components/SearchBar/HeaderStyle";
 import React from "react";
 import { commonStyle } from "../../Styles/commonStyles";

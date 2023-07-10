@@ -6,7 +6,7 @@ import { tests } from "../../constants/AppConstant";
 import { EMAIL_VERIFY, FORGOTPASSWORD, LOGIN } from "Routes/Routes";
 import FMButton from "../../components/FMButton/FMButton";
 import FMTypography from "../../components/FMTypography/FMTypography";
-import ColstonLogo from "../../assets/ColstonLogo.svg";
+import ColstonLogo from "../../assets/ColstonLogo.png";
 import { commonStyle } from "../../Styles/commonStyles";
 import { HeaderStyle } from "../../components/SearchBar/HeaderStyle";
 import { useForm } from "react-hook-form";

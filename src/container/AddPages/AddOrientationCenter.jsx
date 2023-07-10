@@ -52,7 +52,7 @@ const AddOrientationCenter = (props) => {
       setOpen={setOpen}
       handleClose={handleClose}
       setCloseDialog={setCloseDialog}
-      modalTitle={"Add Orientation Center"}
+      modalTitle={"Add Live Display Centre"}
     >
       <Row style={{ marginBottom: "1rem" }}>
         <Col md={6}>

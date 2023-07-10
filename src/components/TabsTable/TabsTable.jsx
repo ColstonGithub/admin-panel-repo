@@ -179,7 +179,7 @@ import HomepageCategoryBannerDetailPage from "container/DetailPages/HomepageBann
 import EditExploreCategoryComponent from "container/EditPages/EditExploreCategory";
 import HomepageExploreCategoryDetailPage from "container/DetailPages/HomepageExploreCategoryDetailPage";
 import BlogCategoryDetailPage from "container/DetailPages/BlogCategoryDetailPage";
-import OrientationCenterDetailPage from "container/DetailPages/OrientationCenter";
+import OrientationCenterDetailPage from "container/DetailPages/OrientationCenterDetailPage";
 import EditOrientationCenter from "container/EditPages/EditOrientationCenter";
 
 function TabPanel(props) {
@@ -276,6 +276,8 @@ export default function TabsTable({ type }) {
   const [openCareerSecDetailPage, setOpenCareerSecDetailPage] =
     React.useState(false);
   const [openContactUsSecDetailPage, setOpenContactUsSecDetailPage] =
+    React.useState(false);
+  const [orientationDetailPage, setOrientationDetailPage] =
     React.useState(false);
 
   // id states fro detail page below
@@ -639,7 +641,6 @@ export default function TabsTable({ type }) {
     } else if (type === "orientationCenterString") {
       dispatch(getOrientationCenterData(usersListData));
     }
-    console.log("faqData 2 ", faqData);
   }, [dispatch, type, usersListData]);
 
   useEffect(() => {
@@ -653,6 +654,12 @@ export default function TabsTable({ type }) {
       setOpenExploreCatDetail(true);
     }
   }, [exploreCatId]);
+
+  useEffect(() => {
+    if (orientationCenterId !== null && orientationCenterId) {
+      setOrientationDetailPage(true);
+    }
+  }, [orientationCenterId]);
 
   useEffect(() => {
     if (bannerPageId !== null && bannerPageId) {
@@ -2736,10 +2743,11 @@ export default function TabsTable({ type }) {
 
       {orientationCenterId && (
         <OrientationCenterDetailPage
-          open={openDetailPage}
+          open={orientationDetailPage}
           setOpen={() => {
-            setOpenDetailPage(false);
-            setProdId(null);
+            console.log("clicked");
+            setOrientationDetailPage(false);
+            setOrientationCenterId(null);
           }}
           id={orientationCenterId}
           type={type}

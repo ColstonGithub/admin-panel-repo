@@ -1,7 +1,7 @@
 import { Avatar, Box, Grid, Typography } from "@mui/material";
 import SearchBar from "components/SearchBar/SearchBar";
 import React, { useEffect, useState } from "react";
-import colstonLogo from "../../assets/colston-logo.svg";
+import colstonLogo from "../../assets/ColstonLogo.png";
 import profileIcon from "../../assets/profileIcon.svg";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
@@ -9,7 +9,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { styled, alpha } from "@mui/material/styles";
 import { HeaderStyle } from "./HeaderStyle";
 import { commonStyle } from "../../Styles/commonStyles";
-import { Col, Container, Nav, Navbar, NavDropdown, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import "./HeaderBootstrapMenu.css";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -20,6 +20,7 @@ import { useNavigate } from "react-router-dom";
 import { LOGIN } from "Routes/Routes";
 import { logout } from "redux/Slices/Login/auth.slice";
 import { Link } from "react-router-dom";
+
 const StyledMenu = styled((props) => (
   <Menu
     elevation={0}
@@ -85,22 +86,22 @@ const Header = () => {
 
   const open = Boolean(anchorEl);
   const openSec = Boolean(anchorElSec);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClickSec = (event) => {
     setAnchorElSec(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const handleCloseSec = () => {
     setAnchorElSec(null);
   };
-
-  const accountDetailData = useSelector(
-    (state) => state?.menuList?.getMenuOptionsData?.categoryList
-  );
 
   const navigateToLogin = () => {
     navigate(LOGIN);
@@ -133,15 +134,18 @@ const Header = () => {
   };
 
   const [hoverMenu, setHoverMenu] = useState(false);
+
   const menuOpenedOnHover = () => {
     setHoverMenu(true);
     // const element = document.getElementsByClassName("rowOnHover");
   };
 
   const [show, setShow] = useState("");
+
   const showDropdown = (id) => {
     setShow(id);
   };
+
   const hideDropdown = () => {
     setShow("");
   };
@@ -165,7 +169,11 @@ const Header = () => {
             <img
               src={colstonLogo}
               alt="ColstonLogo"
-              style={{ ...HeaderStyle.ColstonLogoStyle, marginTop: "0.6rem" }}
+              style={{
+                ...HeaderStyle.ColstonLogoStyle,
+                marginTop: "0.6rem",
+                width: "300px",
+              }}
             />
           </Link>
         </Col>

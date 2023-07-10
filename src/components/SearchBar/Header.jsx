@@ -173,6 +173,7 @@ const Header = () => {
                 ...HeaderStyle.ColstonLogoStyle,
                 marginTop: "0.6rem",
                 width: "300px",
+                height: "auto",
               }}
             />
           </Link>

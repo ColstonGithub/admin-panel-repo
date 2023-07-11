@@ -175,23 +175,23 @@ const AddProductComponent = () => {
 
   const onSubmit = (data) => {
     const formData = new FormData();
-    if (data?.name) formData.append("name", data.name?.toString());
+    if (data?.name) formData.append("name", data?.name?.toString());
 
     if (data?.description)
-      formData.append("description", data.description?.toString());
+      formData.append("description", data?.description?.toString());
 
     if (categoryId) formData.append("category", categoryId);
     // formData.append("amazonLink", data?.amazonLink?.toString());
     if (data?.specification)
-      formData.append("specification", data.specification?.toString());
+      formData.append("specification", data?.specification?.toString());
 
     if (productPdf) formData.append("pdf", productPdf);
 
     if (bannerPicture && bannerPicture?.length > 1) {
       bannerPicture?.map((file, index) => {
         return {
-          img: formData.append("productPicture", file.img),
-          imageAltText: formData.append("imageAltText", file.imageAltText),
+          img: formData.append("productPicture", file?.img),
+          imageAltText: formData.append("imageAltText", file?.imageAltText),
         };
       });
     } else if (bannerPicture && bannerPicture?.length === 1) {
@@ -205,10 +205,10 @@ const AddProductComponent = () => {
       colors?.map((color, index) => {
         const productPictures = color?.productPictures?.map((picture, i) => {
           return {
-            img: formData.append(`colorPicture${index}`, picture.img),
+            img: formData.append(`colorPicture${index}`, picture?.img),
             colorImageAltText: formData.append(
               "colorImageAltText",
-              picture.colorImageAltText
+              picture?.colorImageAltText
             ),
           };
         });

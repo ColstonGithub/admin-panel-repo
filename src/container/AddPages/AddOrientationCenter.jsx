@@ -61,7 +61,7 @@ const AddOrientationCenter = (props) => {
             name="city"
             register={register("city")}
             error={errors?.city}
-            errorDisplayText={errors.city?.message}
+            errorDisplayText={errors?.city?.message}
           />
         </Col>
         <Col md={6}>
@@ -73,7 +73,7 @@ const AddOrientationCenter = (props) => {
             name="email"
             register={register("email")}
             error={errors?.email}
-            errorDisplayText={errors.email?.message}
+            errorDisplayText={errors?.email?.message}
           />
         </Col>
       </Row>

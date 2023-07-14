@@ -6,15 +6,15 @@ import FMButton from "components/FMButton/FMButton";
 import FMTypography from "components/FMTypography/FMTypography";
 import FMInput from "components/FMInput/FMInput";
 import { Col, Row } from "react-bootstrap";
-import { addOrientationCenterSchema } from "validationSchema/AddOrientationCenterSchema";
+import { addWhereToBuySchema } from "validationSchema/AddWhereToBuySchema";
 import {
-  addOrientationCenter,
-  getOrientationCenterData,
-} from "redux/Slices/OrientationCenter/orientation";
+  addWhereToBuy,
+  getWhereToBuyData,
+} from "redux/Slices/WhereToBuy/whereToBuy";
 import { notify } from "constants/utils";
 import ModalWrapper from "container/HomePage/Modal";
 
-const AddOrientationCenter = (props) => {
+const AddWhereToBuyComponent = (props) => {
   const { setOpen, open } = props;
 
   const handleClose = () => {};
@@ -28,16 +28,16 @@ const AddOrientationCenter = (props) => {
     formState: { errors },
     setValue,
   } = useForm({
-    resolver: yupResolver(addOrientationCenterSchema),
+    resolver: yupResolver(addWhereToBuySchema),
     mode: "onChange",
   });
 
   const dispatch = useDispatch();
 
   const onSubmit = (data) => {
-    dispatch(addOrientationCenter(data)).then((response) => {
+    dispatch(addWhereToBuy(data)).then((response) => {
       const usersListData = { page: 1 };
-      dispatch(getOrientationCenterData(usersListData));
+      dispatch(getWhereToBuyData(usersListData));
       setOpen(false);
       notify({ type: "success", message: "Data Added Successfully" });
     });
@@ -49,7 +49,7 @@ const AddOrientationCenter = (props) => {
       setOpen={setOpen}
       handleClose={handleClose}
       setCloseDialog={setCloseDialog}
-      modalTitle={"Add Live Display Centre"}
+      modalTitle={"Add Where To Buy"}
     >
       <Row style={{ marginBottom: "1rem" }}>
         <Col md={6}>
@@ -183,4 +183,4 @@ const AddOrientationCenter = (props) => {
   );
 };
 
-export default AddOrientationCenter;
+export default AddWhereToBuyComponent;

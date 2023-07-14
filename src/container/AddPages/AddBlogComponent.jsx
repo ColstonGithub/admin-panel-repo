@@ -13,7 +13,6 @@ import { addBlogs, getBlogs } from "redux/Slices/Blogs/Blogs";
 import { commonStyle } from "Styles/commonStyles";
 import { notify } from "constants/utils";
 import Editor from "components/ReactQuill/Editor";
-
 import { useNavigate } from "react-router";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 

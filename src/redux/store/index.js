@@ -31,7 +31,7 @@ import contactUsSectionSlice from "../Slices/ContactUsSection/ContactUsSection";
 import homepageExploreCategorySlice from "../Slices/HomePage/HomepageExploreCategory";
 
 import orientationCenterSlice from "../Slices/OrientationCenter/orientation";
-
+import whereToBuySlice from "../Slices/WhereToBuy/whereToBuy";
 const rootReducer = combineReducers({
   auth: authReducer,
   exploreCategories: exploreCategoriesSlice,
@@ -62,6 +62,7 @@ const rootReducer = combineReducers({
   ExploreCategoryChildren: ExploreCategoryChildrenSlice,
 
   orientationCenter: orientationCenterSlice,
+  whereToBuy: whereToBuySlice,
   
 });
 

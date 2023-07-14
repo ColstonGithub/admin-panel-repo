@@ -1,23 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FMButton from "components/FMButton/FMButton";
 import FMTypography from "components/FMTypography/FMTypography";
 import FMInput from "components/FMInput/FMInput";
 import { Col, Row } from "react-bootstrap";
-import { addOrientationCenterSchema } from "validationSchema/AddOrientationCenterSchema";
+import { addWhereToBuySchema } from "validationSchema/AddWhereToBuySchema";
 import {
-  addOrientationCenter,
-  getOrientationCenterData,
-} from "redux/Slices/OrientationCenter/orientation";
+  editWhereToBuy,
+  getWhereToBuyData,
+  whereToBuyDetail,
+} from "redux/Slices/WhereToBuy/whereToBuy";
 import { notify } from "constants/utils";
 import ModalWrapper from "container/HomePage/Modal";
 
-const AddOrientationCenter = (props) => {
-  const { setOpen, open } = props;
+const EditWhereToBuy = (props) => {
+  const { setOpen, open, id } = props;
 
-  const handleClose = () => {};
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const setCloseDialog = () => {
     setOpen(false);
   };
@@ -25,23 +29,46 @@ const AddOrientationCenter = (props) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
     setValue,
   } = useForm({
-    resolver: yupResolver(addOrientationCenterSchema),
+    resolver: yupResolver(addWhereToBuySchema),
     mode: "onChange",
   });
 
   const dispatch = useDispatch();
 
   const onSubmit = (data) => {
-    dispatch(addOrientationCenter(data)).then((response) => {
+    dispatch(editWhereToBuy({ data, id })).then((response) => {
       const usersListData = { page: 1 };
-      dispatch(getOrientationCenterData(usersListData));
+      dispatch(getWhereToBuyData(usersListData));
       setOpen(false);
-      notify({ type: "success", message: "Data Added Successfully" });
+      notify({ type: "success", message: "Data Edited Successfully" });
     });
   };
+
+  useEffect(() => {
+    dispatch(whereToBuyDetail(id));
+  }, [id, dispatch]);
+
+  const getWhereToBuyDetails = useSelector(
+    (state) =>
+      state?.whereToBuy?.getWhereToBuyData?.whereToBuyProd
+  );
+
+  useEffect(() => {
+    reset({
+      city: getWhereToBuyDetails?.city,
+      centerName: getWhereToBuyDetails?.centerName,
+      centerAddress: getWhereToBuyDetails?.centerAddress,
+      location: getWhereToBuyDetails?.location,
+      email: getWhereToBuyDetails?.email,
+      ocAppointment: getWhereToBuyDetails?.ocAppointment,
+      service: getWhereToBuyDetails?.service,
+      purchaseAssistance: getWhereToBuyDetails?.purchaseAssistance,
+    });
+  }, [getWhereToBuyDetails, reset]);
 
   return (
     <ModalWrapper
@@ -49,7 +76,7 @@ const AddOrientationCenter = (props) => {
       setOpen={setOpen}
       handleClose={handleClose}
       setCloseDialog={setCloseDialog}
-      modalTitle={"Add Live Display Centre"}
+      modalTitle={"Edit Where To Buy"}
     >
       <Row style={{ marginBottom: "1rem" }}>
         <Col md={6}>
@@ -64,6 +91,7 @@ const AddOrientationCenter = (props) => {
             errorDisplayText={errors.city?.message}
           />
         </Col>
+
         <Col md={6}>
           <FMInput
             required
@@ -77,6 +105,7 @@ const AddOrientationCenter = (props) => {
           />
         </Col>
       </Row>
+
       <Row>
         <Col md={6}>
           <FMInput
@@ -89,7 +118,7 @@ const AddOrientationCenter = (props) => {
             error={errors?.centerName}
             errorDisplayText={errors?.centerName?.message}
           />
-          {errors.centerName && (
+          {errors?.centerName && (
             <FMTypography
               displayText={errors?.centerName?.message}
               styleData={{ color: "red" }}
@@ -110,6 +139,7 @@ const AddOrientationCenter = (props) => {
           />
         </Col>
       </Row>
+
       <Row style={{ marginTop: "1rem" }}>
         <Col md={6}>
           <FMInput
@@ -123,6 +153,7 @@ const AddOrientationCenter = (props) => {
             errorDisplayText={errors?.location?.message}
           />
         </Col>
+
         <Col md={6}>
           <FMInput
             required
@@ -183,4 +214,4 @@ const AddOrientationCenter = (props) => {
   );
 };
 
-export default AddOrientationCenter;
+export default EditWhereToBuy;

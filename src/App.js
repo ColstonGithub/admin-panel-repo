@@ -45,6 +45,7 @@ import {
   CONTACT_US_SECTION,
   HOME_PAGE_EXPLORE_CATEGORY,
   orientationCenter,
+  WHERE_TO_BUY,
 } from "Routes/Routes";
 import Login from "./views/Signin/Login";
 import SignUp from "./views/SignUp/SignUp";
@@ -82,12 +83,9 @@ const App = () => {
           <Route path={EMAIL_VERIFY_OTP} element={<EmailVerifyOtp />} />
           <Route path={ADD_PRODUCT} element={<AddProductComponent />} />
           <Route path={EDIT_PRODUCT} element={<EditProductComponent />} />
-
           <Route path={ADD_BLOG} element={<AddBlogComponent />} />
           <Route path={EDIT_BLOG} element={<EditBlogs />} />
-
           {/* private routes below */}
-
           <Route
             path={HOME}
             element={
@@ -145,6 +143,16 @@ const App = () => {
                 Component={HomePageBanners}
                 key={orientationCenter}
                 type="orientationCenterString"
+              />
+            }
+          />{" "}
+          <Route
+            path={WHERE_TO_BUY}
+            element={
+              <PrivateRoutes
+                Component={HomePageBanners}
+                key={WHERE_TO_BUY}
+                type="whereToBuyString"
               />
             }
           />
@@ -258,7 +266,6 @@ const App = () => {
               />
             }
           />
-
           <Route
             path={CATALOGUE}
             element={
@@ -269,7 +276,6 @@ const App = () => {
               />
             }
           />
-
           <Route
             path={ABOUT_US}
             element={
@@ -280,7 +286,6 @@ const App = () => {
               />
             }
           />
-
           <Route
             path={FAQS}
             element={
@@ -291,7 +296,6 @@ const App = () => {
               />
             }
           />
-
           <Route
             path={FAQ_CATEGORY}
             element={
@@ -352,7 +356,6 @@ const App = () => {
               />
             }
           />
-
           {/* children */}
           <Route
             path={EXPLORE_CATEGORY_CHILDREN}

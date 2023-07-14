@@ -36,6 +36,7 @@ import {
   VIRTUAL_TOUR_BANNER,
   WARRANTY_REGISTRATION,
   orientationCenter,
+  WHERE_TO_BUY,
 } from "Routes/Routes";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
@@ -59,6 +60,8 @@ import AddFAQs from "container/AddPages/AddFAQs";
 import AddHomepageExploreCategoryComponent from "container/AddPages/AddHomepageExploreCategoryComponent";
 
 import AddOrientationCenter from "container/AddPages/AddOrientationCenter";
+
+import AddWhereToBuyComponent from "container/AddPages/AddWhereToBuyComponent";
 
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -104,6 +107,7 @@ const HomePageBanners = (props) => {
   const [addCorporateBanner, setAddCorporateBanner] = useState(false);
   const [addBrandPageBanner, setAddBrandPageBanner] = useState(false);
   const [addOrientationCenter, setAddOrientationCenter] = useState(false);
+  const [addWhereToBuy, setAddWhereToBuy] = useState(false);
   const [addCategoryBanner, setAddCategoryBanner] = useState(false);
   const [addBlogCategory, setAddBlogCategory] = useState(false);
   const [addAboutUs, setAddAboutUs] = useState(false);
@@ -185,6 +189,12 @@ const HomePageBanners = (props) => {
     console.log("calling orientation modal");
     setAddOrientationCenter(true);
   };
+
+  const addWhereToBuyModal = () => {
+    console.log("calling orientation modal");
+    setAddWhereToBuy(true);
+  };
+
   const addCategoryBannerModal = () => {
     setAddCategoryBanner(true);
   };
@@ -317,6 +327,9 @@ const HomePageBanners = (props) => {
 
   const orientationNavigator = () => {
     navigate(orientationCenter);
+  };
+  const whereToBuyNavigator = () => {
+    navigate(WHERE_TO_BUY);
   };
 
   const faqsNavigator = () => {
@@ -1082,6 +1095,31 @@ const HomePageBanners = (props) => {
                   />
                 </Button>
               </div>
+
+              <div style={{ marginBottom: "20px" }}>
+                <Button
+                  sx={{
+                    "&:hover": { background: "#EBECEF", borderRadius: "8px" },
+                  }}
+                >
+                  <img
+                    src={orientationIcon}
+                    alt="icon"
+                    style={{ marginRight: "24px", width: "15px" }}
+                  />
+                  <FMTypography
+                    displayText={"Where To Buy"}
+                    onClick={() => whereToBuyNavigator()}
+                    styleData={{
+                      cursor: "pointer",
+                      fontWeight: "400",
+                      color: "#222222",
+                      fontSize: "16px",
+                      fontFamily: " 'Inter', sans-serif",
+                    }}
+                  />
+                </Button>
+              </div>
             </div>
           </Col>
           <Col className="col-md-9" style={{ padding: "50px 50px 0px 50px" }}>
@@ -1140,6 +1178,8 @@ const HomePageBanners = (props) => {
                     ? "Homepage Explore Category"
                     : type === "orientationCenterString"
                     ? "Live Display Centre"
+                    : type === "whereToBuyString"
+                    ? "Where To Buy"
                     : "New Page"
                 }
                 styleData={{
@@ -1194,6 +1234,8 @@ const HomePageBanners = (props) => {
                       ? addBlogCategoryModal
                       : type === "orientationCenterString"
                       ? addOrientationCenterModal
+                      : type === "whereToBuyString"
+                      ? addWhereToBuyModal
                       : type === "aboutUsString"
                       ? addAboutUsModal
                       : type === "faqsString"
@@ -1271,6 +1313,10 @@ const HomePageBanners = (props) => {
         <AddOrientationCenter
           open={addOrientationCenter}
           setOpen={setAddOrientationCenter}
+        />
+        <AddWhereToBuyComponent
+          open={addWhereToBuy}
+          setOpen={setAddWhereToBuy}
         />
         <AddCategoryBannerComponent
           open={addCategoryBanner}

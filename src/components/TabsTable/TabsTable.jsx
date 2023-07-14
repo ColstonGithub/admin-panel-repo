@@ -29,6 +29,7 @@ import {
   virtualTourBannerConfig,
   warrantyRegistrationConfig,
   orientationCenterConfig,
+  whereToBuyConfig,
 } from "./TableInTabs/tableConfig";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -90,11 +91,14 @@ import {
   deleteCareClean,
   getCareClean,
 } from "redux/Slices/CareClean/CareClean";
+
 import { deleteBlog, getBlogs } from "redux/Slices/Blogs/Blogs";
+
 import {
   deleteCatalogue,
   getCatalogues,
 } from "redux/Slices/Catalogue/Catalogue";
+
 import {
   deleteBrandPageBanner,
   getBrandPageBanner,
@@ -104,6 +108,11 @@ import {
   getOrientationCenterData,
   deleteOrientationCenter,
 } from "redux/Slices/OrientationCenter/orientation";
+
+import WhereToBuy, {
+  getWhereToBuyData,
+  deleteWhereToBuy,
+} from "redux/Slices/WhereToBuy/whereToBuy";
 
 import HomePageBannerDetailPage from "container/DetailPages/HomepageBannerDetailPage";
 import ExploreCategoryDetailPage from "container/DetailPages/ExploreCategoryDetailPage";
@@ -181,6 +190,8 @@ import HomepageExploreCategoryDetailPage from "container/DetailPages/HomepageExp
 import BlogCategoryDetailPage from "container/DetailPages/BlogCategoryDetailPage";
 import OrientationCenterDetailPage from "container/DetailPages/OrientationCenterDetailPage";
 import EditOrientationCenter from "container/EditPages/EditOrientationCenter";
+import WhereToBuyDetailPage from "container/DetailPages/WhereToBuyDetailPage";
+import EditWhereToBuy from "container/EditPages/EditWhereToBuy";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -279,7 +290,7 @@ export default function TabsTable({ type }) {
     React.useState(false);
   const [orientationDetailPage, setOrientationDetailPage] =
     React.useState(false);
-
+  const [whereToBuyDetailPage, setWhereToBuyDetailPage] = React.useState(false);
   // id states fro detail page below
   const [prodId, setProdId] = React.useState(null);
   const [exploreCatId, setExploreCatId] = React.useState(null);
@@ -316,7 +327,7 @@ export default function TabsTable({ type }) {
   const [careerSectionId, setCareerSectionId] = React.useState(null);
   const [contactUsSectionId, setContactUsSectionId] = React.useState(null);
   const [orientationCenterId, setOrientationCenterId] = React.useState(null);
-
+  const [whereToBuyId, setWhereToBuyId] = React.useState(null);
   // edit states
   const [editHomeBanner, setEditHomeBanner] = React.useState(false);
   const [editedProdId, setEditedProdId] = React.useState(null);
@@ -357,7 +368,7 @@ export default function TabsTable({ type }) {
   const [editExploreCategory, setEditExploreCategory] = React.useState(false);
   const [editOrientationCenter, setEditOrientationCenter] =
     React.useState(false);
-
+  const [editWhereToBuy, setEditWhereToBuy] = React.useState(false);
   const [editFaqCategory, setEditFaqCategory] = React.useState(false);
 
   const [usersListData, setUsersListData] = React.useState({
@@ -587,6 +598,14 @@ export default function TabsTable({ type }) {
     (state) => state?.orientationCenter?.getOrientationCenterListData.pagination
   );
 
+  const whereToBuyData = useSelector(
+    (state) => state?.whereToBuy?.getWhereToBuyListData?.whereToBuyProducts
+  );
+
+  const whereToBuyPagination = useSelector(
+    (state) => state?.whereToBuy?.getWhereToBuyListData?.pagination
+  );
+
   useEffect(() => {
     if (type === "homePageBannerString") {
       dispatch(getHomePageBanners(usersListData));
@@ -640,6 +659,8 @@ export default function TabsTable({ type }) {
       dispatch(getHomePageExploreCat(usersListData));
     } else if (type === "orientationCenterString") {
       dispatch(getOrientationCenterData(usersListData));
+    } else if (type === "whereToBuyString") {
+      dispatch(getWhereToBuyData(usersListData));
     }
   }, [dispatch, type, usersListData]);
 
@@ -660,6 +681,12 @@ export default function TabsTable({ type }) {
       setOrientationDetailPage(true);
     }
   }, [orientationCenterId]);
+
+  useEffect(() => {
+    if (whereToBuyId !== null && whereToBuyId) {
+      setWhereToBuyDetailPage(true);
+    }
+  }, [whereToBuyId]);
 
   useEffect(() => {
     if (bannerPageId !== null && bannerPageId) {
@@ -929,6 +956,11 @@ export default function TabsTable({ type }) {
     console.log("editOrientationCenter ", editOrientationCenter);
   };
 
+  const editWhereToBuyFunc = (cId) => {
+    setEditWhereToBuy(cId);
+    console.log("editOrientationCenter ", editOrientationCenter);
+  };
+
   const editBlogCategoryFunc = (cId) => {
     setEditBlogCategory(cId);
   };
@@ -1009,6 +1041,9 @@ export default function TabsTable({ type }) {
   };
   const orientationCenterPageHandler = (cId) => {
     setOrientationCenterId(cId);
+  };
+  const whereToBuyPageHandler = (cId) => {
+    setWhereToBuyId(cId);
   };
   const newsPressProductPageHandler = (cId) => {
     setNewsPressProductPageId(cId);
@@ -1214,6 +1249,12 @@ export default function TabsTable({ type }) {
       dispatch(deleteOrientationCenter(cId)).then((res) => {
         if (res) {
           dispatch(getOrientationCenterData(usersListData));
+        }
+      });
+    else if (type === "whereToBuyString")
+      dispatch(deleteWhereToBuy(cId)).then((res) => {
+        if (res) {
+          dispatch(getWhereToBuyData(usersListData));
         }
       });
   };
@@ -1684,60 +1725,6 @@ export default function TabsTable({ type }) {
 
       return rowDataVal.push(rowData);
     });
-
-    return rowDataVal;
-  };
-
-  const getOrientationCenterRowData = () => {
-    let rowDataVal = [];
-
-    orientationCenterData &&
-      orientationCenterData?.map((element, index) => {
-        console.log("element", element);
-        const rowData = {
-          "S.NO.": index + 1,
-          City: element?.city,
-          CenterName: element?.centerName,
-          centerAddress: element?.centerAddress,
-          id: element?._id,
-          Actions: (
-            <Grid>
-              <img
-                src={detailIcon}
-                alt="img"
-                width="20px"
-                height="20px"
-                className="img-responsive img-fluid "
-                loading="lazy"
-                onClick={() => orientationCenterPageHandler(element?._id)}
-                style={{ cursor: "pointer" }}
-              />
-              <img
-                src={editIcon}
-                alt="img"
-                width="20px"
-                height="20px"
-                className="img-responsive img-fluid "
-                loading="lazy"
-                onClick={() => editOrientationCenterFunc(element?._id)}
-                style={{ marginLeft: "1.5rem", cursor: "pointer" }}
-              />
-              <img
-                src={deleteIcon}
-                alt="img"
-                width="17px"
-                height="17px"
-                className="img-responsive img-fluid "
-                loading="lazy"
-                onClick={() => deleteCategoryFunc(element?._id)}
-                style={{ marginLeft: "1.5rem", cursor: "pointer" }}
-              />
-            </Grid>
-          ),
-        };
-
-        return rowDataVal.push(rowData);
-      });
 
     return rowDataVal;
   };
@@ -2542,6 +2529,114 @@ export default function TabsTable({ type }) {
     return rowDataVal;
   };
 
+  const getOrientationCenterRowData = () => {
+    let rowDataVal = [];
+
+    orientationCenterData &&
+      orientationCenterData?.map((element, index) => {
+        console.log("element", element);
+        const rowData = {
+          "S.NO.": index + 1,
+          City: element?.city,
+          CenterName: element?.centerName,
+          centerAddress: element?.centerAddress,
+          id: element?._id,
+          Actions: (
+            <Grid>
+              <img
+                src={detailIcon}
+                alt="img"
+                width="20px"
+                height="20px"
+                className="img-responsive img-fluid "
+                loading="lazy"
+                onClick={() => orientationCenterPageHandler(element?._id)}
+                style={{ cursor: "pointer" }}
+              />
+              <img
+                src={editIcon}
+                alt="img"
+                width="20px"
+                height="20px"
+                className="img-responsive img-fluid "
+                loading="lazy"
+                onClick={() => editOrientationCenterFunc(element?._id)}
+                style={{ marginLeft: "1.5rem", cursor: "pointer" }}
+              />
+              <img
+                src={deleteIcon}
+                alt="img"
+                width="17px"
+                height="17px"
+                className="img-responsive img-fluid "
+                loading="lazy"
+                onClick={() => deleteCategoryFunc(element?._id)}
+                style={{ marginLeft: "1.5rem", cursor: "pointer" }}
+              />
+            </Grid>
+          ),
+        };
+
+        return rowDataVal.push(rowData);
+      });
+
+    return rowDataVal;
+  };
+
+  const getWhereToBuyRowData = () => {
+    let rowDataVal = [];
+
+    whereToBuyData &&
+      whereToBuyData?.map((element, index) => {
+        console.log("element", element);
+        const rowData = {
+          "S.NO.": index + 1,
+          City: element?.city,
+          CenterName: element?.centerName,
+          centerAddress: element?.centerAddress,
+          id: element?._id,
+          Actions: (
+            <Grid>
+              <img
+                src={detailIcon}
+                alt="img"
+                width="20px"
+                height="20px"
+                className="img-responsive img-fluid "
+                loading="lazy"
+//                onClick={() => whereToBuyPageHandler(element?._id)}
+                style={{ cursor: "pointer" }}
+              />
+              <img
+                src={editIcon}
+                alt="img"
+                width="20px"
+                height="20px"
+                className="img-responsive img-fluid "
+                loading="lazy"
+    //            onClick={() => editWhereToBuyFunc(element?._id)}
+                style={{ marginLeft: "1.5rem", cursor: "pointer" }}
+              />
+              <img
+                src={deleteIcon}
+                alt="img"
+                width="17px"
+                height="17px"
+                className="img-responsive img-fluid "
+                loading="lazy"
+                onClick={() => deleteCategoryFunc(element?._id)}
+                style={{ marginLeft: "1.5rem", cursor: "pointer" }}
+              />
+            </Grid>
+          ),
+        };
+
+        return rowDataVal.push(rowData);
+      });
+
+    return rowDataVal;
+  };
+
   const handlePageChange = (event, value) => {
     setUsersListData({ page: event });
   };
@@ -2613,6 +2708,8 @@ export default function TabsTable({ type }) {
                   ? contactUsSectionConfig()
                   : type === "orientationCenterString"
                   ? orientationCenterConfig()
+                  : type === "whereToBuyString"
+                  ? whereToBuyConfig()
                   : homepageExploreCatSectionConfig()
               }
               rows={
@@ -2666,6 +2763,8 @@ export default function TabsTable({ type }) {
                   ? getContactUsSectionRowData()
                   : type === "orientationCenterString"
                   ? getOrientationCenterRowData()
+                  : type === "whereToBuyString"
+                  ? getWhereToBuyRowData()
                   : getHomepageExploreCatRowData()
               }
               pagination
@@ -2722,6 +2821,8 @@ export default function TabsTable({ type }) {
                   ? contactUsSectionPagination?.totalPages
                   : type === "orientationCenterString"
                   ? orientationCenterPagination?.totalPages
+                  : type === "whereToBuyString"
+                  ? whereToBuyPagination?.totalPages
                   : homepageExploreCategoryPagination?.totalPages
               }
               // onRowClick={ViewParticularUserHandler}
@@ -2745,11 +2846,22 @@ export default function TabsTable({ type }) {
         <OrientationCenterDetailPage
           open={orientationDetailPage}
           setOpen={() => {
-            console.log("clicked");
             setOrientationDetailPage(false);
             setOrientationCenterId(null);
           }}
           id={orientationCenterId}
+          type={type}
+        />
+      )}
+
+      {whereToBuyId && (
+        <WhereToBuyDetailPage
+          open={whereToBuyDetailPage}
+          setOpen={() => {
+            setWhereToBuyDetailPage(false);
+            setWhereToBuyId(null);
+          }}
+          id={whereToBuyId}
           type={type}
         />
       )}
@@ -3107,6 +3219,14 @@ export default function TabsTable({ type }) {
               open={editOrientationCenter}
               setOpen={setEditOrientationCenter}
               id={editOrientationCenter}
+              usersListData={usersListData}
+            />
+          )}
+          {editWhereToBuy && (
+            <EditWhereToBuy
+              open={editWhereToBuy}
+              setOpen={setEditWhereToBuy}
+              id={editWhereToBuy}
               usersListData={usersListData}
             />
           )}

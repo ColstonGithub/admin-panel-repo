@@ -45,3 +45,5 @@ export const HOME_PAGE_EXPLORE_CATEGORY = "/homepage-explore-category";
 
 
 export const orientationCenter = "/orientation-center";
+
+export const WHERE_TO_BUY = "/where-to-buy";

@@ -1,17 +1,14 @@
-import { Avatar, Box, Grid, Typography } from "@mui/material";
-import SearchBar from "components/SearchBar/SearchBar";
-import React, { useEffect, useState } from "react";
+import { Avatar, Box, Grid } from "@mui/material";
+import React from "react";
 import colstonLogo from "../../assets/ColstonLogo.png";
 import profileIcon from "../../assets/profileIcon.svg";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { styled, alpha } from "@mui/material/styles";
 import { HeaderStyle } from "./HeaderStyle";
-import { commonStyle } from "../../Styles/commonStyles";
 import { Col, Row } from "react-bootstrap";
 import "./HeaderBootstrapMenu.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import FMTypography from "components/FMTypography/FMTypography";
 import { Stack } from "@mui/system";
@@ -21,94 +18,27 @@ import { LOGIN } from "Routes/Routes";
 import { logout } from "redux/Slices/Login/auth.slice";
 import { Link } from "react-router-dom";
 
-const StyledMenu = styled((props) => (
-  <Menu
-    elevation={0}
-    anchorOrigin={{
-      vertical: "bottom",
-      horizontal: "right",
-    }}
-    transformOrigin={{
-      vertical: "top",
-      horizontal: "right",
-    }}
-    {...props}
-  />
-))(({ theme }) => ({
-  "& .MuiPaper-root": {
-    borderRadius: 6,
-    marginTop: theme.spacing(1),
-    minWidth: 180,
-    color:
-      theme.palette.mode === "light"
-        ? "rgb(55, 65, 81)"
-        : theme.palette.grey[300],
-    boxShadow:
-      "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
-    "& .MuiMenu-list": {
-      padding: "4px 0",
-    },
-    "& .MuiMenuItem-root": {
-      "& .MuiSvgIcon-root": {
-        fontSize: 18,
-        color: theme.palette.text.secondary,
-        marginRight: theme.spacing(1.5),
-      },
-      "&:active": {
-        backgroundColor: alpha(
-          theme.palette.primary.main,
-          theme.palette.action.selectedOpacity
-        ),
-      },
-    },
-  },
-}));
-
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  var settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
 
   const personLoggedIn = JSON.parse(
     localStorage.getItem("Sidebar_Module_Assigned")
   )?.fullName;
 
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [anchorElSec, setAnchorElSec] = React.useState(null);
-  const [openFilter, setOpenFilter] = useState(false);
 
   const open = Boolean(anchorEl);
-  const openSec = Boolean(anchorElSec);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
-  };
-
-  const handleClickSec = (event) => {
-    setAnchorElSec(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
 
-  const handleCloseSec = () => {
-    setAnchorElSec(null);
-  };
-
   const navigateToLogin = () => {
-    navigate(LOGIN);
-  };
-
-  const logoutPerson = () => {
-    localStorage.clear();
     navigate(LOGIN);
   };
 
@@ -131,23 +61,6 @@ const Header = () => {
         // notify({ type: "success", content: "Logged out successfully" });
         throw new Error("Logout failed");
       });
-  };
-
-  const [hoverMenu, setHoverMenu] = useState(false);
-
-  const menuOpenedOnHover = () => {
-    setHoverMenu(true);
-    // const element = document.getElementsByClassName("rowOnHover");
-  };
-
-  const [show, setShow] = useState("");
-
-  const showDropdown = (id) => {
-    setShow(id);
-  };
-
-  const hideDropdown = () => {
-    setShow("");
   };
 
   return (
@@ -234,22 +147,6 @@ const Header = () => {
                     displayText={personLoggedIn}
                     sx={{ fontSize: "14px" }}
                   />
-                  {/* <FMButton
-                    displayText={"See your Profile"}
-                    variant={"outlined"}
-                    styleData={{
-                      // ...commonStyle.buttonStyles,padd
-                      color: "#717171",
-                      padding: "0",
-                      fontSize: "10px",
-                      backgroundColor: "none",
-                      border: "none",
-                      "&:hover": {
-                        backgroundColor: "white",
-                        border: "none",
-                      },
-                    }}
-                  /> */}
                 </Box>
               ) : (
                 <Box>

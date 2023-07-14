@@ -975,3 +975,31 @@ export const orientationCenterConfig = (type) => [
     width: "20%",
   },
 ];
+export const whereToBuyConfig = (type) => [
+  {
+    headername: "S.NO.",
+    field: "S.NO.",
+    width: "16%",
+  },
+  {
+    headername: "City",
+    field: "City",
+    width: "20%",
+  },
+  {
+    headername: "Center Name",
+    field: "CenterName",
+    width: "20%",
+  },
+  {
+    headername: "Center Address",
+    field: "centerAddress",
+    width: "20%",
+  },
+
+  {
+    headername: "Actions",
+    field: "Actions",
+    width: "20%",
+  },
+];

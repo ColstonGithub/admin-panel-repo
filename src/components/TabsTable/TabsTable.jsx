@@ -2604,7 +2604,7 @@ export default function TabsTable({ type }) {
                 height="20px"
                 className="img-responsive img-fluid "
                 loading="lazy"
-//                onClick={() => whereToBuyPageHandler(element?._id)}
+                onClick={() => whereToBuyPageHandler(element?._id)}
                 style={{ cursor: "pointer" }}
               />
               <img
@@ -2614,7 +2614,7 @@ export default function TabsTable({ type }) {
                 height="20px"
                 className="img-responsive img-fluid "
                 loading="lazy"
-    //            onClick={() => editWhereToBuyFunc(element?._id)}
+                onClick={() => editWhereToBuyFunc(element?._id)}
                 style={{ marginLeft: "1.5rem", cursor: "pointer" }}
               />
               <img

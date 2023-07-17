@@ -115,6 +115,13 @@ const HomePageBanners = (props) => {
   const [addAboutUs, setAddAboutUs] = useState(false);
   const [addFaqCategory, setAddFaqCategory] = useState(false);
 
+  const [activeButton, setActiveButton] = useState(null);
+
+  const handleButtonClick = (buttonId) => {
+    setActiveButton(buttonId);
+  };
+
+
   const [addHomepageExploreCategory, setAddHomepageExploreCategory] =
     useState(false);
   const [addFaqs, setAddFaqs] = useState(false);
@@ -188,12 +195,10 @@ const HomePageBanners = (props) => {
     setAddBrandPageBanner(true);
   };
   const addOrientationCenterModal = () => {
-    console.log("calling orientation modal");
     setAddOrientationCenter(true);
   };
 
   const addWhereToBuyModal = () => {
-    console.log("calling orientation modal");
     setAddWhereToBuy(true);
   };
 
@@ -380,6 +385,8 @@ const HomePageBanners = (props) => {
               className="scroll-bar-class"
             >
               <div style={{ marginBottom: "20px" }}>
+
+                
                 <Button
                   sx={{
                     "&:hover": { background: "#EBECEF", borderRadius: "8px" },

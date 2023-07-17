@@ -81,7 +81,9 @@ import warrantyRegIcon from "assets/warrantyReg.svg";
 import quotationSecIcon from "assets/quotationSec.svg";
 import careerSecIcon from "assets/careerSec.svg";
 import contactUsIcon from "assets/contactUs.svg";
-import orientationIcon from "assets/orientation.svg";
+
+import orientationSidebarIcon from "assets/orientationSidebarIcon.png";
+import whereToBuySidebarIcon from "assets/whereToBuySidebarIcon.png";
 
 const HomePageBanners = (props) => {
   const navigate = useNavigate();
@@ -1078,7 +1080,7 @@ const HomePageBanners = (props) => {
                   }}
                 >
                   <img
-                    src={orientationIcon}
+                    src={orientationSidebarIcon}
                     alt="icon"
                     style={{ marginRight: "24px", width: "15px" }}
                   />
@@ -1103,7 +1105,7 @@ const HomePageBanners = (props) => {
                   }}
                 >
                   <img
-                    src={orientationIcon}
+                    src={whereToBuySidebarIcon}
                     alt="icon"
                     style={{ marginRight: "24px", width: "15px" }}
                   />

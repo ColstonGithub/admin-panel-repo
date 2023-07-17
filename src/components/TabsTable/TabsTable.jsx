@@ -109,7 +109,7 @@ import {
   deleteOrientationCenter,
 } from "redux/Slices/OrientationCenter/orientation";
 
-import WhereToBuy, {
+import {
   getWhereToBuyData,
   deleteWhereToBuy,
 } from "redux/Slices/WhereToBuy/whereToBuy";

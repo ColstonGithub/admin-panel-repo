@@ -46,13 +46,9 @@ const Header = () => {
     // setDisabledLogout(true);
     dispatch(logout())
       .then((response) => {
-        if (response.payload.data.code === 200) {
-          setAnchorEl(null);
-          localStorage.clear();
-          navigate(LOGIN);
-        } else {
-          // setDisabledLogout(false);
-        }
+        setAnchorEl(null);
+        localStorage.clear();
+        navigate(LOGIN);
       })
       .catch((rejectedWithValue) => {
         // setDisabledLogout(false);

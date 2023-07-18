@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import {
@@ -30,12 +30,8 @@ import { notify } from "constants/utils";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const auth = localStorage.getItem("AUTH_ACCESS_TOKEN");
   const [passwordType, setPasswordType] = useState(true);
-
-  // if (auth) {
-  //   navigate("/home");
-  // }
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const {
     register,
@@ -62,137 +58,151 @@ const Login = () => {
           notify({ type: "success", messgae: "Logged in successfully" });
           navigate("/home");
         }
+      })
+      .catch((err) => {
+        notify({ type: "error", messgae: "Log in failed" });
       });
   };
 
-  return (
-    <>
-      <Box sx={{ padding: "1rem 50px 0 50px" }}>
-        <img
-          src={ColstonLogo}
-          alt="ColstonLogo"
-          style={{
-            ...HeaderStyle.ColstonLogoStyle,
-            marginTop: "0.6rem",
-            width: "300px",
-            height: "auto",
-          }}
-        />
-      </Box>
-      <Grid container sx={commonStyle.mainGridContainer}>
-        <Grid item sx={commonStyle.innerGrid}>
-          <Box sx={commonStyle.formDetailsContainer}>
-            <FMTypography
-              displayText="Log In"
-              styleData={commonStyle.headingStyle}
-            />
-          </Box>
-          <Box sx={commonStyle.formOuterBoxStyle}>
-            <Box component="form" xs={12} onSubmit={handleSubmit(onSubmit)}>
-              <Box sx={commonStyle.flexStyle}>
-                <InputBase
-                  required
-                  id="email"
-                  name="email"
-                  placeholder="Enter your email"
-                  sx={{
-                    ...commonStyle.inputFieldStyle,
+  useEffect(() => {
+    const auth = localStorage.getItem("AUTH_ACCESS_TOKEN");
+    if (auth) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
-                    ...(errors.email && commonStyle.errorStyle),
-                  }}
-                  {...register("email")}
-                  error={errors.email ? true : false}
-                />
-                <FMTypography
-                  styleData={commonStyle.errorText}
-                  displayText={errors.email?.message}
-                />
+  if (isLoggedIn) {
+    return <Navigate to="/home" />;
+  } else {
+    return (
+      <>
+        <Box sx={{ padding: "1rem 50px 0 50px" }}>
+          <img
+            src={ColstonLogo}
+            alt="ColstonLogo"
+            style={{
+              ...HeaderStyle.ColstonLogoStyle,
+              marginTop: "0.6rem",
+              width: "300px",
+              height: "auto",
+            }}
+          />
+        </Box>
+        <Grid container sx={commonStyle.mainGridContainer}>
+          <Grid item sx={commonStyle.innerGrid}>
+            <Box sx={commonStyle.formDetailsContainer}>
+              <FMTypography
+                displayText="Log In"
+                styleData={commonStyle.headingStyle}
+              />
+            </Box>
+            <Box sx={commonStyle.formOuterBoxStyle}>
+              <Box component="form" xs={12} onSubmit={handleSubmit(onSubmit)}>
+                <Box sx={commonStyle.flexStyle}>
+                  <InputBase
+                    required
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    sx={{
+                      ...commonStyle.inputFieldStyle,
 
-                <OutlinedInput
-                  placeholder="Enter your password"
-                  type={passwordType ? "password" : "text"}
-                  sx={{
-                    ...commonStyle.inputFieldStyle,
-                    ...commonStyle.paddingZero,
-                    ...(errors.password && commonStyle.errorStyle),
-                  }}
-                  {...register("password")}
-                  error={errors.password ? true : false}
-                  endAdornment={
-                    <InputAdornment position="start">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={passwordToggle}
-                        edge="end"
-                        disableRipple={true}
-                      >
-                        {passwordType ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-                <FMTypography
-                  styleData={commonStyle.errorText}
-                  displayText={errors.password?.message}
-                />
-                <Box sx={commonStyle.buttonBox}>
-                  <FMButton
-                    displayText={"Forgot Password?"}
-                    variant={"text"}
-                    styleData={{
-                      ...commonStyle.textTransformStyle,
-                      ...commonStyle.disableRippleStyle,
+                      ...(errors.email && commonStyle.errorStyle),
                     }}
-                    onClick={forgotPasswordNavigate}
+                    {...register("email")}
+                    error={errors.email ? true : false}
+                  />
+                  <FMTypography
+                    styleData={commonStyle.errorText}
+                    displayText={errors.email?.message}
+                  />
+
+                  <OutlinedInput
+                    placeholder="Enter your password"
+                    type={passwordType ? "password" : "text"}
+                    sx={{
+                      ...commonStyle.inputFieldStyle,
+                      ...commonStyle.paddingZero,
+                      ...(errors.password && commonStyle.errorStyle),
+                    }}
+                    {...register("password")}
+                    error={errors.password ? true : false}
+                    endAdornment={
+                      <InputAdornment position="start">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={passwordToggle}
+                          edge="end"
+                          disableRipple={true}
+                        >
+                          {passwordType ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                  />
+                  <FMTypography
+                    styleData={commonStyle.errorText}
+                    displayText={errors.password?.message}
+                  />
+                  <Box sx={commonStyle.buttonBox}>
+                    <FMButton
+                      displayText={"Forgot Password?"}
+                      variant={"text"}
+                      styleData={{
+                        ...commonStyle.textTransformStyle,
+                        ...commonStyle.disableRippleStyle,
+                      }}
+                      onClick={forgotPasswordNavigate}
+                    />
+                  </Box>
+                  <FMButton
+                    displayText={"Login"}
+                    variant={"contained"}
+                    styleData={{
+                      ...commonStyle.buttonStyles,
+                    }}
+                    onClick={handleSubmit(onSubmit)}
+                  />
+                  <input type={"submit"} hidden />
+
+                  {/* after ruler btns */}
+                  {/* <img src={OptLoginIcon} alt="otp-login" /> */}
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: ".3rem",
+                  }}
+                >
+                  <FMTypography displayText={"Don’t have an account?"} />
+                  <FMButton
+                    variant={"outlined"}
+                    displayText={"Sign Up"}
+                    styleData={{
+                      color: "#222222",
+                      padding: "0",
+                      fontSize: "1rem",
+                      fontFamily: " 'Inter', sans-serif",
+                      fontWeight: "600",
+                      border: "none",
+                      marginLeft: ".5rem",
+                      marginTop: "-.1rem",
+                      "&:hover": {
+                        backgroundColor: "white",
+                        border: "none",
+                      },
+                    }}
+                    onClick={() => navigate(SIGNUP)}
                   />
                 </Box>
-                <FMButton
-                  displayText={"Login"}
-                  variant={"contained"}
-                  styleData={{
-                    ...commonStyle.buttonStyles,
-                  }}
-                  onClick={handleSubmit(onSubmit)}
-                />
-                <input type={"submit"} hidden />
-
-                {/* after ruler btns */}
-                {/* <img src={OptLoginIcon} alt="otp-login" /> */}
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  marginTop: ".3rem",
-                }}
-              >
-                <FMTypography displayText={"Don’t have an account?"} />
-                <FMButton
-                  variant={"outlined"}
-                  displayText={"Sign Up"}
-                  styleData={{
-                    color: "#222222",
-                    padding: "0",
-                    fontSize: "1rem",
-                    fontFamily: " 'Inter', sans-serif",
-                    fontWeight: "600",
-                    border: "none",
-                    marginLeft: ".5rem",
-                    marginTop: "-.1rem",
-                    "&:hover": {
-                      backgroundColor: "white",
-                      border: "none",
-                    },
-                  }}
-                  onClick={() => navigate(SIGNUP)}
-                />
               </Box>
             </Box>
-          </Box>
+          </Grid>
         </Grid>
-      </Grid>
-    </>
-  );
+      </>
+    );
+  }
 };
 
 export default Login;

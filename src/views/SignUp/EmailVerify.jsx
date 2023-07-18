@@ -15,7 +15,12 @@ const EmailVerify = () => {
         <img
           src={ColstonLogo}
           alt="ColstonLogo"
-          style={{ ...HeaderStyle.ColstonLogoStyle, marginTop: "0.6rem" }}
+          style={{
+            ...HeaderStyle.ColstonLogoStyle,
+            marginTop: "0.6rem",
+            width: "300px",
+            height: "auto",
+          }}
         />
       </Box>
       <Grid container sx={{ display: "flex", justifyContent: "center" }}>

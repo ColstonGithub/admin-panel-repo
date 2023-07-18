@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import FMButton from "components/FMButton/FMButton";
 import FMTypography from "components/FMTypography/FMTypography";
 
-
 import ColstonLogo from "../../assets/ColstonLogo.png";
 
 import { HeaderStyle } from "components/SearchBar/HeaderStyle";
@@ -43,11 +42,15 @@ const ForgotPassword = () => {
       <Box
         sx={{ ...commonStyle.flexDisplayStyle, padding: "1rem 50px 0 50px" }}
       >
-
         <img
           src={ColstonLogo}
           alt="ColstonLogo"
-          style={{ ...HeaderStyle.ColstonLogoStyle, marginTop: "0.6rem" }}
+          style={{
+            ...HeaderStyle.ColstonLogoStyle,
+            marginTop: "0.6rem",
+            width: "300px",
+            height: "auto",
+          }}
         />
       </Box>
       <Grid container sx={commonStyle.mainGridContainer}>

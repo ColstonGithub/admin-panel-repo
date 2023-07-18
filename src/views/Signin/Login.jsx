@@ -75,6 +75,7 @@ const Login = () => {
             ...HeaderStyle.ColstonLogoStyle,
             marginTop: "0.6rem",
             width: "300px",
+            height: "auto",
           }}
         />
       </Box>

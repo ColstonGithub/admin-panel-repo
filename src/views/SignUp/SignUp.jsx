@@ -96,7 +96,12 @@ const Login = () => {
         <img
           src={ColstonLogo}
           alt="ColstonLogo"
-          style={{ ...HeaderStyle.ColstonLogoStyle, marginTop: "0.6rem" }}
+          style={{
+            ...HeaderStyle.ColstonLogoStyle,
+            marginTop: "0.6rem",
+            width: "300px",
+            height: "auto",
+          }}
         />
       </Box>
       <Grid container sx={commonStyle.mainGridContainer}>
@@ -126,7 +131,11 @@ const Login = () => {
                       error={errors.firstName ? true : false}
                     />
                     <FMTypography
-                      styleData={{ ...commonStyle.errorText, fontSize: "11px",  fontFamily: " 'Inter', sans-serif",  }}
+                      styleData={{
+                        ...commonStyle.errorText,
+                        fontSize: "11px",
+                        fontFamily: " 'Inter', sans-serif",
+                      }}
                       displayText={errors.firstName?.message}
                     />
                   </Box>
@@ -144,7 +153,11 @@ const Login = () => {
                       error={errors.lastName ? true : false}
                     />
                     <FMTypography
-                      styleData={{ ...commonStyle.errorText, fontSize: "11px",  fontFamily: " 'Inter', sans-serif",  }}
+                      styleData={{
+                        ...commonStyle.errorText,
+                        fontSize: "11px",
+                        fontFamily: " 'Inter', sans-serif",
+                      }}
                       displayText={errors.lastName?.message}
                     />
                   </Box>
@@ -240,7 +253,7 @@ const Login = () => {
                     fontSize: "1rem",
                     fontWeight: "600",
                     border: "none",
-                    fontFamily: " 'Inter', sans-serif", 
+                    fontFamily: " 'Inter', sans-serif",
                     marginLeft: ".5rem",
                     marginTop: "-.1rem",
                     "&:hover": {

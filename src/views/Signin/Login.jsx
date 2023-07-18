@@ -60,7 +60,7 @@ const Login = () => {
         }
       })
       .catch((err) => {
-        notify({ type: "error", messgae: "Log in failed" });
+        notify({ type: "error", messgae: "Invalid Credentials Login Failed" });
       });
   };
 

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { getBlogsDetail } from "redux/Slices/Blogs/Blogs";
 import ModalWrapper from "container/HomePage/Modal";
+import "./detailPage.css";
 
 // Styles for the editor and its container element
 const previewContainer = {
@@ -95,7 +96,7 @@ const BlogDetailPage = (props) => {
         <Col>
           <FMTypography displayText={"Text"} />
 
-          <div style={previewContainer}>
+          <div style={{ ...previewContainer }} className="editor-image">
             <div dangerouslySetInnerHTML={{ __html: blogsDetail?.text }} />
           </div>
         </Col>

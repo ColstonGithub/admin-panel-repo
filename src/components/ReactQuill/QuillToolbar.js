@@ -144,11 +144,11 @@ export const QuillToolbar = () => (
       <button className="ql-image" />
       <button className="ql-video" />
     </span>
-    <span className="ql-formats">
+    {/* <span className="ql-formats">
       <button className="ql-formula" />
       <button className="ql-code-block" />
       <button className="ql-clean" />
-    </span>
+    </span> */}
     <span className="ql-formats">
       <button className="ql-undo">
         <CustomUndo />

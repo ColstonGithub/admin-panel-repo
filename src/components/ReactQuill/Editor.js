@@ -39,7 +39,7 @@ export const Editor = ({ onData, dataText }) => {
         modules={modules}
         formats={formats}
       />
-      <div style={{ ...previewContainer }}>
+      <div style={{ ...previewContainer,whiteSpace: "pre-wrap" }}>
         <h3>Preview</h3>
         <div
           style={{ ...previewContent }}

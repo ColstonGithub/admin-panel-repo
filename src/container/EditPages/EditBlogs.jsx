@@ -26,7 +26,7 @@ const EditBlogs = (props) => {
   );
 
   const blogsDetail = useSelector((state) => state?.blogs?.getBlogsData?.Blogs);
-  const [dataText, setDataText] = useState(null);
+  const [dataText, setDataText] = useState();
   const [image, setImage] = useState();
   const [editedBlogsImage, setEditedBlogsImage] = useState();
 
@@ -34,15 +34,6 @@ const EditBlogs = (props) => {
     dispatch(getBlogCategory({ page: 1 }));
     dispatch(getBlogsDetail(id));
   }, [id, dispatch]);
-
-  const setCloseDialog = () => {
-    setValue("title", "");
-    setValue("imageAltText", "");
-    setValue("text", "");
-    setValue("pageTitle", "");
-    setValue("pageHeading", "");
-    setValue("blogCategory", "");
-  };
 
   const {
     register,
@@ -65,19 +56,37 @@ const EditBlogs = (props) => {
       blogCategory: blogsDetail?.blogCategory,
     });
     setEditedBlogsImage(blogsDetail?.image);
+    setDataText(blogsDetail?.text);
   }, [blogsDetail, reset, setValue]);
 
   const onSubmit = (data) => {
-   // props?.setLoader(true);
+    // props?.setLoader(true);
     const formData = new FormData();
-    formData.append("_id", id);
-    formData.append("title", data?.title?.toString());
-    formData.append("text", dataText);
-    formData.append("imageAltText", data?.imageAltText?.toString());
-    formData.append("pageTitle", data?.pageTitle?.toString());
-    formData.append("pageHeading", data?.pageHeading?.toString());
-    formData.append("blogCategory", data?.blogCategory);
-    if (image) formData.append("image", image);
+    if (id) {
+      formData.append("_id", id);
+    }
+    if (data?.title) {
+      formData.append("title", data?.title?.toString());
+    }
+    if (data?.text) {
+      formData.append("text", dataText);
+    }
+    if (data?.imageAltText) {
+      formData.append("imageAltText", data?.imageAltText?.toString());
+    }
+    if (data?.pageTitle) {
+      formData.append("pageTitle", data?.pageTitle?.toString());
+    }
+    if (data?.pageHeading) {
+      formData.append("pageHeading", data?.pageHeading?.toString());
+    }
+    if (data?.blogCategory) {
+      formData.append("blogCategory", data?.blogCategory);
+    }
+
+    if (image) {
+      formData.append("image", image);
+    }
 
     dispatch(editBlogs(formData))
       .then(() => {
@@ -89,8 +98,14 @@ const EditBlogs = (props) => {
         });
         notify({ type: "success", messgae: "Data Edited Successfully" });
       })
+      .catch((error) => {
+        notify({
+          type: "error",
+          messgae: `Data Updation Failed due to ${error.message}`,
+        });
+      })
       .finally(() => {
-     //   props?.setLoader(false);
+        //   props?.setLoader(false);
       });
   };
 
@@ -101,16 +116,8 @@ const EditBlogs = (props) => {
   };
 
   const handleChildData = (childData) => {
-    const div = document.createElement("div");
-    div.innerHTML = childData;
-    const text = div.textContent || div.innerText || "";
-    console.log(text);
-    setDataText(text);
+    setDataText(childData);
   };
-
-  // if (!blogCategories || blogCategories.length === 0) {
-  //   return <div>Loading...</div>;
-  // }
 
   return (
     <div>
@@ -311,13 +318,11 @@ const EditBlogs = (props) => {
                   <FMTypography
                     displayText={"Text"}
                     styleData={{
-                      ...commonStyle.commonModalTitleStyle,marginBottom:"2px"
+                      ...commonStyle.commonModalTitleStyle,
+                      marginBottom: "2px",
                     }}
                   />
-                  <Editor
-                    onData={handleChildData}
-                    dataText={blogsDetail?.text}
-                  />
+                  <Editor onData={handleChildData} dataText={dataText} />
                 </Col>
               </Row>
 

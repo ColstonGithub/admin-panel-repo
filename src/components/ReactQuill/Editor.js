@@ -1,5 +1,5 @@
-import React from "react";
-import EditorToolbar, { modules, formats } from "./EditorToolbar";
+import React, { useEffect } from "react";
+import QuillToolbar, { modules, formats } from "./QuillToolbar";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "./style.css";
@@ -22,12 +22,18 @@ export const Editor = ({ onData, dataText }) => {
     onData(value);
   };
 
+  useEffect(() => {
+    if (dataText !== undefined && dataText) {
+      setState({ value: dataText });
+    }
+  }, [dataText]);
+
   return (
     <div className="text-editor">
-      <EditorToolbar />
+      <QuillToolbar />
       <ReactQuill
         theme="snow"
-        value={state.value}
+        value={state?.value}
         onChange={handleChange}
         placeholder={"Write something awesome..."}
         modules={modules}
@@ -37,7 +43,7 @@ export const Editor = ({ onData, dataText }) => {
         <h3>Preview</h3>
         <div
           style={{ ...previewContent }}
-          dangerouslySetInnerHTML={{ __html: state.value }}
+          dangerouslySetInnerHTML={{ __html: state?.value }}
         />
       </div>
     </div>

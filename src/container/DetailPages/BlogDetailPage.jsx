@@ -96,7 +96,7 @@ const BlogDetailPage = (props) => {
         <Col>
           <FMTypography displayText={"Text"} />
 
-          <div style={{ ...previewContainer }} className="editor-image">
+          <div style={{ ...previewContainer,whiteSpace: "pre-wrap"  }} className="editor-image">
             <div dangerouslySetInnerHTML={{ __html: blogsDetail?.text }} />
           </div>
         </Col>

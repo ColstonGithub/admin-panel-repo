@@ -74,10 +74,6 @@ const AddBlogComponent = () => {
   };
 
   const handleChildData = (childData) => {
-    // const div = document.createElement("div");
-    //  div.innerHTML = childData;
-    // const text = div.textContent || div.innerText || "";
-
     setDataText(childData);
   };
 

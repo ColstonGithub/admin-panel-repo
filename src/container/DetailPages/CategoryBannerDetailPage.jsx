@@ -1,4 +1,4 @@
-import { Box, Grid, Modal } from "@mui/material";
+import { Box } from "@mui/material";
 import FMTypography from "components/FMTypography/FMTypography";
 import React, { useEffect } from "react";
 import { Col, Row } from "react-bootstrap";

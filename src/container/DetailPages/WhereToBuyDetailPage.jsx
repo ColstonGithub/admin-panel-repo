@@ -22,10 +22,6 @@ const WhereToBuyDetailPage = (props) => {
     dispatch(whereToBuyDetail(id));
   }, [id, dispatch]);
 
-  //   const getOrientationCenterDetails = useSelector(
-  //     (state) => state?
-  //   );
-
   const getWhereToBuyDetails = useSelector(
     (state) => state?.whereToBuy?.getWhereToBuyData?.whereToBuyProd
   );

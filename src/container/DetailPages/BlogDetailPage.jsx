@@ -1,12 +1,19 @@
-import { Box, Grid, Modal } from "@mui/material";
 import FMTypography from "components/FMTypography/FMTypography";
 import React, { useEffect } from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import crossIcon from "assets/crossIcon.svg";
+import { Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { getBlogsDetail } from "redux/Slices/Blogs/Blogs";
 import ModalWrapper from "container/HomePage/Modal";
+
+// Styles for the editor and its container element
+const previewContainer = {
+  backgroundColor: "#f8f8f8",
+  padding: "10px",
+  border: "1px solid #ddd",
+  marginTop: "5px",
+};
+
 const BlogDetailPage = (props) => {
   const { setOpen, open, id, type } = props;
   const dispatch = useDispatch();
@@ -23,7 +30,6 @@ const BlogDetailPage = (props) => {
   }, [id, dispatch]);
 
   const blogsDetail = useSelector((state) => state?.blogs?.getBlogsData?.Blogs);
-
 
   return (
     <ModalWrapper
@@ -88,10 +94,10 @@ const BlogDetailPage = (props) => {
       <Row style={{ marginTop: "1rem" }}>
         <Col>
           <FMTypography displayText={"Text"} />
-          <FMTypography
-            displayText={blogsDetail?.text}
-            styleData={{ color: "#717171" }}
-          />
+
+          <div style={previewContainer}>
+            <div dangerouslySetInnerHTML={{ __html: blogsDetail?.text }} />
+          </div>
         </Col>
       </Row>
 

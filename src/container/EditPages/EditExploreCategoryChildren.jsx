@@ -17,7 +17,7 @@ import FMButton from "components/FMButton/FMButton";
 import FMTypography from "components/FMTypography/FMTypography";
 import FMInput from "components/FMInput/FMInput";
 const EditHomePageCategoryChildren = (props) => {
-  const { setOpen, open, id, childId, usersListData } = props;
+  const { setOpen, open, id, childId } = props;
   const dispatch = useDispatch();
   const [imagePreview, setImagePreview] = useState(null);
   const [productTypes, setProductTypes] = React.useState("");

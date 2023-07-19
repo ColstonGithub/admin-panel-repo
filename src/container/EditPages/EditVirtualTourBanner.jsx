@@ -1,8 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box } from "@mui/material";
-import FMTypography from "components/FMTypography/FMTypography";
 import React, { useEffect, useState } from "react";
-import crossIcon from "assets/crossIcon.svg";
 import { useForm } from "react-hook-form";
 import FMButton from "components/FMButton/FMButton";
 import { Col, Row } from "react-bootstrap";

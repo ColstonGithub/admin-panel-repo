@@ -1,8 +1,7 @@
-import { Box, Grid, Modal } from "@mui/material";
+import { Box} from "@mui/material";
 import FMTypography from "components/FMTypography/FMTypography";
 import React, { useEffect } from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import crossIcon from "assets/crossIcon.svg";
+import { Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getBannersDetail,

@@ -1,8 +1,6 @@
-import { Box, Grid, Modal } from "@mui/material";
 import FMTypography from "components/FMTypography/FMTypography";
 import React, { useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
-import crossIcon from "assets/crossIcon.svg";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { getContactUsSecById } from "redux/Slices/ContactUsSection/ContactUsSection";

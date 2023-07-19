@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, FormControl, Select, TextField, MenuItem } from "@mui/material";
+import { Box, FormControl, Select, TextField } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import FMButton from "components/FMButton/FMButton";
 import FMTypography from "components/FMTypography/FMTypography";
 import FMInput from "components/FMInput/FMInput";
 
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { addBannerSchema } from "validationSchema/HomePage/AddBannerSchema";
 import {
   editHomepageCategory,

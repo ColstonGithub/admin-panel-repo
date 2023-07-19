@@ -7,19 +7,14 @@ import {
   Button,
   FormControl,
   Select,
-  MenuItem,
   TextField,
 } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FMButton from "components/FMButton/FMButton";
-
 import FMTypography from "components/FMTypography/FMTypography";
 import FMInput from "components/FMInput/FMInput";
-
 import crossIcon from "assets/crossIcon.svg";
-
 import { Col, Container, Row } from "react-bootstrap";
-
 import { addProductSchema } from "validationSchema/HomePage/AddBannerSchema";
 import { getHomePageCategories } from "redux/Slices/HomePage/HomePageCategories";
 import {
@@ -31,6 +26,7 @@ import { useNavigate } from "react-router";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { notify } from "constants/utils";
 import { commonStyle } from "Styles/commonStyles";
+
 const AddProductComponent = () => {
   const navigate = useNavigate();
   const [imageAltText, setImageAltText] = useState([""]);
@@ -38,12 +34,10 @@ const AddProductComponent = () => {
   const productListingData = useSelector(
     (state) => state?.exploreCategories?.getCategoriesListData?.categoryList
   );
-  
-  const [banner, setBanner] = useState([""]);
+
   const [productPdf, setProductPdf] = useState("");
   const dispatch = useDispatch();
   const [categoryId, setCategoryId] = useState("");
-  const [productFile, setProductFile] = useState([]);
 
   const [pdfFile, setPdfFile] = useState();
 

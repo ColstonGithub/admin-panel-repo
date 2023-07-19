@@ -39,7 +39,7 @@ import {
   WHERE_TO_BUY,
 } from "Routes/Routes";
 import { useNavigate } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import AddHomePageBanner from "container/AddPages/AddHomePageBanner";
 import AddBrandPageComponent from "container/AddPages/AddBrandPageComponent";
 import AddCareCleanComponent from "container/AddPages/AddCareCleanComponent";
@@ -88,7 +88,6 @@ import whereToBuySidebarIcon from "assets/whereToBuySidebarIcon.png";
 const HomePageBanners = (props) => {
   const navigate = useNavigate();
   const { children, value, index, type, ...other } = props;
-  const dispatch = useDispatch();
   const [openFirst, setOpenFirst] = useState(false);
   const [corporatePage, setCorporatePage] = useState(false);
   const [addBanners, setAddBanners] = useState(false);
@@ -120,7 +119,6 @@ const HomePageBanners = (props) => {
   const handleButtonClick = (buttonId) => {
     setActiveButton(buttonId);
   };
-
 
   const [addHomepageExploreCategory, setAddHomepageExploreCategory] =
     useState(false);
@@ -385,8 +383,6 @@ const HomePageBanners = (props) => {
               className="scroll-bar-class"
             >
               <div style={{ marginBottom: "20px" }}>
-
-                
                 <Button
                   sx={{
                     "&:hover": { background: "#EBECEF", borderRadius: "8px" },

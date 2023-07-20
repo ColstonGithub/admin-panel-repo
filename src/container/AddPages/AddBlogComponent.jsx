@@ -51,6 +51,7 @@ const AddBlogComponent = () => {
     formData.append("pageHeading", data?.pageHeading?.toString());
     formData.append("blogCategory", data?.blogCategory);
     if (image) formData.append("image", image);
+
     dispatch(addBlogs(formData)).then(() => {
       const usersListData = { page: 1 };
       dispatch(getBlogs(usersListData)).then(() => {
@@ -59,13 +60,16 @@ const AddBlogComponent = () => {
         }, 1000);
       });
     });
+
     notify({ type: "success", messgae: "Data Added Successfully" });
+    
     setValue("title", "");
     setValue("imageAltText", "");
     setValue("pageTitle", "");
     setValue("pageHeading", "");
     setValue("blogCategory", "");
     setDataText("");
+
   };
 
   const handleBannerPictures = (e) => {

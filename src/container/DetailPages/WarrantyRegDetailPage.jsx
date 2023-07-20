@@ -75,6 +75,17 @@ const WarrantyRegDetailPage = (props) => {
             styleData={{ color: "#717171" }}
           />
         </Col>
+      </Row>{" "}
+      <Row style={{ marginTop: "1rem" }}>
+        <Col>
+          <FMTypography displayText={"Image"} />
+          <img
+            src={warrantyRegDetail?.image}
+            alt="img"
+            width="200px"
+            height="200px"
+          />
+        </Col>
       </Row>
     </ModalWrapper>
   );

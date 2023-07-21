@@ -385,7 +385,6 @@ export const newsPressProductConfig = (type) => [
 ];
 
 //
-
 export const virtualTourBannerConfig = (type) => [
   {
     headername: "S.NO.",
@@ -413,60 +412,6 @@ export const virtualTourBannerConfig = (type) => [
             className="img-responsive img-fluid "
             loading="lazy"
           />
-        </>
-      );
-    },
-  },
-
-  {
-    headername: "Actions",
-    field: "Actions",
-    width: "20%",
-  },
-];
-
-export const videoConfig = (type) => [
-  {
-    headername: "S.NO.",
-    field: "S.NO.",
-    width: "15%",
-  },
-  {
-    headername: "Title",
-    field: "Title",
-    width: "20%",
-  },
-  {
-    headername: "Images",
-    field: "Images",
-    align: "left",
-    width: "20%",
-    renderColumn: (row) => {
-      return (
-        <>
-          <img
-            src={row?.Images}
-            alt="img"
-            width="50px"
-            height="40px"
-            className="img-responsive img-fluid "
-            loading="lazy"
-          />
-        </>
-      );
-    },
-  },
-  {
-    headername: "Video",
-    field: "Video",
-    align: "left",
-    width: "20%",
-    renderColumn: (row) => {
-      return (
-        <>
-          <video width="80" height="80" controls>
-            <source src={row?.Video} />
-          </video>
         </>
       );
     },

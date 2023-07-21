@@ -123,46 +123,6 @@ const AddWhereToBuyComponent = (props) => {
             errorDisplayText={errors?.location?.message}
           />
         </Col>
-        <Col md={6}>
-          <FMInput
-            required
-            readOnly={false}
-            displayText="Purchase Assistance"
-            id="purchaseAssistance"
-            name="purchaseAssistance"
-            register={register("purchaseAssistance")}
-            error={errors?.purchaseAssistance}
-            errorDisplayText={errors?.purchaseAssistance?.message}
-          />
-        </Col>
-      </Row>
-
-      <Row style={{ marginTop: "1rem" }}>
-        <Col md={6}>
-          <FMInput
-            required
-            readOnly={false}
-            displayText="Service"
-            id="service"
-            name="service"
-            register={register("service")}
-            error={errors?.service}
-            errorDisplayText={errors?.service?.message}
-          />
-        </Col>
-
-        <Col md={6}>
-          <FMInput
-            required
-            readOnly={false}
-            displayText="Oc Appointment"
-            id="ocAppointment"
-            name="ocAppointment"
-            register={register("ocAppointment")}
-            error={errors?.ocAppointment}
-            errorDisplayText={errors?.ocAppointment?.message}
-          />
-        </Col>
       </Row>
 
       <FMButton

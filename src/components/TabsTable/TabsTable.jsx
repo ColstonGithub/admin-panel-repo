@@ -25,7 +25,7 @@ import {
   newsPressBannerConfig,
   newsPressProductConfig,
   quotationSectionConfig,
-  videoConfig,
+
   virtualTourBannerConfig,
   warrantyRegistrationConfig,
   orientationCenterConfig,
@@ -86,7 +86,7 @@ import {
   deleteVirtualTour,
   getVirtualTourBanner,
 } from "redux/Slices/VirtuaTour/VirtualTour";
-import { deleteVideo, getVideos } from "redux/Slices/videosSlices/Video";
+
 import {
   deleteCareClean,
   getCareClean,
@@ -121,7 +121,7 @@ import BrandPageBannerDetailPage from "container/DetailPages/BrandPageBannerDeta
 import ExhibitionDetailPage from "container/DetailPages/ExhibitionDetailPage";
 import BlogDetailPage from "container/DetailPages/BlogDetailPage";
 import CataloguesDetailPage from "container/DetailPages/CataloguesDetailPage";
-import VideoDetailPage from "container/DetailPages/VideoDetailPage";
+
 import CareAndCleanDetailPage from "container/DetailPages/CareAndCleanDetailPage";
 import CategoryBannerDetailPage from "container/DetailPages/CategoryBannerDetailPage";
 import CorporateProductsDetailPage from "container/DetailPages/CorporateProductsDetailPage";
@@ -180,7 +180,7 @@ import {
 import EditExhibitionBanner from "container/EditPages/EditExhibitionBanner";
 import EditVirtualTourBanner from "container/EditPages/EditVirtualTourBanner";
 import EditNewsPressProduct from "container/EditPages/EditNewsPressProduct";
-import EditVideo from "container/EditPages/EditVideo";
+
 import EditCareClean from "container/EditPages/EditCareClean";
 import EditFAQs from "container/EditPages/EditFAQs";
 import { InfinitySpin } from "react-loader-spinner";
@@ -251,7 +251,7 @@ export default function TabsTable({ type }) {
 
   const [openCatalogueDetailPage, setOpenCatalogueDetailPage] =
     React.useState(false);
-  const [openVideoDetailPage, setOpenVideoDetailPage] = React.useState(false);
+
   const [openCareCleanDetailPage, setOpenCareCleanDetailPage] =
     React.useState(false);
   const [openCategoryBannerDetailPage, setOpenCategoryBannerDetailPage] =
@@ -302,7 +302,7 @@ export default function TabsTable({ type }) {
   const [blogPageId, setBlogPageId] = React.useState(null);
   const [blogCategoryPageId, setBlogCategoryPageId] = React.useState(null);
   const [cataloguePageId, setCataloguePageId] = React.useState(null);
-  const [videoPageId, setVideoPageId] = React.useState(null);
+
   const [careCleanPageId, setCareCleanPageId] = React.useState(null);
   const [categoryBannerPageId, setCategoryBannerPageId] = React.useState(null);
   const [homepageExploreCategoryPageId, setHomepageExploreCategoryPageId] =
@@ -338,7 +338,7 @@ export default function TabsTable({ type }) {
   const [editVirtualTourBanner, setEditVirtualTourBanner] =
     React.useState(false);
   const [editCareClean, setEditCareClean] = React.useState(false);
-  const [editVideo, setEditVideo] = React.useState(false);
+
   const [editNewsPressProduct, setEditNewsPressProduct] = React.useState(false);
   const [editExhibitionBanner, setEditExhibitionBanner] = React.useState(false);
 
@@ -351,7 +351,7 @@ export default function TabsTable({ type }) {
   const [editedVirtualBannerId, setEditedVirtualBannerId] =
     React.useState(null);
   const [editedCareCleanId, setEditedCareCleanId] = React.useState(null);
-  const [editedVideoId, setEditedVideoId] = React.useState(null);
+
   const [editedNewsPressProductId, setEditedNewsPressProductId] =
     React.useState(null);
   const [editedExhibitionBannerId, setEditedExhibitionBannerId] =
@@ -462,13 +462,6 @@ export default function TabsTable({ type }) {
   const virtualTourPagination = useSelector(
     (state) =>
       state?.virtualTourBanner?.getVirtualTourBannerListData?.pagination
-  );
-
-  const videoData = useSelector(
-    (state) => state?.video?.getVideosListData?.videoData
-  );
-  const videoPagination = useSelector(
-    (state) => state?.video?.getVideosListData?.pagination
   );
 
   const careCleanData = useSelector(
@@ -629,8 +622,6 @@ export default function TabsTable({ type }) {
       dispatch(getNewsPressBanner(usersListData));
     } else if (type === "virtualTourBannerString") {
       dispatch(getVirtualTourBanner(usersListData));
-    } else if (type === "video") {
-      dispatch(getVideos(usersListData));
     } else if (type === "careCleanString") {
       dispatch(getCareClean(usersListData));
     } else if (type === "blogsString") {
@@ -734,11 +725,6 @@ export default function TabsTable({ type }) {
     }
   }, [cataloguePageId]);
 
-  useEffect(() => {
-    if (videoPageId !== null && videoPageId) {
-      setOpenVideoDetailPage(true);
-    }
-  }, [videoPageId]);
 
   useEffect(() => {
     if (careCleanPageId !== null && careCleanPageId) {
@@ -869,9 +855,7 @@ export default function TabsTable({ type }) {
     if (editedCareCleanId !== null && editedCareCleanId) setEditCareClean(true);
   }, [editedCareCleanId]);
 
-  useEffect(() => {
-    if (editedVideoId !== null && editedVideoId) setEditVideo(true);
-  }, [editedVideoId]);
+
   useEffect(() => {
     if (editedNewsPressProductId !== null && editedNewsPressProductId)
       setEditNewsPressProduct(true);
@@ -902,9 +886,7 @@ export default function TabsTable({ type }) {
     setEditedCareCleanId(cId);
   };
 
-  const editVideoFunc = (cId) => {
-    setEditedVideoId(cId);
-  };
+
   const editNewsPressProductFunc = (cId) => {
     setEditedNewsPressProductId(cId);
   };
@@ -1005,9 +987,7 @@ export default function TabsTable({ type }) {
   const catalogueDetailPageHandler = (cId) => {
     setCataloguePageId(cId);
   };
-  const videoDetailPageHandler = (cId) => {
-    setVideoPageId(cId);
-  };
+
 
   const careCleanDetailPageHandler = (cId) => {
     setCareCleanPageId(cId);
@@ -1185,12 +1165,7 @@ export default function TabsTable({ type }) {
           dispatch(getCatalogues(usersListData));
         }
       });
-    else if (type === "video")
-      dispatch(deleteVideo(cId)).then((res) => {
-        if (res) {
-          dispatch(getVideos(usersListData));
-        }
-      });
+
     else if (type === "careCleanString")
       dispatch(deleteCareClean(cId)).then((res) => {
         if (res) {
@@ -1758,57 +1733,6 @@ export default function TabsTable({ type }) {
               className="img-responsive img-fluid "
               loading="lazy"
               onClick={() => editVirtualTourBannerFunc(element?._id)}
-              style={{ marginLeft: "1.5rem", cursor: "pointer" }}
-            />
-            <img
-              src={deleteIcon}
-              alt="img"
-              width="17px"
-              height="17px"
-              className="img-responsive img-fluid "
-              loading="lazy"
-              onClick={() => deleteCategoryFunc(element?._id)}
-              style={{ marginLeft: "1.5rem", cursor: "pointer" }}
-            />
-          </Grid>
-        ),
-      };
-
-      return rowDataVal.push(rowData);
-    });
-
-    return rowDataVal;
-  };
-  const getVideoRowData = () => {
-    let rowDataVal = [];
-
-    videoData?.map((element, index) => {
-      const rowData = {
-        "S.NO.": index + 1,
-        Title: element?.title,
-        Images: element?.poster,
-        Video: element?.video,
-        id: element?._id,
-        Actions: (
-          <Grid>
-            <img
-              src={detailIcon}
-              alt="img"
-              width="20px"
-              height="20px"
-              className="img-responsive img-fluid "
-              loading="lazy"
-              onClick={() => videoDetailPageHandler(element?._id)}
-              style={{ cursor: "pointer" }}
-            />
-            <img
-              src={editIcon}
-              alt="img"
-              width="20px"
-              height="20px"
-              className="img-responsive img-fluid "
-              loading="lazy"
-              onClick={() => editVideoFunc(element?._id)}
               style={{ marginLeft: "1.5rem", cursor: "pointer" }}
             />
             <img
@@ -2678,8 +2602,6 @@ export default function TabsTable({ type }) {
                   ? newsPressProductConfig()
                   : type === "virtualTourBannerString"
                   ? virtualTourBannerConfig()
-                  : type === "video"
-                  ? videoConfig()
                   : type === "careCleanString"
                   ? careCleanConfig()
                   : type === "blogsString"
@@ -2733,8 +2655,6 @@ export default function TabsTable({ type }) {
                   ? getNewsPressProductRowData()
                   : type === "virtualTourBannerString"
                   ? getVirtualTourBannerRowData()
-                  : type === "video"
-                  ? getVideoRowData()
                   : type === "careCleanString"
                   ? getCareCleanRowData()
                   : type === "categoryBannerString"
@@ -2789,8 +2709,6 @@ export default function TabsTable({ type }) {
                   ? newsPressProductPagination?.totalPages
                   : type === "virtualTourBannerString"
                   ? virtualTourPagination?.totalPages
-                  : type === "video"
-                  ? videoPagination?.totalPages
                   : type === "careCleanString"
                   ? careCleanPagination?.totalPages
                   : type === "blogsString"
@@ -2954,17 +2872,7 @@ export default function TabsTable({ type }) {
           type={type}
         />
       )}
-      {videoPageId && (
-        <VideoDetailPage
-          open={openVideoDetailPage}
-          setOpen={() => {
-            setOpenVideoDetailPage(false);
-            setVideoPageId(null);
-          }}
-          id={videoPageId}
-          type={type}
-        />
-      )}
+
       {careCleanPageId && (
         <CareAndCleanDetailPage
           open={openCareCleanDetailPage}
@@ -3288,17 +3196,7 @@ export default function TabsTable({ type }) {
             />
           )}
 
-          {editedVideoId && (
-            <EditVideo
-              open={editVideo}
-              setOpen={() => {
-                setEditVideo(false);
-                setEditedVideoId(null);
-              }}
-              id={editedVideoId}
-              usersListData={usersListData}
-            />
-          )}
+
 
           {editCorporateProduct && (
             <EditCorporateProduct

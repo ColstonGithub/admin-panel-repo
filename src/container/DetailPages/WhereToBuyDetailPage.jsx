@@ -71,44 +71,18 @@ const WhereToBuyDetailPage = (props) => {
       </Row>{" "}
       <Row style={{ marginBottom: "1rem" }}>
         <Col md={6}>
-          <FMTypography displayText={"Location"} />
-          <Link to={getWhereToBuyDetails?.location} target="_blank">
-            <DirectionsIcon style={{ width: "25px", height: "25px" }} />
-            Get Directions
-          </Link>
-        </Col>
-
-        <Col md={6}>
-          <FMTypography displayText={"Service"} />
-          <FMTypography
-            displayText={getWhereToBuyDetails?.service}
-            styleData={{ color: "#717171" }}
-          />
-        </Col>
-      </Row>
-      <Row style={{ marginBottom: "1rem" }}>
-        <Col md={6}>
-          <FMTypography displayText={"Purchase Assistance"} />
-          <FMTypography
-            displayText={getWhereToBuyDetails?.purchaseAssistance}
-            styleData={{ color: "#717171" }}
-          />
-        </Col>
-        <Col md={6}>
-          <FMTypography displayText={"Oc Appointment"} />
-          <FMTypography
-            displayText={getWhereToBuyDetails?.ocAppointment}
-            styleData={{ color: "#717171" }}
-          />
-        </Col>
-      </Row>
-      <Row>
-        <Col md={12}>
           <FMTypography displayText={"Center Address"} />
           <FMTypography
             displayText={getWhereToBuyDetails?.centerAddress}
             styleData={{ color: "#717171" }}
           />
+        </Col>
+        <Col md={6}>
+          <FMTypography displayText={"Location"} />
+          <Link to={getWhereToBuyDetails?.location} target="_blank">
+            <DirectionsIcon style={{ width: "25px", height: "25px" }} />
+            Get Directions
+          </Link>
         </Col>
       </Row>
     </ModalWrapper>

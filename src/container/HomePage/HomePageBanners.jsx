@@ -32,7 +32,6 @@ import {
   NEWS_PRESS_BANNER,
   NEWS_PRESS_PRODUCTS,
   QUOTATION_SECTION,
-  VIDEO,
   VIRTUAL_TOUR_BANNER,
   WARRANTY_REGISTRATION,
   orientationCenter,
@@ -43,7 +42,6 @@ import { useSelector } from "react-redux";
 import AddHomePageBanner from "container/AddPages/AddHomePageBanner";
 import AddBrandPageComponent from "container/AddPages/AddBrandPageComponent";
 import AddCareCleanComponent from "container/AddPages/AddCareCleanComponent";
-import AddVideoComponent from "container/AddPages/AddVideoComponent";
 import AddCatalogueComponent from "container/AddPages/AddCatalogueComponent";
 import AddVirtualTourComponent from "container/AddPages/AddVirtualTourComponent";
 import AddExhibitionBannerComponent from "container/AddPages/AddExhibitionBannerComponent";
@@ -58,11 +56,8 @@ import AddAboutUsComponent from "container/AddPages/AddAboutUsComponent";
 import AddFaqCategoryComponent from "container/AddPages/AddFaqCategoryComponent";
 import AddFAQs from "container/AddPages/AddFAQs";
 import AddHomepageExploreCategoryComponent from "container/AddPages/AddHomepageExploreCategoryComponent";
-
 import AddOrientationCenter from "container/AddPages/AddOrientationCenter";
-
 import AddWhereToBuyComponent from "container/AddPages/AddWhereToBuyComponent";
-
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import productIcon from "assets/product.svg";
@@ -73,7 +68,6 @@ import virtualTourIcon from "assets/virtualTour.svg";
 import newsPressIcon from "assets/newsPress.svg";
 import blogsIcon from "assets/blogs.svg";
 import catalogueIcon from "assets/catalogue.svg";
-import videosIcon from "assets/videos.svg";
 import careCleanIcon from "assets/careClean.svg";
 import aboutUsIcon from "assets/aboutUs.svg";
 import faqsIcon from "assets/faqs.svg";
@@ -98,7 +92,6 @@ const HomePageBanners = (props) => {
   const [blogsMenuOpen, setBlogsMenuOpen] = useState(false);
   const [faqsOpen, setFaqsOpen] = useState(false);
   const [addCareClean, setAddCareClean] = useState(false);
-  const [addVideo, setAddVideo] = useState(false);
   const [addCatalogue, setAddCatalogue] = useState(false);
   const [addVirtualTour, setAddVirtualTour] = useState(false);
   const [addExhibitionBanner, setAddExhibitionBanner] = useState(false);
@@ -163,9 +156,7 @@ const HomePageBanners = (props) => {
   const addCareCleanModal = () => {
     setAddCareClean(true);
   };
-  const addVideoModal = () => {
-    setAddVideo(true);
-  };
+
   const addCatalogueModal = () => {
     setAddCatalogue(true);
   };
@@ -297,9 +288,6 @@ const HomePageBanners = (props) => {
     navigate(VIRTUAL_TOUR_BANNER);
   };
 
-  const videoNavigator = () => {
-    navigate(VIDEO);
-  };
 
   const careCleanNavigator = () => {
     navigate(CARE_CLEAN);
@@ -850,30 +838,6 @@ const HomePageBanners = (props) => {
                   }}
                 >
                   <img
-                    src={videosIcon}
-                    alt="icon"
-                    style={{ marginRight: "24px", width: "15px" }}
-                  />
-                  <FMTypography
-                    displayText={"Videos"}
-                    onClick={() => videoNavigator()}
-                    styleData={{
-                      fontSize: "16px",
-                      fontWeight: "400",
-                      color: "#222222",
-                      fontFamily: " 'Inter', sans-serif",
-                    }}
-                  />
-                </Button>
-              </div>
-
-              <div style={{ marginBottom: "20px" }}>
-                <Button
-                  sx={{
-                    "&:hover": { background: "#EBECEF", borderRadius: "8px" },
-                  }}
-                >
-                  <img
                     src={careCleanIcon}
                     alt="icon"
                     style={{ marginRight: "24px", width: "15px" }}
@@ -1151,8 +1115,6 @@ const HomePageBanners = (props) => {
                     ? "News & Press Banners"
                     : type === "virtualTourBannerString"
                     ? "Virtual Tour Banners"
-                    : type === "video"
-                    ? "Videos"
                     : type === "careCleanString"
                     ? "Care & Clean"
                     : type === "blogsString"
@@ -1213,8 +1175,6 @@ const HomePageBanners = (props) => {
                       ? addBrandPageFunc
                       : type === "careCleanString"
                       ? addCareCleanModal
-                      : type === "video"
-                      ? addVideoModal
                       : type === "catalogueString"
                       ? addCatalogueModal
                       : type === "virtualTourBannerString"
@@ -1285,7 +1245,7 @@ const HomePageBanners = (props) => {
         />
 
         <AddCareCleanComponent open={addCareClean} setOpen={setAddCareClean} />
-        <AddVideoComponent open={addVideo} setOpen={setAddVideo} />
+
         <AddCatalogueComponent open={addCatalogue} setOpen={setAddCatalogue} />
         <AddVirtualTourComponent
           open={addVirtualTour}

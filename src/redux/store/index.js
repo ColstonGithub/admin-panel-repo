@@ -14,7 +14,6 @@ import exhibitionBannerSlice from "../Slices/Exhibition/ExhibitionBanner";
 import newsPressProductSlice from "../Slices/NewsPress/NewsPressProducts";
 import newsPressBannerSlice from "../Slices/NewsPress/NewsPressBanner";
 import virtualTourBannerSlice from "../Slices/VirtuaTour/VirtualTour";
-import videoSlice from "../Slices/videosSlices/Video";
 import careCleanSlice from "../Slices/CareClean/CareClean";
 import blogsSlice from "../Slices/Blogs/Blogs";
 import cataloguesSlice from "../Slices/Catalogue/Catalogue";
@@ -44,7 +43,6 @@ const rootReducer = combineReducers({
   newsPressProduct: newsPressProductSlice,
   newsPressBanner: newsPressBannerSlice,
   virtualTourBanner: virtualTourBannerSlice,
-  video: videoSlice,
   careClean: careCleanSlice,
   blogs: blogsSlice,
   blogsCategory: blogsCategorySlice,

@@ -7,8 +7,11 @@ import FMButton from "components/FMButton/FMButton";
 import FMTypography from "components/FMTypography/FMTypography";
 import FMInput from "components/FMInput/FMInput";
 import { Col, Row } from "react-bootstrap";
-import { addBrandPageSchema } from "validationSchema/HomePage/AddBannerSchema";
-import { addBrandPage, getBrandPage } from "redux/Slices/BrandPage/BrandPage";
+import { addExhibitionProductSchema } from "validationSchema/AddExhibitionProductSchema";
+import {
+  addExhibitionPage,
+  getExhibitionPage,
+} from "redux/Slices/Exhibition/ExhibitionPage";
 import { notify } from "constants/utils";
 import ModalWrapper from "container/HomePage/Modal";
 import { commonStyle } from "Styles/commonStyles";
@@ -39,7 +42,7 @@ const AddExhibitionPageComponent = (props) => {
     formState: { errors },
     setValue,
   } = useForm({
-    resolver: yupResolver(addBrandPageSchema),
+    resolver: yupResolver(addExhibitionProductSchema),
     mode: "onChange",
   });
 
@@ -52,9 +55,9 @@ const AddExhibitionPageComponent = (props) => {
     formData.append("imageAltText", data?.imageAltText?.toString());
     formData.append("image", image);
 
-    dispatch(addBrandPage(formData)).then(() => {
+    dispatch(addExhibitionPage(formData)).then(() => {
       const usersListData = { page: 1 };
-      dispatch(getBrandPage(usersListData));
+      dispatch(getExhibitionPage(usersListData));
       setOpen(false);
       setValue("title", "");
       setValue("text", "");

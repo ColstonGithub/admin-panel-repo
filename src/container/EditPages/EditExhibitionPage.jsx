@@ -44,9 +44,10 @@ const EditExhibitionPage = (props) => {
   }, [id, dispatch]);
 
   const ExhibitionData = useSelector(
-    (state) =>
-      state?.exhibitionProduct?.getExhibitionProductData?.exhibitionproduct
+    (state) => state?.exhibitionPage?.getExhibitionCenterData?.exhibitionproduct
   );
+
+  console.log("ExhibitionData ", ExhibitionData);
 
   const {
     register,

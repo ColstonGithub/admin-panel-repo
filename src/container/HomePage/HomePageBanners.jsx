@@ -24,6 +24,7 @@ import {
   CORPORATE_BANNER,
   CORPORATE_PRODUCT,
   EXHIBITION_BANNER,
+  EXHIBITION_PRODUCT,
   EXPLORE_CATEGORY_HOME,
   FAQS,
   FAQ_CATEGORY,
@@ -78,12 +79,14 @@ import contactUsIcon from "assets/contactUs.svg";
 
 import orientationSidebarIcon from "assets/orientationSidebarIcon.png";
 import whereToBuySidebarIcon from "assets/whereToBuySidebarIcon.png";
+import AddExhibitionPageComponent from "container/AddPages/AddExhibitionPageComponent";
 
 const HomePageBanners = (props) => {
   const navigate = useNavigate();
   const { children, value, index, type, ...other } = props;
   const [openFirst, setOpenFirst] = useState(false);
   const [corporatePage, setCorporatePage] = useState(false);
+  const [exhibitionPage, setExhibitionPage] = useState(false);
   const [addBanners, setAddBanners] = useState(false);
   const [addBrandPage, setAddBrandPage] = useState(false);
   const [addHomePageBanners, setAddHomePageBanners] = useState(false);
@@ -106,6 +109,8 @@ const HomePageBanners = (props) => {
   const [addBlogCategory, setAddBlogCategory] = useState(false);
   const [addAboutUs, setAddAboutUs] = useState(false);
   const [addFaqCategory, setAddFaqCategory] = useState(false);
+
+  const [addExhibitionPage, setAddExhibitionPage] = useState(false);
 
   const [activeButton, setActiveButton] = useState(null);
 
@@ -148,6 +153,9 @@ const HomePageBanners = (props) => {
   const corporatePageDisplay = () => {
     setCorporatePage(!corporatePage);
   };
+  const exhibitionPageDisplay = () => {
+    setExhibitionPage(!exhibitionPage);
+  };
 
   const addBanner = () => {
     setAddBanners(true);
@@ -167,6 +175,11 @@ const HomePageBanners = (props) => {
   const addExhibitionBannerModal = () => {
     setAddExhibitionBanner(true);
   };
+
+  const addExhibitionPageModal = () => {
+    setAddExhibitionPage(true);
+  };
+
   const addNewsPressProductModal = () => {
     setAddNewsPressProduct(true);
   };
@@ -269,7 +282,9 @@ const HomePageBanners = (props) => {
   const corporateProductNavigator = () => {
     navigate(CORPORATE_PRODUCT);
   };
-
+  const exhibitionProductNavigator = () => {
+    navigate(EXHIBITION_PRODUCT);
+  };
   const corporateBannerNavigator = () => {
     navigate(CORPORATE_BANNER);
   };
@@ -287,7 +302,6 @@ const HomePageBanners = (props) => {
   const virtualTourNavigator = () => {
     navigate(VIRTUAL_TOUR_BANNER);
   };
-
 
   const careCleanNavigator = () => {
     navigate(CARE_CLEAN);
@@ -634,6 +648,73 @@ const HomePageBanners = (props) => {
                     style={{ marginRight: "24px", width: "15px" }}
                   />
                   <FMTypography
+                    displayText={"Exhibition Page"}
+                    onClick={() => exhibitionPageDisplay()}
+                    styleData={{
+                      fontSize: "16px",
+                      fontWeight: "400",
+                      color: "#222222",
+                      fontFamily: " 'Inter', sans-serif",
+                    }}
+                  />
+                  {exhibitionPage ? (
+                    <KeyboardArrowUpIcon sx={{ color: "black" }} />
+                  ) : (
+                    <KeyboardArrowDownIcon sx={{ color: "black" }} />
+                  )}
+                </Button>
+
+                <Box
+                  className="dropdown-homepage"
+                  style={{
+                    display: exhibitionPage ? "block" : "none",
+                    paddingLeft: "3rem",
+                    height: "60px",
+                    // display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  <FMTypography
+                    displayText={"Exhibitions Product"}
+                    styleData={{
+                      color: "#717171",
+                      cursor: "pointer",
+                      fontSize: "16px",
+                      fontWeight: "400",
+                      marginBottom: "10px",
+                      marginTop: "10px",
+                    }}
+                    onClick={() => exhibitionProductNavigator()}
+                  />
+
+                  <FMTypography
+                    displayText={"Exhibitions Banner"}
+                    onClick={() => exhibitionNavigator()}
+                    styleData={{
+                      color: "#717171",
+                      cursor: "pointer",
+                      fontSize: "16px",
+                      fontWeight: "400",
+                      marginBottom: "10px",
+                      marginTop: "10px",
+                    }}
+                  />
+                </Box>
+              </div>
+
+              {/* <div style={{ marginBottom: "20px" }}>
+                <Button
+                  sx={{
+                    "&:hover": { background: "#EBECEF", borderRadius: "8px" },
+                  }}
+                >
+                  <img
+                    src={exhibitionIcon}
+                    alt="icon"
+                    style={{ marginRight: "24px", width: "15px" }}
+                  />
+                  <FMTypography
                     displayText={"Exhibitions"}
                     onClick={() => exhibitionNavigator()}
                     styleData={{
@@ -644,7 +725,7 @@ const HomePageBanners = (props) => {
                     }}
                   />
                 </Button>
-              </div>
+              </div> */}
 
               <div style={{ marginBottom: "20px" }}>
                 <Button
@@ -1145,6 +1226,8 @@ const HomePageBanners = (props) => {
                     ? "Homepage Explore Category"
                     : type === "orientationCenterString"
                     ? "Live Display Centre"
+                    : type === "exhibitionPageString"
+                    ? "Exhibition Page"
                     : type === "whereToBuyString"
                     ? "Where To Buy"
                     : "New Page"
@@ -1205,6 +1288,8 @@ const HomePageBanners = (props) => {
                       ? addAboutUsModal
                       : type === "faqsString"
                       ? addFaqsModal
+                      : type === "exhibitionPageString"
+                      ? addExhibitionPageModal
                       : type === "faqCategoryString"
                       ? addFaqCategoryModal
                       : addHomepageExploreCategoryModal
@@ -1255,6 +1340,12 @@ const HomePageBanners = (props) => {
           open={addExhibitionBanner}
           setOpen={setAddExhibitionBanner}
         />
+
+        <AddExhibitionPageComponent
+          open={addExhibitionPage}
+          setOpen={setAddExhibitionPage}
+        />
+
         <AddNewsPressProductComponent
           open={addNewsPressProduct}
           setOpen={setAddNewsPressProduct}

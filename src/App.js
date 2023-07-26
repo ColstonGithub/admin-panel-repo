@@ -47,6 +47,7 @@ import {
   orientationCenter,
   WHERE_TO_BUY,
   CATEGORY_TABLE,
+  EXHIBITION_PRODUCT,
 } from "Routes/Routes";
 import Login from "./views/Signin/Login";
 import SignUp from "./views/SignUp/SignUp";
@@ -197,6 +198,16 @@ const App = () => {
                 Component={HomePageBanners}
                 key={EXHIBITION_BANNER}
                 type="exhibitionBannerString"
+              />
+            }
+          />
+          <Route
+            path={EXHIBITION_PRODUCT}
+            element={
+              <PrivateRoutes
+                Component={HomePageBanners}
+                key={EXHIBITION_PRODUCT}
+                type="exhibitionPageString"
               />
             }
           />

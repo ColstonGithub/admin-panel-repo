@@ -25,11 +25,11 @@ import {
   newsPressBannerConfig,
   newsPressProductConfig,
   quotationSectionConfig,
-
   virtualTourBannerConfig,
   warrantyRegistrationConfig,
   orientationCenterConfig,
   whereToBuyConfig,
+  exhibitionPageTableConfig,
 } from "./TableInTabs/tableConfig";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -74,6 +74,12 @@ import {
   getExhibitionBanner,
   getExhibitionBannerDetail,
 } from "redux/Slices/Exhibition/ExhibitionBanner";
+
+import {
+  deleteExhibitionPage,
+  getExhibitionPage,
+} from "redux/Slices/Exhibition/ExhibitionPage";
+
 import {
   deleteNewsPressProduct,
   getNewsPressProducts,
@@ -177,6 +183,7 @@ import {
   deleteHomepageExploreCategory,
   getHomePageExploreCat,
 } from "redux/Slices/HomePage/HomepageExploreCategory";
+
 import EditExhibitionBanner from "container/EditPages/EditExhibitionBanner";
 import EditVirtualTourBanner from "container/EditPages/EditVirtualTourBanner";
 import EditNewsPressProduct from "container/EditPages/EditNewsPressProduct";
@@ -192,6 +199,8 @@ import OrientationCenterDetailPage from "container/DetailPages/OrientationCenter
 import EditOrientationCenter from "container/EditPages/EditOrientationCenter";
 import WhereToBuyDetailPage from "container/DetailPages/WhereToBuyDetailPage";
 import EditWhereToBuy from "container/EditPages/EditWhereToBuy";
+import ExhibitionSectionDetailPage from "container/DetailPages/ExhibitionSectionDetailPage";
+import EditExhibitionPage from "container/EditPages/EditExhibitionPage";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -383,6 +392,23 @@ export default function TabsTable({ type }) {
     navigate(`/products/edit-product/${id}`);
   };
 
+  const [exhibitionPageSectionId, setExhibitionPageSectionId] =
+    React.useState(null);
+  const [exhibitionPageDetailPage, setExhibitionPageDetailPage] =
+    React.useState(false);
+  const [editExhibitionPage, setEditExhibitionPage] = React.useState(false);
+  const [editedExhibitionPageId, setEditedExhibitionPageId] =
+    React.useState(null);
+  const exhibitionPageData = useSelector(
+    (state) =>
+      state?.exhibitionPage?.getExhibitionPageListData?.exhibitionProducts
+  );
+
+
+  const exhibitionPagePagination = useSelector(
+    (state) => state?.orientationCenter?.getOrientationCenterListData.pagination
+  );
+
   const homepageCategories = useSelector(
     (state) => state?.exploreCategories?.getCategoriesListData?.categoryList
   );
@@ -511,7 +537,6 @@ export default function TabsTable({ type }) {
   );
 
   //
-
   const homepageExploreCategoryData = useSelector(
     (state) =>
       state?.homepageExploreCategory?.getExploreCategoryListData
@@ -650,6 +675,8 @@ export default function TabsTable({ type }) {
       dispatch(getHomePageExploreCat(usersListData));
     } else if (type === "orientationCenterString") {
       dispatch(getOrientationCenterData(usersListData));
+    } else if (type === "exhibitionPageString") {
+      dispatch(getExhibitionPage(usersListData));
     } else if (type === "whereToBuyString") {
       dispatch(getWhereToBuyData(usersListData));
     }
@@ -704,6 +731,12 @@ export default function TabsTable({ type }) {
   }, [exhibitionPageId]);
 
   useEffect(() => {
+    if (exhibitionPageSectionId !== null && exhibitionPageSectionId) {
+      setExhibitionPageDetailPage(true);
+    }
+  }, [exhibitionPageSectionId]);
+
+  useEffect(() => {
     if (blogPageId !== null && blogPageId) {
       setOpenBlogDetailPage(true);
     } else {
@@ -724,7 +757,6 @@ export default function TabsTable({ type }) {
       setOpenCatalogueDetailPage(true);
     }
   }, [cataloguePageId]);
-
 
   useEffect(() => {
     if (careCleanPageId !== null && careCleanPageId) {
@@ -855,7 +887,6 @@ export default function TabsTable({ type }) {
     if (editedCareCleanId !== null && editedCareCleanId) setEditCareClean(true);
   }, [editedCareCleanId]);
 
-
   useEffect(() => {
     if (editedNewsPressProductId !== null && editedNewsPressProductId)
       setEditNewsPressProduct(true);
@@ -865,6 +896,11 @@ export default function TabsTable({ type }) {
     if (editedExhibitionBannerId !== null && editedExhibitionBannerId)
       setEditExhibitionBanner(true);
   }, [editedExhibitionBannerId]);
+
+  useEffect(() => {
+    if (editedExhibitionPageId !== null && editedExhibitionPageId)
+      setEditExhibitionPage(true);
+  }, [editedExhibitionPageId]);
 
   // edit useEffect above
 
@@ -886,7 +922,6 @@ export default function TabsTable({ type }) {
     setEditedCareCleanId(cId);
   };
 
-
   const editNewsPressProductFunc = (cId) => {
     setEditedNewsPressProductId(cId);
   };
@@ -894,7 +929,9 @@ export default function TabsTable({ type }) {
   const editExhibitionBannerFunc = (cId) => {
     setEditedExhibitionBannerId(cId);
   };
-
+  const editExhibitionPageFunc = (cId) => {
+    setEditedExhibitionPageId(cId);
+  };
   useEffect(() => {
     type === "exhibitionBannerString" &&
       dispatch(getExhibitionBannerDetail(editedExhibitionBannerId));
@@ -935,12 +972,12 @@ export default function TabsTable({ type }) {
   };
   const editOrientationCenterFunc = (cId) => {
     setEditOrientationCenter(cId);
-    console.log("editOrientationCenter ", editOrientationCenter);
+    console.log("editOrientationCenter", editOrientationCenter);
   };
 
   const editWhereToBuyFunc = (cId) => {
     setEditWhereToBuy(cId);
-    console.log("editOrientationCenter ", editOrientationCenter);
+    console.log("editOrientationCenter", editOrientationCenter);
   };
 
   const editBlogCategoryFunc = (cId) => {
@@ -954,6 +991,10 @@ export default function TabsTable({ type }) {
 
   const editFAQsFunc = (cId) => {
     setEditFAQs(cId);
+  };
+
+  const editExhibitionFunc = (cId) => {
+    setEditedExhibitionPageId(cId);
   };
 
   // detail page id setting states
@@ -987,7 +1028,6 @@ export default function TabsTable({ type }) {
   const catalogueDetailPageHandler = (cId) => {
     setCataloguePageId(cId);
   };
-
 
   const careCleanDetailPageHandler = (cId) => {
     setCareCleanPageId(cId);
@@ -1046,11 +1086,17 @@ export default function TabsTable({ type }) {
   const quotationSectionDetailPageHandler = (cId) => {
     setQuotationSectionId(cId);
   };
+
   const careerSectionDetailPageHandler = (cId) => {
     setCareerSectionId(cId);
   };
+
   const contactUsSectionDetailPageHandler = (cId) => {
     setContactUsSectionId(cId);
+  };
+
+  const exhibitionPageSectionDetailPageHandler = (cId) => {
+    setExhibitionPageSectionId(cId);
   };
 
   function cropText(text, maxLength) {
@@ -1165,7 +1211,6 @@ export default function TabsTable({ type }) {
           dispatch(getCatalogues(usersListData));
         }
       });
-
     else if (type === "careCleanString")
       dispatch(deleteCareClean(cId)).then((res) => {
         if (res) {
@@ -1224,6 +1269,12 @@ export default function TabsTable({ type }) {
       dispatch(deleteOrientationCenter(cId)).then((res) => {
         if (res) {
           dispatch(getOrientationCenterData(usersListData));
+        }
+      });
+    else if (type === "exhibitionPageString")
+      dispatch(deleteExhibitionPage(cId)).then((res) => {
+        if (res) {
+          dispatch(getExhibitionPage(usersListData));
         }
       });
     else if (type === "whereToBuyString")
@@ -1425,6 +1476,59 @@ export default function TabsTable({ type }) {
               className="img-responsive img-fluid "
               loading="lazy"
               onClick={() => editBrandPageFunc(element?._id)}
+              style={{ marginLeft: "1.5rem", cursor: "pointer" }}
+            />
+            <img
+              src={deleteIcon}
+              alt="img"
+              width="17px"
+              height="17px"
+              className="img-responsive img-fluid "
+              loading="lazy"
+              onClick={() => deleteCategoryFunc(element?._id)}
+              style={{ marginLeft: "1.5rem", cursor: "pointer" }}
+            />
+          </Grid>
+        ),
+      };
+
+      return rowDataVal.push(rowData);
+    });
+
+    return rowDataVal;
+  };
+
+  const getExhibitionPageRowData = () => {
+    let rowDataVal = [];
+    exhibitionPageData?.map((element, index) => {
+      const rowData = {
+        "S.NO.": index + 1,
+        Title: element?.title,
+        Images: element?.image,
+        id: element?._id,
+        Text: cropText(element?.text, 10),
+        Actions: (
+          <Grid>
+            <img
+              src={detailIcon}
+              alt="img"
+              width="20px"
+              height="20px"
+              className="img-responsive img-fluid "
+              loading="lazy"
+              onClick={() =>
+                exhibitionPageSectionDetailPageHandler(element?._id)
+              }
+              style={{ cursor: "pointer" }}
+            />
+            <img
+              src={editIcon}
+              alt="img"
+              width="20px"
+              height="20px"
+              className="img-responsive img-fluid "
+              loading="lazy"
+              onClick={() => editExhibitionFunc(element?._id)}
               style={{ marginLeft: "1.5rem", cursor: "pointer" }}
             />
             <img
@@ -2630,6 +2734,8 @@ export default function TabsTable({ type }) {
                   ? contactUsSectionConfig()
                   : type === "orientationCenterString"
                   ? orientationCenterConfig()
+                  : type === "exhibitionPageString"
+                  ? exhibitionPageTableConfig()
                   : type === "whereToBuyString"
                   ? whereToBuyConfig()
                   : homepageExploreCatSectionConfig()
@@ -2683,6 +2789,8 @@ export default function TabsTable({ type }) {
                   ? getContactUsSectionRowData()
                   : type === "orientationCenterString"
                   ? getOrientationCenterRowData()
+                  : type === "exhibitionPageString"
+                  ? getExhibitionPageRowData()
                   : type === "whereToBuyString"
                   ? getWhereToBuyRowData()
                   : getHomepageExploreCatRowData()
@@ -2736,6 +2844,8 @@ export default function TabsTable({ type }) {
                   : type === "careerSectionString"
                   ? careerSectionPagination?.totalPages
                   : type === "contactUsSectionString"
+                  ? type === "exhibitionPageString"
+                  : exhibitionPagePagination?.totalPages
                   ? contactUsSectionPagination?.totalPages
                   : type === "orientationCenterString"
                   ? orientationCenterPagination?.totalPages
@@ -2861,6 +2971,18 @@ export default function TabsTable({ type }) {
           type={type}
         />
       )}
+      {exhibitionPageSectionId && (
+        <ExhibitionSectionDetailPage
+          open={exhibitionPageDetailPage}
+          setOpen={() => {
+            setExhibitionPageDetailPage(false);
+            setExhibitionPageSectionId(null);
+          }}
+          id={exhibitionPageSectionId}
+          type={type}
+        />
+      )}
+
       {cataloguePageId && (
         <CataloguesDetailPage
           open={openCatalogueDetailPage}
@@ -3163,6 +3285,18 @@ export default function TabsTable({ type }) {
             />
           )}
 
+          {editedExhibitionPageId && (
+            <EditExhibitionPage
+              open={editExhibitionPage}
+              setOpen={() => {
+                setEditExhibitionPage(false);
+                setEditedExhibitionPageId(null);
+              }}
+              id={editedExhibitionPageId}
+              usersListData={usersListData}
+            />
+          )}
+
           {editedVirtualBannerId && (
             <EditVirtualTourBanner
               open={editVirtualTourBanner}
@@ -3195,8 +3329,6 @@ export default function TabsTable({ type }) {
               usersListData={usersListData}
             />
           )}
-
-
 
           {editCorporateProduct && (
             <EditCorporateProduct

@@ -31,6 +31,8 @@ import homepageExploreCategorySlice from "../Slices/HomePage/HomepageExploreCate
 
 import orientationCenterSlice from "../Slices/OrientationCenter/orientation";
 import whereToBuySlice from "../Slices/WhereToBuy/whereToBuy";
+import exhibitionPageSlice from "../Slices/Exhibition/ExhibitionPage";
+
 const rootReducer = combineReducers({
   auth: authReducer,
   exploreCategories: exploreCategoriesSlice,
@@ -58,10 +60,10 @@ const rootReducer = combineReducers({
   homepageExploreCategory: homepageExploreCategorySlice,
   // children
   ExploreCategoryChildren: ExploreCategoryChildrenSlice,
-
+  exhibitionPage: exhibitionPageSlice,
   orientationCenter: orientationCenterSlice,
   whereToBuy: whereToBuySlice,
-  
+
 });
 
 const initializeStore = () =>

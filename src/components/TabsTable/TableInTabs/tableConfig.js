@@ -179,6 +179,49 @@ export const brandPageTableConfig = (type) => [
     width: "20%",
   },
 ];
+export const exhibitionPageTableConfig = (type) => [
+  {
+    headername: "S.NO.",
+    field: "S.NO.",
+    width: "15%",
+  },
+  {
+    headername: "Title",
+    field: "Title",
+    width: "20%",
+  },
+
+  {
+    headername: "Images",
+    field: "Images",
+    align: "left",
+    width: "20%",
+    renderColumn: (row) => {
+      return (
+        <>
+          <img
+            src={row?.Images}
+            alt="img"
+            width="50px"
+            height="40px"
+            className="img-responsive img-fluid "
+            loading="lazy"
+          />
+        </>
+      );
+    },
+  },
+  {
+    headername: "Text",
+    field: "Text",
+    width: "20%",
+  },
+  {
+    headername: "Actions",
+    field: "Actions",
+    width: "20%",
+  },
+];
 
 export const corporateProductTableConfig = (type) => [
   {

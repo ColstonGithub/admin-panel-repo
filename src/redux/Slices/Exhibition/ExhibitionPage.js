@@ -58,12 +58,12 @@ export const editExhibitionPage = createAsyncThunk(
 
 export const deleteExhibitionPage = createAsyncThunk(
   DELETE_EXHIBITION_PAGE,
-  async (brandProductId, thunkAPI) => {
+  async (exhibitionProductId, thunkAPI) => {
     try {
       const response = await axiosInstance.post(
         `api/exhibitionproduct/delete`,
         {
-          brandProductId: brandProductId,
+          exhibitionProductId: exhibitionProductId,
         }
       );
 

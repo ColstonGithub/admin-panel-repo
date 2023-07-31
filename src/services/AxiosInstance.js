@@ -3,7 +3,7 @@ import axios from "axios";
 import { setItem } from "./commonService";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:5000/",
+  baseURL: "http://64.227.150.49:5000/",
   headers: {
     "Content-Type": "application/json",
   },

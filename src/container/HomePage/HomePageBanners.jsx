@@ -676,7 +676,7 @@ const HomePageBanners = (props) => {
                   }}
                 >
                   <FMTypography
-                    displayText={"Exhibitions Product"}
+                    displayText={"Exhibition Product"}
                     styleData={{
                       color: "#717171",
                       cursor: "pointer",
@@ -689,7 +689,7 @@ const HomePageBanners = (props) => {
                   />
 
                   <FMTypography
-                    displayText={"Exhibitions Banner"}
+                    displayText={"Exhibition Banner"}
                     onClick={() => exhibitionNavigator()}
                     styleData={{
                       color: "#717171",

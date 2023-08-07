@@ -65,8 +65,7 @@ import AddBlogComponent from "container/AddPages/AddBlogComponent";
 import EditBlogs from "container/EditPages/EditBlogs";
 // children
 import ExploreCategoryChildren from "container/Children/ExploreCategoryChildren/ExploreCategoryChildren";
-
-
+import CategoryTable from "./container/DisplayTable/CategoryTable";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -89,6 +88,8 @@ const App = () => {
           <Route path={EDIT_PRODUCT} element={<EditProductComponent />} />
           <Route path={ADD_BLOG} element={<AddBlogComponent />} />
           <Route path={EDIT_BLOG} element={<EditBlogs />} />
+          <Route path={CATEGORY_TABLE} element={<CategoryTable />} />
+
           {/* private routes below */}
           <Route
             path={HOME}
@@ -370,7 +371,12 @@ const App = () => {
               />
             }
           />
+
+
           {/* children */}
+
+
+          
           <Route
             path={EXPLORE_CATEGORY_CHILDREN}
             element={

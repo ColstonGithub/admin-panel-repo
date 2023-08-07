@@ -2218,8 +2218,6 @@ export default function TabsTable({ type }) {
     return rowDataVal;
   };
 
-  //
-
   const getCategoryBannerRowData = () => {
     let rowDataVal = [];
 
@@ -2270,8 +2268,6 @@ export default function TabsTable({ type }) {
 
     return rowDataVal;
   };
-
-  //
 
   const getFaqRowData = () => {
     let rowDataVal = [];
@@ -2325,8 +2321,6 @@ export default function TabsTable({ type }) {
     return rowDataVal;
   };
 
-  //
-
   const getWarrantyRegistrationRowData = () => {
     let rowDataVal = [];
 
@@ -2371,8 +2365,6 @@ export default function TabsTable({ type }) {
 
     return rowDataVal;
   };
-
-  //
 
   const getQuotationSectionRowData = () => {
     let rowDataVal = [];

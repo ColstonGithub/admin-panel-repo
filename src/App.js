@@ -89,7 +89,6 @@ const App = () => {
           <Route path={ADD_BLOG} element={<AddBlogComponent />} />
           <Route path={EDIT_BLOG} element={<EditBlogs />} />
           <Route path={CATEGORY_TABLE} element={<CategoryTable />} />
-
           {/* private routes below */}
           <Route
             path={HOME}
@@ -371,12 +370,7 @@ const App = () => {
               />
             }
           />
-
-
           {/* children */}
-
-
-          
           <Route
             path={EXPLORE_CATEGORY_CHILDREN}
             element={

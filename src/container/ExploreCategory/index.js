@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import Header from "components/SearchBar/Header";
 import { Box, Grid } from "@mui/material";
-import FMTable from "../../../components/TabsTable/TableInTabs/FMTable";
 import { useDispatch, useSelector } from "react-redux";
-import { getExploreCategoryChildren } from "redux/Slices/ExploreCategoryChildren/ExploreCategoryChildren";
+import {
+  deleteCategory,
+  getHomePageCategories,
+} from "redux/Slices/HomePage/HomePageCategories";
 import FMTypography from "components/FMTypography/FMTypography";
 import detailIcon from "assets/detailIcon.svg";
 import editIcon from "assets/editIcon.svg";
 import deleteIcon from "assets/deleteIcon.svg";
 import ExploreCategoryDetailPage from "container/DetailPages/ExploreCategoryDetailPage";
-import { deleteCategory } from "redux/Slices/HomePage/HomePageCategories";
-import EditHomePageCategoryChildren from "container/EditPages/EditExploreCategoryChildren";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 // import ExploreCategoryChildrenTableConfig from "./tableConfig";
 import {
@@ -29,6 +29,8 @@ import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { ArrowUpward, ArrowDownward } from "@mui/icons-material";
 import axios from "axios";
+import AddHomepageExploreCategoryComponent from "container/AddPages/AddHomepageExploreCategoryComponent";
+import EditExploreCategoryComponent from "container/EditPages/EditExploreCategory";
 
 const CategoryRow = ({
   id,
@@ -37,7 +39,7 @@ const CategoryRow = ({
   data,
   image,
   sNo,
-  imageAltText,
+  row,
   actions,
   moveRow,
 }) => {
@@ -63,7 +65,7 @@ const CategoryRow = ({
   });
 
   const opacity = isDragging ? 0.5 : 1;
-
+  const navigate = useNavigate();
   const handleMoveUp = () => {
     moveRow(index, index - 1);
   };
@@ -71,7 +73,9 @@ const CategoryRow = ({
   const handleMoveDown = () => {
     moveRow(index, index + 1);
   };
-
+  const ViewParticularUserHandler = (id) => {
+    navigate(`/explore-category-child/${id}`);
+  };
   return (
     <TableRow ref={(node) => dragRef(dropRef(node))} style={{ opacity }}>
       <TableCell>
@@ -86,101 +90,122 @@ const CategoryRow = ({
       <TableCell>{sNo}</TableCell>
       <TableCell>{name}</TableCell>
       <TableCell>{image}</TableCell>
-      <TableCell>{imageAltText}</TableCell>
+      <TableCell>
+        {row?.children?.length > 0 ? (
+          <FMTypography
+            styleData={{
+              fontSize: "12px",
+              marginRight: "1rem",
+              fontFamily: "Inter",
+              cursor: "pointer",
+              textDecoration: "underline",
+              fontWeight: "bold",
+            }}
+            displayText={"Sub Categories"}
+            onClick={() => ViewParticularUserHandler(row?._id)}
+          />
+        ) : (
+          <FMTypography
+            styleData={{
+              fontSize: "12px",
+              fontFamily: "Inter",
+              marginRight: "1rem",
+              cursor: "pointer",
+              textDecoration: "underline",
+              fontWeight: "bold",
+            }}
+            displayText={"No Sub Categories"}
+          />
+        )}
+      </TableCell>
+
       <TableCell>{actions}</TableCell>
       {/* Add more cells for other category properties */}
     </TableRow>
   );
 };
+export const ExploreCategoryChildrenTableConfig = (type) => [
+  {
+    headername: "S.NO.",
+    field: "S.NO.",
+    width: "15%",
+  },
+  {
+    headername: "Name",
+    field: "Name",
+    width: "20%",
+  },
 
-// export const ExploreCategoryChildrenTableConfig = (type) => [
-//   {
-//     headername: "S.NO.",
-//     field: "S.NO.",
-//     width: "15%",
-//   },
-//   {
-//     headername: "Name",
-//     field: "Name",
-//     width: "20%",
-//   },
+  {
+    headername: "Images",
+    field: "Images",
+    align: "left",
+    width: "15%",
+    renderColumn: (row) => {
+      return type === "homePageBannerString" ? (
+        <>
+          <img
+            src={row?.Images?.[0]?.img}
+            alt="img"
+            width="50px"
+            height="40px"
+            className="img-responsive img-fluid "
+            loading="lazy"
+          />
+        </>
+      ) : (
+        <>
+          <img
+            src={row?.Images}
+            alt="img"
+            width="50px"
+            height="40px"
+            className="img-responsive img-fluid "
+            loading="lazy"
+          />
+        </>
+      );
+    },
+  },
+  {
+    headername: "Sub Category",
+    field: "subCategory",
+    align: "left",
+    width: "17%",
+  },
 
-//   {
-//     headername: "Images",
-//     field: "Images",
-//     align: "left",
-//     width: "15%",
-//     renderColumn: (row) => {
-//       return type === "homePageBannerString" ? (
-//         <>
-//           <img
-//             src={row?.Images?.[0]?.img}
-//             alt="img"
-//             width="50px"
-//             height="40px"
-//             className="img-responsive img-fluid "
-//             loading="lazy"
-//           />
-//         </>
-//       ) : (
-//         <>
-//           <img
-//             src={row?.Images}
-//             alt="img"
-//             width="50px"
-//             height="40px"
-//             className="img-responsive img-fluid "
-//             loading="lazy"
-//           />
-//         </>
-//       );
-//     },
-//   },
-//   {
-//     headername: "Image Alt Text",
-//     field: "imageAltText",
-//     align: "left",
-//     width: "17%",
-//   },
-
-//   {
-//     headername: "Actions",
-//     field: "Actions",
-//     align: "left",
-//     width: "28%",
-//   },
-// ];
+  {
+    headername: "Actions",
+    field: "Actions",
+    align: "left",
+    width: "28%",
+  },
+];
 
 // config above
 
-const ExploreCategoryChildren = () => {
+const ExploreCategory = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const { id } = params;
-
+  const [addHomepageExploreCategory, setAddHomepageExploreCategory] =
+    useState(false);
   const [exploreCatId, setExploreCatId] = React.useState(null);
   const [openExploreCatDetail, setOpenExploreCatDetail] = React.useState(false);
   const [editedCategoryId, setEditedCategoryId] = React.useState(null);
   const [editHomeCategory, setEditHomeCategory] = React.useState(false);
 
   useEffect(() => {
-    dispatch(getExploreCategoryChildren(id));
+    dispatch(getHomePageCategories());
   }, [dispatch, id]);
-
-  const exploreCategoryChildTitle = useSelector(
-    (state) => state?.ExploreCategoryChildren?.getExploreCategoryChildrenData
+  const homepageCategoriess = useSelector(
+    (state) => state?.exploreCategories?.getCategoriesListData?.categoryList
   );
-
-  const exploreCategoryChildren = useSelector(
-    (state) =>
-      state?.ExploreCategoryChildren?.getExploreCategoryChildrenData
-        ?.subCategoryList
-  );
-  const [data, setData] = useState([exploreCategoryChildren]);
+  const [data, setData] = useState([homepageCategoriess]);
 
   useEffect(() => {
-    setData(exploreCategoryChildren);
-  }, [exploreCategoryChildren]);
+    setData(homepageCategoriess);
+  }, [homepageCategoriess]);
 
   useEffect(() => {
     if (exploreCatId !== null && exploreCatId) {
@@ -208,7 +233,7 @@ const ExploreCategoryChildren = () => {
     };
     dispatch(deleteCategory(payload)).then((res) => {
       if (res) {
-        dispatch(getExploreCategoryChildren(id));
+        dispatch(getHomePageCategories());
       }
     });
   };
@@ -216,58 +241,6 @@ const ExploreCategoryChildren = () => {
   const edithomepageCategoryFunc = (cId) => {
     setEditedCategoryId(cId);
   };
-
-  // const getRowData = () => {
-  //   let rowDataVal = [];
-
-  //   exploreCategoryChildren?.map((element, index) => {
-  //     const rowData = {
-  //       "S.NO.": index + 1,
-  //       Name: element?.name,
-  //       Images: element?.categoryImage,
-  //       imageAltText: element?.imageAltText,
-  //       id: element?._id,
-  //       Actions: (
-  //         <Grid style={{ display: "flex" }}>
-  //           <img
-  //             src={detailIcon}
-  //             alt="img"
-  //             width="20px"
-  //             height="20px"
-  //             className="img-responsive img-fluid "
-  //             loading="lazy"
-  //             onClick={() => exploreCatdetailPageHandler(element?._id)}
-  //             style={{ cursor: "pointer" }}
-  //           />
-  //           <img
-  //             src={editIcon}
-  //             alt="img"
-  //             width="20px"
-  //             height="20px"
-  //             className="img-responsive img-fluid "
-  //             loading="lazy"
-  //             onClick={() => edithomepageCategoryFunc(element?._id)}
-  //             style={{ marginLeft: "1.5rem", cursor: "pointer" }}
-  //           />
-  //           <img
-  //             src={deleteIcon}
-  //             alt="img"
-  //             width="17px"
-  //             height="17px"
-  //             className="img-responsive img-fluid "
-  //             loading="lazy"
-  //             onClick={() => deleteCategoryFunc(element?._id)}
-  //             style={{ marginLeft: "1.5rem", cursor: "pointer" }}
-  //           />
-  //         </Grid>
-  //       ),
-  //     };
-
-  //     return rowDataVal.push(rowData);
-  //   });
-
-  //   return rowDataVal;
-  // };
 
   const navigate = useNavigate();
   const moveRow = (fromIndex, toIndex) => {
@@ -285,34 +258,41 @@ const ExploreCategoryChildren = () => {
           categoryOrder,
         })
         .then((response) => {
-          dispatch(getExploreCategoryChildren(id));
+          dispatch(getHomePageCategories());
         }); // Use the correct API endpoint
     } catch (error) {
-      dispatch(getExploreCategoryChildren(id));
+      dispatch(getHomePageCategories());
       console.error("Error saving order:", error);
     }
   };
-
+  const handleAddCategory = async () => {};
   return (
     <>
       <Header />
 
       <Grid sx={{ padding: "5rem" }}>
-        <Box
-          sx={{
-            padding: "0 2rem 2rem 2rem",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <ArrowBackIcon
-            sx={{ marginRight: "3rem", cursor: "pointer" }}
-            onClick={() => navigate(-1)}
-          />
-          <FMTypography
-            displayText={exploreCategoryChildTitle?.pageTitle}
-            styleData={{ fontSize: "2rem", fontFamily: "Inter" }}
-          />
+        <Box className="d-flex justify-content-between pb-4">
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <ArrowBackIcon
+              sx={{ marginRight: "3rem", cursor: "pointer" }}
+              onClick={() => navigate(-1)}
+            />
+
+            <FMTypography
+              displayText="Categories"
+              styleData={{ fontSize: "2rem", fontFamily: "Inter" }}
+            />
+          </Box>
+          <Box>
+            <Button variant="contained" onClick={handleAddCategory}>
+              Add
+            </Button>
+          </Box>
         </Box>
         <Box>
           <DndProvider backend={HTML5Backend}>
@@ -324,7 +304,7 @@ const ExploreCategoryChildren = () => {
                     <TableCell>S.No.</TableCell>
                     <TableCell>Name</TableCell>
                     <TableCell>Image</TableCell>
-                    <TableCell>ImageAltText</TableCell>
+                    <TableCell>Sub Category</TableCell>
                     <TableCell>Actions</TableCell>
                     {/* Add more cells for other category properties */}
                   </TableRow>
@@ -350,7 +330,7 @@ const ExploreCategoryChildren = () => {
                             />
                           </Grid>
                         }
-                        imageAltText={category?.imageAltText}
+                        row={category}
                         sNo={index + 1}
                         actions={
                           <Grid style={{ display: "flex" }}>
@@ -419,19 +399,22 @@ const ExploreCategoryChildren = () => {
           setExploreCatId(null);
         }}
         id={exploreCatId}
-        type={"homePageCategoryString"}
       />
       {editedCategoryId && (
-        <EditHomePageCategoryChildren
+        <EditExploreCategoryComponent
           open={editHomeCategory}
           setOpen={setEditHomeCategory}
           id={editedCategoryId}
-          // usersListData={usersListData}
-          childId={id}
         />
       )}
+
+      <AddHomepageExploreCategoryComponent
+        open={addHomepageExploreCategory}
+        setOpen={setAddHomepageExploreCategory}
+        homepageCategoriess={homepageCategoriess}
+      />
     </>
   );
 };
 
-export default ExploreCategoryChildren;
+export default ExploreCategory;

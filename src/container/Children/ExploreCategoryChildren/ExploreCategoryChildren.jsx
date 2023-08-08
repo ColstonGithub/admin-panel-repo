@@ -281,7 +281,7 @@ const ExploreCategoryChildren = () => {
     const categoryOrder = data?.map((category) => category?._id);
     try {
       await axios
-        .patch("http://localhost:5000/api/category/updateOrder", {
+        .patch("http://64.227.150.49:5000/api/category/updateOrder", {
           categoryOrder,
         })
         .then((response) => {

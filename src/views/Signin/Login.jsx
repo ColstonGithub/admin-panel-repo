@@ -63,9 +63,11 @@ const Login = () => {
         console.log("err => ", err);
         notify({
           type: "error",
-          messgae: err.error.response.data.message
-            ? err.error.response.data.message
-            : err.error.response.data.error,
+          messgae: err?.error?.response?.data?.message
+            ? err?.error?.response?.data?.message
+            : err?.error?.response?.data?.error
+            ? err?.error?.response?.data?.error
+            : err?.error?.message,
         });
       });
   };

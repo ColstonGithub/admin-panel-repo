@@ -47,6 +47,3 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
-
-# Axios instance
-src/services/AxiosInstance.js

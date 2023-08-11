@@ -22,7 +22,7 @@ export const homePageTableConfig = (
     align: "left",
     width: "15%",
     renderColumn: (row) => {
-      console.log("row ",row)
+      console.log("row ", row);
       return type === "homePageBannerString" ? (
         <>
           <img
@@ -64,8 +64,11 @@ export const homePageTableConfig = (
                   marginRight: "1rem",
                   fontFamily: "Inter",
                   cursor: "pointer",
-                  textDecoration: "underline",
+                  textDecoration: "none",
                   fontWeight: "bold",
+                  ":hover": {
+                    textDecoration: "underline",
+                  },
                 }}
                 displayText={"Sub Categories"}
                 onClick={() => ViewParticularUserHandler(row?.id)}
@@ -77,8 +80,11 @@ export const homePageTableConfig = (
                   fontFamily: "Inter",
                   marginRight: "1rem",
                   cursor: "pointer",
-                  textDecoration: "underline",
+                  textDecoration: "none",
                   fontWeight: "bold",
+                  ":hover": {
+                    textDecoration: "underline",
+                  },
                 }}
                 displayText={"No Sub Categories"}
               />

@@ -48,7 +48,8 @@ export const orientationCenter = "/orientation-center";
 
 export const WHERE_TO_BUY = "/where-to-buy";
 
-export const CATEGORY_TABLE = "/category-table"
+export const CATEGORY_TABLE = "/category-table";
 
+export const EXHIBITION_PRODUCT = "/exhibition-page";
 
-export const EXHIBITION_PRODUCT = "/exhibition-page"
+export const CATEGORY_PRODUCT = "/category-product/:id"

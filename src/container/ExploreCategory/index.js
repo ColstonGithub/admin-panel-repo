@@ -90,29 +90,38 @@ const CategoryRow = ({
       <TableCell>{sNo}</TableCell>
       <TableCell>{name}</TableCell>
       <TableCell>{image}</TableCell>
+
       <TableCell>
         {row?.children?.length > 0 ? (
           <FMTypography
-            styleData={{
+            style={{
               fontSize: "12px",
               marginRight: "1rem",
               fontFamily: "Inter",
               cursor: "pointer",
-              textDecoration: "underline",
+              textDecoration: "none",
               fontWeight: "bold",
+              transition: "text-decoration 0.2s ease-in-out", // Add the transition effect
+              ":hover": {
+                textDecoration: "underline",
+              },
             }}
             displayText={"Sub Categories"}
             onClick={() => ViewParticularUserHandler(row?._id)}
           />
         ) : (
           <FMTypography
-            styleData={{
+            style={{
               fontSize: "12px",
-              fontFamily: "Inter",
               marginRight: "1rem",
+              fontFamily: "Inter",
               cursor: "pointer",
-              textDecoration: "underline",
+              textDecoration: "none",
               fontWeight: "bold",
+              transition: "text-decoration 0.2s ease-in-out", // Add the transition effect
+              ":hover": {
+                textDecoration: "underline",
+              },
             }}
             displayText={"No Sub Categories"}
           />

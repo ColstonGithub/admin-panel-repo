@@ -1402,7 +1402,7 @@ export default function TabsTable({ type }) {
         "S.NO.": index + 1,
         Name: element?.name,
         Images: element?.productPictures?.[0]?.img,
-        AmazonLink: element?.amazonLink,
+        // AmazonLink: element?.amazonLink,
         // category: element?.category,
         id: element?._id,
         Actions: (

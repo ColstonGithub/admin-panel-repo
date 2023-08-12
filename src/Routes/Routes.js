@@ -43,7 +43,6 @@ export const CAREER_SECTION = "/career-section";
 export const CONTACT_US_SECTION = "/contact-us-section";
 export const HOME_PAGE_EXPLORE_CATEGORY = "/homepage-explore-category";
 
-
 export const orientationCenter = "/orientation-center";
 
 export const WHERE_TO_BUY = "/where-to-buy";
@@ -52,4 +51,6 @@ export const CATEGORY_TABLE = "/category-table";
 
 export const EXHIBITION_PRODUCT = "/exhibition-page";
 
-export const CATEGORY_PRODUCT = "/category-product/:id"
+export const CATEGORY_PRODUCT = "/category-product/:id";
+
+export const MAIN_CATEGORY = "/main-category";

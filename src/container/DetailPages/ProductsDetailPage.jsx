@@ -7,7 +7,7 @@ import moment from "moment";
 import { getBannerProductDetail } from "redux/Slices/BannerProducts/BannerProducts";
 import ModalWrapper from "container/HomePage/Modal";
 const ProductDetailPage = (props) => {
-  const { setOpen, open, id, type } = props;
+  const { setOpen, open, id } = props;
   const dispatch = useDispatch();
 
   const handleClose = () => {
@@ -18,13 +18,14 @@ const ProductDetailPage = (props) => {
   };
 
   useEffect(() => {
+    console.log("banner product detail ", id);
     dispatch(getBannerProductDetail(id));
-  }, [id, dispatch]);
+  }, [dispatch, id]);
 
   const productData = useSelector(
     (state) => state?.brandProduct?.getBannerProductData?.product
   );
-
+  console.log("product data ", productData);
   return (
     <ModalWrapper
       open={open}
@@ -89,7 +90,7 @@ const ProductDetailPage = (props) => {
         </Col>
       </Row>
       <Row style={{ marginBottom: "1rem" }}>
-        <FMTypography displayText={"Specifications:"} />
+        <FMTypography displayText={"Specifications"} />
         <FMTypography
           displayText={productData?.specification}
           styleData={{ color: "#717171" }}

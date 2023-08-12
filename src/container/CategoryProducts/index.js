@@ -25,7 +25,7 @@ import Header from "components/SearchBar/Header";
 import FMTypography from "components/FMTypography/FMTypography";
 import detailIcon from "assets/detailIcon.svg";
 import ProductDetailPage from "container/DetailPages/ProductsDetailPage";
-
+import { InfinitySpin } from "react-loader-spinner";
 const CategoryRow = ({
   id,
   index,
@@ -86,6 +86,8 @@ const CategoryProducts = () => {
   const { id } = params;
   const [openExploreCatDetail, setOpenExploreCatDetail] = useState(false);
   const [getCategoryProducts, setGetCategoryProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); // Add loading state
+  const [exploreCatId, setExploreCatId] = React.useState(null);
   const navigate = useNavigate();
   const fetchCategoryProducts = async () => {
     try {
@@ -94,8 +96,10 @@ const CategoryProducts = () => {
         { id }
       );
       setGetCategoryProducts(response.data);
+      setIsLoading(false); // Set loading to false when data is fetched
     } catch (error) {
       console.error("Error fetching category products:", error);
+      setIsLoading(false); // Set loading to false even on error
     }
   };
   useEffect(() => {
@@ -121,7 +125,16 @@ const CategoryProducts = () => {
       console.error("Error saving order:", error);
     }
   };
+  useEffect(() => {
+    if (exploreCatId !== null && exploreCatId) {
+      setOpenExploreCatDetail(true);
+    }
+  }, [exploreCatId]);
 
+  const exploreCatdetailPageHandler = (cId) => {
+    setExploreCatId(cId);
+    // cId.stopPropagation();
+  };
   return (
     <>
       <Header />
@@ -144,49 +157,62 @@ const CategoryProducts = () => {
         </Box>
         <Box>
           <DndProvider backend={HTML5Backend}>
-            <TableContainer component={Paper}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Order</TableCell>
-                    <TableCell>S.No.</TableCell>
-                    <TableCell>Name</TableCell>
-                    <TableCell>Image</TableCell>
-                    <TableCell>Actions</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {getCategoryProducts?.products?.map((element, index) => (
-                    <CategoryRow
-                      key={element?._id}
-                      id={element?._id}
-                      index={index}
-                      name={element?.name}
-                      dataLength={getCategoryProducts?.products?.length}
-                      image={
-                        <img
-                          src={element?.productPictures[0]?.img}
-                          alt="img"
-                          width="50px"
-                          height="40px"
-                        />
-                      }
-                      actions={
-                        <img
-                          src={detailIcon}
-                          alt="img"
-                          width="20px"
-                          height="20px"
-                          onClick={() => setOpenExploreCatDetail(true)}
-                          style={{ cursor: "pointer" }}
-                        />
-                      }
-                      moveRow={moveRow}
-                    />
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+            {isLoading && isLoading ? (
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                minHeight="300px"
+              >
+                <InfinitySpin />
+              </Box>
+            ) : (
+              <TableContainer component={Paper}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Order</TableCell>
+                      <TableCell>S.No.</TableCell>
+                      <TableCell>Name</TableCell>
+                      <TableCell>Image</TableCell>
+                      <TableCell>Actions</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {getCategoryProducts?.products?.map((element, index) => (
+                      <CategoryRow
+                        key={element?._id}
+                        id={element?._id}
+                        index={index}
+                        name={element?.name}
+                        dataLength={getCategoryProducts?.products?.length}
+                        image={
+                          <img
+                            src={element?.productPictures[0]?.img}
+                            alt="img"
+                            width="50px"
+                            height="40px"
+                          />
+                        }
+                        actions={
+                          <img
+                            src={detailIcon}
+                            alt="img"
+                            width="20px"
+                            height="20px"
+                            onClick={() =>
+                              exploreCatdetailPageHandler(element?._id)
+                            }
+                            style={{ cursor: "pointer" }}
+                          />
+                        }
+                        moveRow={moveRow}
+                      />
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            )}
             <Button
               variant="contained"
               onClick={handleSaveOrder}
@@ -197,12 +223,16 @@ const CategoryProducts = () => {
           </DndProvider>
         </Box>
       </Grid>
-      <ProductDetailPage
-        open={openExploreCatDetail}
-        setOpen={() => setOpenExploreCatDetail(false)}
-        id={id}
-        type="brandProductString"
-      />
+      {exploreCatId && (
+        <ProductDetailPage
+          open={openExploreCatDetail}
+          setOpen={() => {
+            setOpenExploreCatDetail(false);
+            setExploreCatId(null);
+          }}
+          id={exploreCatId}
+        />
+      )}
     </>
   );
 };

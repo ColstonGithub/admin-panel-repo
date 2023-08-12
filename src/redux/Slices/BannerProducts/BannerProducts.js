@@ -5,7 +5,7 @@ import {
   BANNER_PRODUCT_DETAIL_PAGE,
   DELETE_BANNER_PRODUCT,
   ADD_PRODUCT,
-  EDIT_PRODUCT
+  EDIT_PRODUCT,
 } from "./type";
 import { PER_PAGE_LIMIT } from "constants/AppConstant";
 
@@ -28,7 +28,9 @@ export const getBannerProductDetail = createAsyncThunk(
   BANNER_PRODUCT_DETAIL_PAGE,
   async (productId, thunkAPI) => {
     try {
+      console.log("response ", productId);
       const response = await axiosInstance.get(`api/product/${productId}`);
+      console.log("ress ", response);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue({ error: error });
@@ -166,8 +168,6 @@ const brandProductSlice = createSlice({
       state.isFetching = false;
       state.isError = true;
     });
-
-
   },
 });
 

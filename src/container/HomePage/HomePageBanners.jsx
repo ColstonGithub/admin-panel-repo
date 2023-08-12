@@ -37,6 +37,7 @@ import {
   WARRANTY_REGISTRATION,
   orientationCenter,
   WHERE_TO_BUY,
+  MAIN_CATEGORY,
 } from "Routes/Routes";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
@@ -242,7 +243,8 @@ const HomePageBanners = (props) => {
   };
 
   const categoryNavigatorHandler = () => {
-    navigate(EXPLORE_CATEGORY_HOME);
+     navigate(MAIN_CATEGORY);
+   // navigate(EXPLORE_CATEGORY_HOME);
   };
 
   const homePageNavigatorHandler = () => {
@@ -377,10 +379,6 @@ const HomePageBanners = (props) => {
                 overflowY: "scroll",
                 width: "280px",
                 height: "75vh",
-
-                // scrollbarWidth: "thin",
-                // scrollbarColor: "#ccc #f0f",
-                // ...styles.customSrollBar,
               }}
               className="scroll-bar-class"
             >
@@ -703,30 +701,6 @@ const HomePageBanners = (props) => {
                 </Box>
               </div>
 
-              {/* <div style={{ marginBottom: "20px" }}>
-                <Button
-                  sx={{
-                    "&:hover": { background: "#EBECEF", borderRadius: "8px" },
-                  }}
-                >
-                  <img
-                    src={exhibitionIcon}
-                    alt="icon"
-                    style={{ marginRight: "24px", width: "15px" }}
-                  />
-                  <FMTypography
-                    displayText={"Exhibitions"}
-                    onClick={() => exhibitionNavigator()}
-                    styleData={{
-                      fontSize: "16px",
-                      fontWeight: "400",
-                      color: "#222222",
-                      fontFamily: " 'Inter', sans-serif",
-                    }}
-                  />
-                </Button>
-              </div> */}
-
               <div style={{ marginBottom: "20px" }}>
                 <Button
                   sx={{
@@ -770,7 +744,6 @@ const HomePageBanners = (props) => {
                       fontWeight: "400",
                       color: "#222222",
                       fontFamily: " 'Inter', sans-serif",
-                      // color: activeOption ? "#f00" : "#555",
                     }}
                   />
                   {newsPressOpen ? (
@@ -785,7 +758,6 @@ const HomePageBanners = (props) => {
                     display: newsPressOpen ? "flex" : "none",
                     paddingLeft: "3rem",
                     height: "60px",
-                    // display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-around",
                   }}
@@ -852,7 +824,6 @@ const HomePageBanners = (props) => {
                     display: blogsMenuOpen ? "flex" : "none",
                     paddingLeft: "3rem",
                     height: "60px",
-                    // display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-around",
                   }}

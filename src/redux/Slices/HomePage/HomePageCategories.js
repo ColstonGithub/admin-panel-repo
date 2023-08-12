@@ -16,11 +16,10 @@ import { PER_PAGE_LIMIT } from "constants/AppConstant";
 
 export const getHomePageCategories = createAsyncThunk(
   GET_HOMEPAGE_CATEGORIES,
-  async (usersListData, thunkAPI) => {
+  async (thunkAPI) => {
     try {
-      const { page } = usersListData;
       const response = await axiosInstance.get(
-        `api/category/getcategory?page=${page}&limit=${PER_PAGE_LIMIT}`
+        `api/category/getcategory`
       );
       return response.data;
     } catch (error) {

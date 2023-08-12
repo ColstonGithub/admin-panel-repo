@@ -49,6 +49,7 @@ import {
   CATEGORY_TABLE,
   EXHIBITION_PRODUCT,
   CATEGORY_PRODUCT,
+  MAIN_CATEGORY,
 } from "Routes/Routes";
 import Login from "./views/Signin/Login";
 import SignUp from "./views/SignUp/SignUp";
@@ -71,6 +72,7 @@ import CategoryTable from "./container/DisplayTable/CategoryTable";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CategoryProducts from "container/CategoryProducts";
+import MainCategory from "container/MainCategory";
 
 const App = () => {
   return (
@@ -388,6 +390,16 @@ const App = () => {
             element={
               <PrivateRoutes
                 Component={CategoryProducts}
+                // key={CATALOGUE}
+                // type="catalogueString"
+              />
+            }
+          />
+          <Route
+            path={MAIN_CATEGORY}
+            element={
+              <PrivateRoutes
+                Component={MainCategory}
                 // key={CATALOGUE}
                 // type="catalogueString"
               />

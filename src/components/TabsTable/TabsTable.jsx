@@ -972,12 +972,10 @@ export default function TabsTable({ type }) {
   };
   const editOrientationCenterFunc = (cId) => {
     setEditOrientationCenter(cId);
-    console.log("editOrientationCenter", editOrientationCenter);
   };
 
   const editWhereToBuyFunc = (cId) => {
     setEditWhereToBuy(cId);
-    console.log("editOrientationCenter", editOrientationCenter);
   };
 
   const editBlogCategoryFunc = (cId) => {

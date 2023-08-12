@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import {
   Box,
@@ -95,7 +94,6 @@ const CategoryProducts = () => {
         { id }
       );
       setGetCategoryProducts(response.data);
-      console.log("Fetched category products:", response.data);
     } catch (error) {
       console.error("Error fetching category products:", error);
     }
@@ -110,12 +108,10 @@ const CategoryProducts = () => {
     newData.splice(toIndex, 0, movedItem);
     setGetCategoryProducts({ ...getCategoryProducts, products: newData });
   };
-  console.log("getCategoryProducts ", getCategoryProducts);
   const handleSaveOrder = async () => {
     const productOrder = getCategoryProducts?.products?.map(
       (category) => category?._id
     );
-    console.log("inside getCategoryProducts ", productOrder);
     try {
       await axios.patch("http://localhost:5000/api/product/updateOrder", {
         productOrder,

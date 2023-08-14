@@ -192,7 +192,7 @@ const MainCategory = () => {
   };
 
   const edithomepageCategoryFunc = (cId) => {
-    //  setEditedCategoryId(cId);
+      setEditedCategoryId(cId);
   };
 
   const navigate = useNavigate();
@@ -205,25 +205,25 @@ const MainCategory = () => {
 
   const handleSaveOrder = async () => {
     const categoryOrder = data?.map((category) => category?._id);
-    // try {
-    //   await axios
-    //     .patch("http://localhost:5000/api/category/updateOrder", {
-    //       categoryOrder,
-    //     })
-    //     .then((response) => {
-    //       dispatch(getHomePageCategories())
-    //         .then(() => setIsLoading(false)) // Set loading to false after API call completes
-    //         .catch(() => setIsLoading(false)); // Handle error and still set loading to false
-    //     }); // Use the correct API endpoint
-    // } catch (error) {
-    //   dispatch(getHomePageCategories())
-    //     .then(() => setIsLoading(false)) // Set loading to false after API call completes
-    //     .catch(() => setIsLoading(false)); // Handle error and still set loading to false
-    //   console.error("Error saving order:", error);
-    // }
+    try {
+      await axios
+        .patch("http://localhost:5000/api/category/updateOrder", {
+          categoryOrder,
+        })
+        .then((response) => {
+          dispatch(getHomePageCategories())
+            .then(() => setIsLoading(false)) // Set loading to false after API call completes
+            .catch(() => setIsLoading(false)); // Handle error and still set loading to false
+        }); // Use the correct API endpoint
+    } catch (error) {
+      dispatch(getHomePageCategories())
+        .then(() => setIsLoading(false)) // Set loading to false after API call completes
+        .catch(() => setIsLoading(false)); // Handle error and still set loading to false
+      console.error("Error saving order:", error);
+    }
   };
   const addHomepageExploreCategoryModal = () => {
-    // setAddHomepageExploreCategory(true);
+     setAddHomepageExploreCategory(true);
   };
   return (
     <>

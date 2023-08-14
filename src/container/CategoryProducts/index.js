@@ -92,7 +92,7 @@ const CategoryProducts = () => {
   const fetchCategoryProducts = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/product/getProducts/categoryid",
+        "http://64.227.150.49:5000/api/product/getProducts/categoryid",
         { id }
       );
       setGetCategoryProducts(response.data);

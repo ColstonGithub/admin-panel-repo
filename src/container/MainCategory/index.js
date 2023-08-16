@@ -192,7 +192,7 @@ const MainCategory = () => {
   };
 
   const edithomepageCategoryFunc = (cId) => {
-      setEditedCategoryId(cId);
+    setEditedCategoryId(cId);
   };
 
   const navigate = useNavigate();
@@ -223,7 +223,7 @@ const MainCategory = () => {
     }
   };
   const addHomepageExploreCategoryModal = () => {
-     setAddHomepageExploreCategory(true);
+    setAddHomepageExploreCategory(true);
   };
   return (
     <>
@@ -285,7 +285,7 @@ const MainCategory = () => {
                   </TableHead>
                   <TableBody>
                     {data &&
-                      data.map((category, index) => (
+                      data?.map((category, index) => (
                         <CategoryRow
                           key={category?._id}
                           id={category?._id}
@@ -390,7 +390,10 @@ const MainCategory = () => {
       {editedCategoryId && (
         <EditHomePageCategory
           open={editHomeCategory}
-          setOpen={setEditHomeCategory}
+          setOpen={() => {
+            setEditHomeCategory(false);
+            setEditedCategoryId(null);
+          }}
           id={editedCategoryId}
           // usersListData={usersListData}
         />

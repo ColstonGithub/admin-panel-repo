@@ -47,21 +47,9 @@ const EditHomePageCategory = (props) => {
 
   const handleClose = () => {
     setOpen(false);
-    setValue("type", "");
-    setValue("title", "");
-    setValue("buttonText", "");
-    setValue("categoryImage", "");
-    setCategoryImage("");
-    setImagePreview("");
   };
   const setCloseDialog = () => {
     setOpen(false);
-    setValue("type", "");
-    setValue("title", "");
-    setValue("buttonText", "");
-    setValue("categoryImage", "");
-    setCategoryImage("");
-    setImagePreview("");
   };
 
   const {

@@ -478,7 +478,10 @@ const ExploreCategoryChildren = () => {
       {editedCategoryId && (
         <EditHomePageCategoryChildren
           open={editHomeCategory}
-          setOpen={setEditHomeCategory}
+          setOpen={() => {
+            setEditHomeCategory(false);
+            setEditedCategoryId(null);
+          }}
           id={editedCategoryId}
           // usersListData={usersListData}
           childId={id}

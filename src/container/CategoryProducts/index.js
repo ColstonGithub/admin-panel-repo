@@ -56,7 +56,6 @@ const CategoryRow = ({
   });
 
   const opacity = isDragging ? 0.5 : 1;
-  console.log("data length ", dataLength);
   return (
     <TableRow ref={(node) => dragRef(dropRef(node))} style={{ opacity }}>
       <TableCell>
@@ -117,7 +116,7 @@ const CategoryProducts = () => {
       (category) => category?._id
     );
     try {
-      await axios.patch("http://64.227.150.49:5000/api/product/updateOrder", {
+      await axios.patch("http://localhost:5000/api/product/updateOrder", {
         productOrder,
       });
       fetchCategoryProducts();
@@ -179,36 +178,37 @@ const CategoryProducts = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {getCategoryProducts?.products?.map((element, index) => (
-                      <CategoryRow
-                        key={element?._id}
-                        id={element?._id}
-                        index={index}
-                        name={element?.name}
-                        dataLength={getCategoryProducts?.products?.length}
-                        image={
-                          <img
-                            src={element?.productPictures[0]?.img}
-                            alt="img"
-                            width="50px"
-                            height="40px"
-                          />
-                        }
-                        actions={
-                          <img
-                            src={detailIcon}
-                            alt="img"
-                            width="20px"
-                            height="20px"
-                            onClick={() =>
-                              exploreCatdetailPageHandler(element?._id)
-                            }
-                            style={{ cursor: "pointer" }}
-                          />
-                        }
-                        moveRow={moveRow}
-                      />
-                    ))}
+                    {getCategoryProducts &&
+                      getCategoryProducts?.products?.map((element, index) => (
+                        <CategoryRow
+                          key={element?._id}
+                          id={element?._id}
+                          index={index}
+                          name={element?.name}
+                          dataLength={getCategoryProducts?.products?.length}
+                          image={
+                            <img
+                              src={element?.productPictures[0]?.img}
+                              alt="img"
+                              width="50px"
+                              height="40px"
+                            />
+                          }
+                          actions={
+                            <img
+                              src={detailIcon}
+                              alt="img"
+                              width="20px"
+                              height="20px"
+                              onClick={() =>
+                                exploreCatdetailPageHandler(element?._id)
+                              }
+                              style={{ cursor: "pointer" }}
+                            />
+                          }
+                          moveRow={moveRow}
+                        />
+                      ))}
                   </TableBody>
                 </Table>
               </TableContainer>

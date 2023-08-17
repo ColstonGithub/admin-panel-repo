@@ -311,13 +311,14 @@ const ExploreCategoryChildren = () => {
   const navigate = useNavigate();
   const moveRow = (fromIndex, toIndex) => {
     const newData = [...data];
+    console.log("getCategoryProducts ", data);
     const movedItem = newData.splice(fromIndex, 1)[0];
     newData.splice(toIndex, 0, movedItem);
     setData(newData);
   };
 
   const handleSaveOrder = async () => {
-    const categoryOrder = data?.map((category) => category?._id);
+    const categoryOrder = data?.map((category) => category?._doc?._id);
     try {
       await axios
         .patch("http://64.227.150.49:5000/api/category/updateOrder", {

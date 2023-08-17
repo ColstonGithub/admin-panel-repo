@@ -116,7 +116,7 @@ const CategoryProducts = () => {
       (category) => category?._id
     );
     try {
-      await axios.patch("http://localhost:5000/api/product/updateOrder", {
+      await axios.patch("http://64.227.150.49:5000/api/product/updateOrder", {
         productOrder,
       });
       fetchCategoryProducts();

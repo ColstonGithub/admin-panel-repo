@@ -106,7 +106,7 @@ const CategoryRow = ({
                 textDecoration: "underline",
               },
             }}
-            displayText={"Sub Categories"}
+            displayText={`Sub Categories (${row?.children?.length})`}
             onClick={() => ViewParticularUserHandler(row?._id)}
           />
         ) : (
@@ -305,7 +305,14 @@ const ExploreCategory = () => {
         </Box>
         <Box>
           <DndProvider backend={HTML5Backend}>
-            <TableContainer component={Paper}>
+            <TableContainer
+              component={Paper}
+              style={{
+                overflowY: "scroll",
+                height: "62vh",
+              }}
+              className="scroll-bar-class"
+            >
               <Table>
                 <TableHead>
                   <TableRow>

@@ -107,7 +107,7 @@ const CategoryRow = ({
                 textDecoration: "underline", // Apply underline on hover
               },
             }}
-            displayText={"View SubCategories"}
+            displayText={`View SubCategories (${subCategories?.length})`}
             onClick={() => ViewParticularUserHandler(id)}
           />
         ) : (

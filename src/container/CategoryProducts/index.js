@@ -166,7 +166,14 @@ const CategoryProducts = () => {
                 <InfinitySpin />
               </Box>
             ) : (
-              <TableContainer component={Paper}>
+              <TableContainer
+                component={Paper}
+                style={{
+                  overflowY: "scroll",
+                  height: "62vh",
+                }}
+                className="scroll-bar-class"
+              >
                 <Table>
                   <TableHead>
                     <TableRow>

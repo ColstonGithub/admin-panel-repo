@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import Header from "components/SearchBar/Header";
 import { Box, Grid } from "@mui/material";
-import FMTable from "../../../components/TabsTable/TableInTabs/FMTable";
 import { useDispatch, useSelector } from "react-redux";
 import { getExploreCategoryChildren } from "redux/Slices/ExploreCategoryChildren/ExploreCategoryChildren";
 import FMTypography from "components/FMTypography/FMTypography";
@@ -13,7 +12,6 @@ import ExploreCategoryDetailPage from "container/DetailPages/ExploreCategoryDeta
 import { deleteCategory } from "redux/Slices/HomePage/HomePageCategories";
 import EditHomePageCategoryChildren from "container/EditPages/EditExploreCategoryChildren";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-// import ExploreCategoryChildrenTableConfig from "./tableConfig";
 import { InfinitySpin } from "react-loader-spinner";
 import {
   Table,
@@ -30,7 +28,6 @@ import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { ArrowUpward, ArrowDownward } from "@mui/icons-material";
 import axios from "axios";
-import { Link } from "react-router-dom";
 
 const CategoryRow = ({
   id,
@@ -105,7 +102,7 @@ const CategoryRow = ({
                 textDecoration: "underline", // Apply underline on hover
               },
             }}
-            displayText={"View Products"}
+            displayText={`View Products (${productCount})`}
             onClick={() => ViewParticularUserHandler(categoryProducts)}
           />
         ) : (
@@ -128,66 +125,6 @@ const CategoryRow = ({
     </TableRow>
   );
 };
-
-// export const ExploreCategoryChildrenTableConfig = (type) => [
-//   {
-//     headername: "S.NO.",
-//     field: "S.NO.",
-//     width: "15%",
-//   },
-//   {
-//     headername: "Name",
-//     field: "Name",
-//     width: "20%",
-//   },
-
-//   {
-//     headername: "Images",
-//     field: "Images",
-//     align: "left",
-//     width: "15%",
-//     renderColumn: (row) => {
-//       return type === "homePageBannerString" ? (
-//         <>
-//           <img
-//             src={row?.Images?.[0]?.img}
-//             alt="img"
-//             width="50px"
-//             height="40px"
-//             className="img-responsive img-fluid "
-//             loading="lazy"
-//           />
-//         </>
-//       ) : (
-//         <>
-//           <img
-//             src={row?.Images}
-//             alt="img"
-//             width="50px"
-//             height="40px"
-//             className="img-responsive img-fluid "
-//             loading="lazy"
-//           />
-//         </>
-//       );
-//     },
-//   },
-//   {
-//     headername: "Image Alt Text",
-//     field: "imageAltText",
-//     align: "left",
-//     width: "17%",
-//   },
-
-//   {
-//     headername: "Actions",
-//     field: "Actions",
-//     align: "left",
-//     width: "28%",
-//   },
-// ];
-
-// config above
 
 const ExploreCategoryChildren = () => {
   const dispatch = useDispatch();
@@ -256,58 +193,6 @@ const ExploreCategoryChildren = () => {
     setEditedCategoryId(cId);
   };
 
-  // const getRowData = () => {
-  //   let rowDataVal = [];
-
-  //   exploreCategoryChildren?.map((element, index) => {
-  //     const rowData = {
-  //       "S.NO.": index + 1,
-  //       Name: element?.name,
-  //       Images: element?.categoryImage,
-  //       imageAltText: element?.imageAltText,
-  //       id: element?._id,
-  //       Actions: (
-  //         <Grid style={{ display: "flex" }}>
-  //           <img
-  //             src={detailIcon}
-  //             alt="img"
-  //             width="20px"
-  //             height="20px"
-  //             className="img-responsive img-fluid "
-  //             loading="lazy"
-  //             onClick={() => exploreCatdetailPageHandler(element?._id)}
-  //             style={{ cursor: "pointer" }}
-  //           />
-  //           <img
-  //             src={editIcon}
-  //             alt="img"
-  //             width="20px"
-  //             height="20px"
-  //             className="img-responsive img-fluid "
-  //             loading="lazy"
-  //             onClick={() => edithomepageCategoryFunc(element?._id)}
-  //             style={{ marginLeft: "1.5rem", cursor: "pointer" }}
-  //           />
-  //           <img
-  //             src={deleteIcon}
-  //             alt="img"
-  //             width="17px"
-  //             height="17px"
-  //             className="img-responsive img-fluid "
-  //             loading="lazy"
-  //             onClick={() => deleteCategoryFunc(element?._id)}
-  //             style={{ marginLeft: "1.5rem", cursor: "pointer" }}
-  //           />
-  //         </Grid>
-  //       ),
-  //     };
-
-  //     return rowDataVal.push(rowData);
-  //   });
-
-  //   return rowDataVal;
-  // };
-
   const navigate = useNavigate();
   const moveRow = (fromIndex, toIndex) => {
     const newData = [...data];
@@ -318,7 +203,7 @@ const ExploreCategoryChildren = () => {
   };
 
   const handleSaveOrder = async () => {
-    const categoryOrder = data?.map((category) => category?._doc?._id);
+    const categoryOrder = data?.map((category) => category?._id);
     try {
       await axios
         .patch("http://64.227.150.49:5000/api/category/updateOrder", {
@@ -365,7 +250,14 @@ const ExploreCategoryChildren = () => {
                 <InfinitySpin />
               </Box>
             ) : (
-              <TableContainer component={Paper}>
+              <TableContainer
+                component={Paper}
+                style={{
+                  overflowY: "scroll",
+                  height: "62vh",
+                }}
+                className="scroll-bar-class"
+              >
                 <Table>
                   <TableHead>
                     <TableRow>
@@ -382,15 +274,15 @@ const ExploreCategoryChildren = () => {
                     {data &&
                       data.map((category, index) => (
                         <CategoryRow
-                          key={category?._doc?._id}
-                          id={category?._doc?._id}
+                          key={category?._id}
+                          id={category?._id}
                           data={data?.length - 1}
                           index={index}
-                          name={category?._doc?.name}
+                          name={category?.name}
                           image={
                             <Grid style={{ display: "flex" }}>
                               <img
-                                src={category?._doc?.categoryImage}
+                                src={category?.categoryImage}
                                 alt="img"
                                 width="50px"
                                 height="40px"
@@ -399,7 +291,7 @@ const ExploreCategoryChildren = () => {
                               />
                             </Grid>
                           }
-                          categoryProducts={category?._doc?._id}
+                          categoryProducts={category?._id}
                           productCount={category?.productCount}
                           sNo={index + 1}
                           actions={
@@ -413,7 +305,7 @@ const ExploreCategoryChildren = () => {
                                 loading="lazy"
                                 onClick={() =>
                                   exploreCatdetailPageHandler(
-                                    category?._doc?._id
+                                    category?._id
                                   )
                                 }
                                 style={{ cursor: "pointer" }}
@@ -426,7 +318,7 @@ const ExploreCategoryChildren = () => {
                                 className="img-responsive img-fluid"
                                 loading="lazy"
                                 onClick={() =>
-                                  edithomepageCategoryFunc(category?._doc?._id)
+                                  edithomepageCategoryFunc(category?._id)
                                 }
                                 style={{
                                   marginLeft: "1.5rem",
@@ -441,7 +333,7 @@ const ExploreCategoryChildren = () => {
                                 className="img-responsive img-fluid"
                                 loading="lazy"
                                 onClick={() =>
-                                  deleteCategoryFunc(category?._doc?._id)
+                                  deleteCategoryFunc(category?._id)
                                 }
                                 style={{
                                   marginLeft: "1.5rem",

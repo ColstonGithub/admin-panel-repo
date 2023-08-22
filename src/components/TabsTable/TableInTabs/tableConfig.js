@@ -559,6 +559,49 @@ export const blogsConfig = (type) => [
   },
 ];
 
+export const careerDetailsConfig = (type) => [
+  {
+    headername: "S.NO.",
+    field: "S.NO.",
+    width: "10%",
+  },
+  {
+    headername: "Content Heading",
+    field: "ContentHeading",
+    width: "22%",
+  },
+  {
+    headername: "Content Text",
+    field: "ContentText",
+    width: "16%",
+  },
+  {
+    headername: "Images",
+    field: "Images",
+    align: "left",
+    width: "17%",
+    renderColumn: (row) => {
+      return (
+        <>
+          <img
+            src={row?.Images}
+            alt="img"
+            width="50px"
+            height="40px"
+            className="img-responsive img-fluid "
+            loading="lazy"
+          />
+        </>
+      );
+    },
+  },
+  {
+    headername: "Actions",
+    field: "Actions",
+    width: "36%",
+  },
+];
+
 export const blogsCategoryConfig = (type) => [
   {
     headername: "S.NO.",

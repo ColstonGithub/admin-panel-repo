@@ -50,6 +50,7 @@ import {
   EXHIBITION_PRODUCT,
   CATEGORY_PRODUCT,
   MAIN_CATEGORY,
+  CAREERS_DETAILS,
 } from "Routes/Routes";
 import Login from "./views/Signin/Login";
 import SignUp from "./views/SignUp/SignUp";
@@ -311,6 +312,16 @@ const App = () => {
                 Component={HomePageBanners}
                 key={FAQS}
                 type="faqsString"
+              />
+            }
+          />
+          <Route
+            path={CAREERS_DETAILS}
+            element={
+              <PrivateRoutes
+                Component={HomePageBanners}
+                key={CAREERS_DETAILS}
+                type="careerDetailsPageString"
               />
             }
           />

@@ -37,6 +37,7 @@ import {
   WARRANTY_REGISTRATION,
   orientationCenter,
   WHERE_TO_BUY,
+  CAREERS_DETAILS,
   MAIN_CATEGORY,
 } from "Routes/Routes";
 import { useNavigate } from "react-router";
@@ -81,6 +82,7 @@ import contactUsIcon from "assets/contactUs.svg";
 import orientationSidebarIcon from "assets/orientationSidebarIcon.png";
 import whereToBuySidebarIcon from "assets/whereToBuySidebarIcon.png";
 import AddExhibitionPageComponent from "container/AddPages/AddExhibitionPageComponent";
+import AddCareerDetailsPageComponent from "container/AddPages/AddCareerDetailsPageComponent";
 
 const HomePageBanners = (props) => {
   const navigate = useNavigate();
@@ -90,10 +92,12 @@ const HomePageBanners = (props) => {
   const [exhibitionPage, setExhibitionPage] = useState(false);
   const [addBanners, setAddBanners] = useState(false);
   const [addBrandPage, setAddBrandPage] = useState(false);
+  const [addCareerDetailsPage, setAddCareerDetailsPage] = useState(false);
   const [addHomePageBanners, setAddHomePageBanners] = useState(false);
   const [openBrandPage, setOpenBrandPage] = useState(false);
   const [newsPressOpen, setNewsPressOpen] = useState(false);
   const [blogsMenuOpen, setBlogsMenuOpen] = useState(false);
+  const [careersMenuOpen, setCareersMenuOpen] = useState(false);
   const [faqsOpen, setFaqsOpen] = useState(false);
   const [addCareClean, setAddCareClean] = useState(false);
   const [addCatalogue, setAddCatalogue] = useState(false);
@@ -140,6 +144,10 @@ const HomePageBanners = (props) => {
 
   const blogsMenuDisplay = () => {
     setBlogsMenuOpen(!blogsMenuOpen);
+    // setActiveOption(!activeOption);
+  };
+  const careersMenuDisplay = () => {
+    setCareersMenuOpen(!careersMenuOpen);
     // setActiveOption(!activeOption);
   };
 
@@ -238,13 +246,17 @@ const HomePageBanners = (props) => {
     setAddBrandPage(true);
   };
 
+  const addCareerDetailsModal = () => {
+    setAddCareerDetailsPage(true);
+  };
+
   const addHomePageBannerFunc = () => {
     setAddHomePageBanners(true);
   };
 
   const categoryNavigatorHandler = () => {
-     navigate(MAIN_CATEGORY);
-   // navigate(EXPLORE_CATEGORY_HOME);
+    navigate(MAIN_CATEGORY);
+    // navigate(EXPLORE_CATEGORY_HOME);
   };
 
   const homePageNavigatorHandler = () => {
@@ -326,6 +338,9 @@ const HomePageBanners = (props) => {
 
   const blogsNavigator = () => {
     navigate(BLOGS);
+  };
+  const careerDetailsPageNavigator = () => {
+    navigate(CAREERS_DETAILS);
   };
   const blogsCategoryNavigator = () => {
     navigate(BLOGS_CATEGORY);
@@ -1044,7 +1059,7 @@ const HomePageBanners = (props) => {
                 </Button>
               </div>
 
-              <div style={{ marginBottom: "20px" }}>
+              {/* <div style={{ marginBottom: "20px" }}>
                 <Button
                   sx={{
                     "&:hover": { background: "#EBECEF", borderRadius: "8px" },
@@ -1066,6 +1081,74 @@ const HomePageBanners = (props) => {
                     }}
                   />
                 </Button>
+              </div> */}
+
+              <div style={{ marginBottom: "20px" }}>
+                <Button
+                  sx={{
+                    "&:hover": { background: "#EBECEF", borderRadius: "8px" },
+                  }}
+                >
+                  <img
+                    src={careerSecIcon}
+                    alt="icon"
+                    style={{ marginRight: "24px", width: "15px" }}
+                  />
+                  <FMTypography
+                    displayText={"Careers"}
+                    onClick={() => careersMenuDisplay()}
+                    styleData={{
+                      fontSize: "16px",
+                      fontWeight: "400",
+                      color: "#222222",
+                      fontFamily: " 'Inter', sans-serif",
+                    }}
+                  />
+                  {careersMenuOpen ? (
+                    <KeyboardArrowUpIcon sx={{ color: "black" }} />
+                  ) : (
+                    <KeyboardArrowDownIcon sx={{ color: "black" }} />
+                  )}
+                </Button>
+
+                <Box
+                  className="dropdown-homepage"
+                  style={{
+                    display: careersMenuOpen ? "flex" : "none",
+                    paddingLeft: "3rem",
+                    height: "60px",
+                    flexDirection: "column",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  <FMTypography
+                    displayText={"Careers Form"}
+                    styleData={{
+                      color: "#717171",
+                      cursor: "pointer",
+                      fontWeight: "400",
+                      marginBottom: "10px",
+                      marginTop: "10px",
+                      fontSize: "16px",
+                      fontFamily: " 'Inter', sans-serif",
+                    }}
+                    onClick={() => careerSectionNavigator()}
+                  />
+
+                  <FMTypography
+                    displayText={"Carrers Page Details"}
+                    styleData={{
+                      color: "#717171",
+                      cursor: "pointer",
+                      fontWeight: "400",
+                      fontSize: "16px",
+                      fontFamily: " 'Inter', sans-serif",
+                    }}
+                    onClick={() => careerDetailsPageNavigator()}
+                  />
+                </Box>
+
+                {/* blog dropdown above */}
               </div>
 
               <div style={{ marginBottom: "20px" }}>
@@ -1197,6 +1280,8 @@ const HomePageBanners = (props) => {
                     ? "Homepage Explore Category"
                     : type === "orientationCenterString"
                     ? "Live Display Centre"
+                    : type === "careerDetailsPageString"
+                    ? "Career Details"
                     : type === "exhibitionPageString"
                     ? "Exhibition Page"
                     : type === "whereToBuyString"
@@ -1259,6 +1344,8 @@ const HomePageBanners = (props) => {
                       ? addAboutUsModal
                       : type === "faqsString"
                       ? addFaqsModal
+                      : type === "careerDetailsPageString"
+                      ? addCareerDetailsModal
                       : type === "exhibitionPageString"
                       ? addExhibitionPageModal
                       : type === "faqCategoryString"
@@ -1299,7 +1386,11 @@ const HomePageBanners = (props) => {
           setOpen={setAddBrandPage}
           // homepageBanners={totalProducts}
         />
-
+        <AddCareerDetailsPageComponent
+          open={addCareerDetailsPage}
+          setOpen={setAddCareerDetailsPage}
+          // homepageBanners={totalProducts}
+        />
         <AddCareCleanComponent open={addCareClean} setOpen={setAddCareClean} />
 
         <AddCatalogueComponent open={addCatalogue} setOpen={setAddCatalogue} />

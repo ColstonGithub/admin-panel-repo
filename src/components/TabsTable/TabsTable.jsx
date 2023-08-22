@@ -29,6 +29,7 @@ import {
   warrantyRegistrationConfig,
   orientationCenterConfig,
   whereToBuyConfig,
+  careerDetailsConfig,
   exhibitionPageTableConfig,
 } from "./TableInTabs/tableConfig";
 import { useDispatch, useSelector } from "react-redux";
@@ -127,6 +128,7 @@ import BrandPageBannerDetailPage from "container/DetailPages/BrandPageBannerDeta
 import ExhibitionDetailPage from "container/DetailPages/ExhibitionDetailPage";
 import BlogDetailPage from "container/DetailPages/BlogDetailPage";
 import CataloguesDetailPage from "container/DetailPages/CataloguesDetailPage";
+import CareerDetailsPage from "container/DetailPages/CareerDetailsPage";
 
 import CareAndCleanDetailPage from "container/DetailPages/CareAndCleanDetailPage";
 import CategoryBannerDetailPage from "container/DetailPages/CategoryBannerDetailPage";
@@ -148,6 +150,7 @@ import EditCategoryBanner from "container/EditPages/EditCategoryBanner";
 import EditCatalogue from "container/EditPages/EditCatalogue";
 import EditAboutUs from "container/EditPages/EditAboutUs";
 import EditFaqCategory from "container/EditPages/EditFaqCategory";
+import EditCareerDetails from "container/EditPages/EditCareerDetails";
 import {
   deleteBlogCategory,
   getBlogCategory,
@@ -201,6 +204,7 @@ import WhereToBuyDetailPage from "container/DetailPages/WhereToBuyDetailPage";
 import EditWhereToBuy from "container/EditPages/EditWhereToBuy";
 import ExhibitionSectionDetailPage from "container/DetailPages/ExhibitionSectionDetailPage";
 import EditExhibitionPage from "container/EditPages/EditExhibitionPage";
+import { getCareerDetailData } from "redux/Slices/CareerDetails/CareerDetails";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -246,6 +250,7 @@ export default function TabsTable({ type }) {
   // detail page open state below
   const [openDetailPage, setOpenDetailPage] = React.useState(false);
   const [openExploreCatDetail, setOpenExploreCatDetail] = React.useState(false);
+  const [openCareerDetDetail, setOpenCareerDetDetail] = React.useState(false);
   const [openBrandPageDetailPage, setOpenBrandPageDetailPage] =
     React.useState(false);
   const [openBrandPageBannerDetailPage, setOpenBrandPageBannerDetailPage] =
@@ -303,6 +308,7 @@ export default function TabsTable({ type }) {
   // id states fro detail page below
   const [prodId, setProdId] = React.useState(null);
   const [exploreCatId, setExploreCatId] = React.useState(null);
+  const [careerDetailsId, setCareerDetailsId] = React.useState(null);
   const [bannerPageId, setBannerPageId] = React.useState(null);
   const [productPageId, setProductPageId] = React.useState(null);
   const [bannerPageBannerId, setBannerPageBannerId] = React.useState(null);
@@ -339,7 +345,9 @@ export default function TabsTable({ type }) {
   const [whereToBuyId, setWhereToBuyId] = React.useState(null);
   // edit states
   const [editHomeBanner, setEditHomeBanner] = React.useState(false);
+  const [editedCareerDetail, setEditedCareerDetail] = React.useState(false);
   const [editedProdId, setEditedProdId] = React.useState(null);
+  const [editedCareerDetailId, setEditedCareerDetailId] = React.useState(null);
 
   // editopen
   const [editHomeCategory, setEditHomeCategory] = React.useState(false);
@@ -403,7 +411,6 @@ export default function TabsTable({ type }) {
     (state) =>
       state?.exhibitionPage?.getExhibitionPageListData?.exhibitionProducts
   );
-
 
   const exhibitionPagePagination = useSelector(
     (state) => state?.orientationCenter?.getOrientationCenterListData.pagination
@@ -616,6 +623,14 @@ export default function TabsTable({ type }) {
     (state) => state?.orientationCenter?.getOrientationCenterListData.pagination
   );
 
+  const careerDetailsData = useSelector(
+    (state) => state?.careerDetails?.getCareerDetailsListData?.careerDetailsList
+  );
+
+  const careerDetailsPagination = useSelector(
+    (state) => state?.careerDetails?.getCareerDetailsListData?.pagination
+  );
+
   const whereToBuyData = useSelector(
     (state) => state?.whereToBuy?.getWhereToBuyListData?.whereToBuyProducts
   );
@@ -677,6 +692,8 @@ export default function TabsTable({ type }) {
       dispatch(getOrientationCenterData(usersListData));
     } else if (type === "exhibitionPageString") {
       dispatch(getExhibitionPage(usersListData));
+    } else if (type === "careerDetailsPageString") {
+      dispatch(getCareerDetailData(usersListData));
     } else if (type === "whereToBuyString") {
       dispatch(getWhereToBuyData(usersListData));
     }
@@ -693,6 +710,11 @@ export default function TabsTable({ type }) {
       setOpenExploreCatDetail(true);
     }
   }, [exploreCatId]);
+  useEffect(() => {
+    if (careerDetailsId !== null && careerDetailsId) {
+      setOpenCareerDetDetail(true);
+    }
+  }, [careerDetailsId]);
 
   useEffect(() => {
     if (orientationCenterId !== null && orientationCenterId) {
@@ -865,6 +887,15 @@ export default function TabsTable({ type }) {
   };
 
   useEffect(() => {
+    if (editedCareerDetailId !== null && editedCareerDetailId)
+      setEditedCareerDetail(true);
+  }, [editedCareerDetailId]);
+
+  const editCareerDetailsPage = (cId) => {
+    setEditedCareerDetailId(cId);
+  };
+
+  useEffect(() => {
     if (editedCategoryId !== null && editedCategoryId)
       setEditHomeCategory(true);
   }, [editedCategoryId]);
@@ -1020,6 +1051,10 @@ export default function TabsTable({ type }) {
   const blogDetailPageHandler = (cId) => {
     setBlogPageId(cId);
   };
+  const careerDetailsPageHandler = (cId) => {
+    setBlogPageId(cId);
+  };
+
   const blogCategoryDetailPageHandler = (cId) => {
     setBlogCategoryPageId(cId);
   };
@@ -1131,6 +1166,12 @@ export default function TabsTable({ type }) {
           dispatch(getHomePageBanners(usersListData));
         }
       });
+    // else if (type === "careerDetailsPageString")
+    //   dispatch(deleteCareerDetails(cId)).then((res) => {
+    //     if (res) {
+    //       dispatch(getCareerDetailsPage(usersListData));
+    //     }
+    //   });
     else if (type === "brandProductString")
       dispatch(deleteProduct(productId)).then((res) => {
         if (res) {
@@ -1961,6 +2002,57 @@ export default function TabsTable({ type }) {
 
     return rowDataVal;
   };
+  const getCareerDetailsRowData = () => {
+    let rowDataVal = [];
+
+    careerDetailsData?.map((element, index) => {
+      const rowData = {
+        "S.NO.": index + 1,
+        ContentHeading: element?.contentHeading,
+        ContentText: cropText(element?.contentText, 10),
+        Images: element?.image,
+        id: element?._id,
+        Actions: (
+          <Grid>
+            <img
+              src={detailIcon}
+              alt="img"
+              width="20px"
+              height="20px"
+              className="img-responsive img-fluid "
+              loading="lazy"
+              onClick={() => careerDetailsPageHandler(element?._id)}
+              style={{ cursor: "pointer" }}
+            />
+            <img
+              src={editIcon}
+              alt="img"
+              width="20px"
+              height="20px"
+              className="img-responsive img-fluid "
+              loading="lazy"
+              onClick={() => editCareerDetailsPage(element?._id)}
+              style={{ marginLeft: "1.5rem", cursor: "pointer" }}
+            />
+            <img
+              src={deleteIcon}
+              alt="img"
+              width="17px"
+              height="17px"
+              className="img-responsive img-fluid "
+              loading="lazy"
+              onClick={() => deleteCategoryFunc(element?._id)}
+              style={{ marginLeft: "1.5rem", cursor: "pointer" }}
+            />
+          </Grid>
+        ),
+      };
+
+      return rowDataVal.push(rowData);
+    });
+
+    return rowDataVal;
+  };
 
   const getBlogsCategoryRowData = () => {
     let rowDataVal = [];
@@ -2726,6 +2818,8 @@ export default function TabsTable({ type }) {
                   ? orientationCenterConfig()
                   : type === "exhibitionPageString"
                   ? exhibitionPageTableConfig()
+                  : type === "careerDetailsPageString"
+                  ? careerDetailsConfig()
                   : type === "whereToBuyString"
                   ? whereToBuyConfig()
                   : homepageExploreCatSectionConfig()
@@ -2783,6 +2877,8 @@ export default function TabsTable({ type }) {
                   ? getExhibitionPageRowData()
                   : type === "whereToBuyString"
                   ? getWhereToBuyRowData()
+                  : type === "careerDetailsPageString"
+                  ? getCareerDetailsRowData()
                   : getHomepageExploreCatRowData()
               }
               pagination
@@ -2839,6 +2935,8 @@ export default function TabsTable({ type }) {
                   ? contactUsSectionPagination?.totalPages
                   : type === "orientationCenterString"
                   ? orientationCenterPagination?.totalPages
+                  : type === "careerDetailsPageString"
+                  ? careerDetailsPagination?.totalPages
                   : type === "whereToBuyString"
                   ? whereToBuyPagination?.totalPages
                   : homepageExploreCategoryPagination?.totalPages
@@ -2892,6 +2990,17 @@ export default function TabsTable({ type }) {
             setExploreCatId(null);
           }}
           id={exploreCatId}
+          type={type}
+        />
+      )}
+      {careerDetailsId && (
+        <CareerDetailsPage
+          open={openExploreCatDetail}
+          setOpen={() => {
+            setOpenCareerDetDetail(false);
+            setCareerDetailsId(null);
+          }}
+          id={careerDetailsId}
           type={type}
         />
       )}

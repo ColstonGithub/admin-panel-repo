@@ -54,3 +54,4 @@ export const EXHIBITION_PRODUCT = "/exhibition-page";
 export const CATEGORY_PRODUCT = "/category-product/:id";
 
 export const MAIN_CATEGORY = "/main-category";
+export const CAREERS_DETAILS = "/career-details";

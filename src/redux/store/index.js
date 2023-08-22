@@ -32,6 +32,7 @@ import homepageExploreCategorySlice from "../Slices/HomePage/HomepageExploreCate
 import orientationCenterSlice from "../Slices/OrientationCenter/orientation";
 import whereToBuySlice from "../Slices/WhereToBuy/whereToBuy";
 import exhibitionPageSlice from "../Slices/Exhibition/ExhibitionPage";
+import careerDetailsSlice from "../Slices/CareerDetails/CareerDetails";
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -63,7 +64,7 @@ const rootReducer = combineReducers({
   exhibitionPage: exhibitionPageSlice,
   orientationCenter: orientationCenterSlice,
   whereToBuy: whereToBuySlice,
-
+  careerDetails: careerDetailsSlice,
 });
 
 const initializeStore = () =>

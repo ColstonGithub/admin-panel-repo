@@ -24,57 +24,57 @@ export const getCareerDetailData = createAsyncThunk(
   }
 );
 
-// export const addBlogs = createAsyncThunk(
-//   ADD_BLOGS,
-//   async (payload, thunkAPI) => {
-//     try {
-//       const response = await axiosInstance.post(`api/blogs/create`, payload);
-//       return response.data;
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue({ error: error });
-//     }
-//   }
-// );
+export const addCareerDetails = createAsyncThunk(
+  ADD_CAREER_DETAILS,
+  async (payload, thunkAPI) => {
+    try {
+      const response = await axiosInstance.post(`api/careerDetails/create`, payload);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ error: error });
+    }
+  }
+);
 
-// export const editBlogs = createAsyncThunk(
-//   EDIT_BLOGS,
-//   async (payload, thunkAPI) => {
-//     try {
-//       const response = await axiosInstance.patch(`api/blogs/update`, payload);
-//       return response.data;
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue({ error: error });
-//     }
-//   }
-// );
+export const editCareerDetails = createAsyncThunk(
+  EDIT_CAREER_DETAILS,
+  async (payload, thunkAPI) => {
+    try {
+      const response = await axiosInstance.patch(`api/careerDetails/update`, payload);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ error: error });
+    }
+  }
+);
 
-// export const deleteBlog = createAsyncThunk(
-//   DELETE_BLOG,
-//   async (cId, thunkAPI) => {
-//     try {
-//       const response = await axiosInstance.post(`api/blogs/delete`, {
-//         id: cId,
-//       });
+export const deleteCareerDetails = createAsyncThunk(
+  DELETE_CAREER_DETAILS,
+  async (cId, thunkAPI) => {
+    try {
+      const response = await axiosInstance.post(`api/careerDetails/delete`, {
+        id: cId,
+      });
 
-//       return response.data;
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue({ error: error });
-//     }
-//   }
-// );
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ error: error });
+    }
+  }
+);
 
-// export const getBlogsDetail = createAsyncThunk(
-//   BLOGS_DETAIL_PAGE,
-//   async (productId, thunkAPI) => {
-//     try {
-//       const response = await axiosInstance.get(`api/blogs/${productId}`);
+export const getCareerDetailsById = createAsyncThunk(
+  CAREER_DETAILS_DETAIL_PAGE,
+  async (id, thunkAPI) => {
+    try {
+      const response = await axiosInstance.get(`api/careerDetails/${id}`);
 
-//       return response.data;
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue({ error: error });
-//     }
-//   }
-// );
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ error: error });
+    }
+  }
+);
 
 const careerDetailsSlice = createSlice({
   name: "careerDetailsSlice",
@@ -103,23 +103,23 @@ const careerDetailsSlice = createSlice({
       state.isFetching = false;
       state.isError = true;
     });
-    //
-    // builder.addCase(getBlogsDetail.pending, (state) => {
-    //   state.getBlogsData = [];
-    //   state.isFetching = true;
-    //   state.isError = false;
-    // });
 
-    // builder.addCase(getBlogsDetail.fulfilled, (state, action) => {
-    //   state.getBlogsData = action.payload;
-    //   state.isFetching = false;
-    //   state.isError = false;
-    // });
-    // builder.addCase(getBlogsDetail.rejected, (state, action) => {
-    //   state.getBlogsData = [];
-    //   state.isFetching = false;
-    //   state.isError = true;
-    // });
+    builder.addCase(getCareerDetailsById.pending, (state) => {
+      state.getCareerDetailsData = [];
+      state.isFetching = true;
+      state.isError = false;
+    });
+
+    builder.addCase(getCareerDetailsById.fulfilled, (state, action) => {
+      state.getCareerDetailsData = action.payload;
+      state.isFetching = false;
+      state.isError = false;
+    });
+    builder.addCase(getCareerDetailsById.rejected, (state, action) => {
+      state.getCareerDetailsData = [];
+      state.isFetching = false;
+      state.isError = true;
+    });
   },
 });
 

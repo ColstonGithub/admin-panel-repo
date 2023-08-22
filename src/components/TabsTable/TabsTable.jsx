@@ -204,7 +204,10 @@ import WhereToBuyDetailPage from "container/DetailPages/WhereToBuyDetailPage";
 import EditWhereToBuy from "container/EditPages/EditWhereToBuy";
 import ExhibitionSectionDetailPage from "container/DetailPages/ExhibitionSectionDetailPage";
 import EditExhibitionPage from "container/EditPages/EditExhibitionPage";
-import { getCareerDetailData } from "redux/Slices/CareerDetails/CareerDetails";
+import {
+  deleteCareerDetails,
+  getCareerDetailData,
+} from "redux/Slices/CareerDetails/CareerDetails";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -1052,7 +1055,7 @@ export default function TabsTable({ type }) {
     setBlogPageId(cId);
   };
   const careerDetailsPageHandler = (cId) => {
-    setBlogPageId(cId);
+    setCareerDetailsId(cId);
   };
 
   const blogCategoryDetailPageHandler = (cId) => {
@@ -1166,12 +1169,12 @@ export default function TabsTable({ type }) {
           dispatch(getHomePageBanners(usersListData));
         }
       });
-    // else if (type === "careerDetailsPageString")
-    //   dispatch(deleteCareerDetails(cId)).then((res) => {
-    //     if (res) {
-    //       dispatch(getCareerDetailsPage(usersListData));
-    //     }
-    //   });
+    else if (type === "careerDetailsPageString")
+      dispatch(deleteCareerDetails(cId)).then((res) => {
+        if (res) {
+          dispatch(getCareerDetailData(usersListData));
+        }
+      });
     else if (type === "brandProductString")
       dispatch(deleteProduct(productId)).then((res) => {
         if (res) {
@@ -2002,6 +2005,7 @@ export default function TabsTable({ type }) {
 
     return rowDataVal;
   };
+
   const getCareerDetailsRowData = () => {
     let rowDataVal = [];
 
@@ -2995,7 +2999,7 @@ export default function TabsTable({ type }) {
       )}
       {careerDetailsId && (
         <CareerDetailsPage
-          open={openExploreCatDetail}
+          open={openCareerDetDetail}
           setOpen={() => {
             setOpenCareerDetDetail(false);
             setCareerDetailsId(null);
@@ -3312,6 +3316,19 @@ export default function TabsTable({ type }) {
               usersListData={usersListData}
             />
           )}
+
+          {editedCareerDetailId && (
+            <EditCareerDetails
+              open={editedCareerDetail}
+              setOpen={() => {
+                setEditedCareerDetail(false);
+                setEditedCareerDetailId(null);
+              }}
+              id={editedCareerDetailId}
+              usersListData={usersListData}
+            />
+          )}
+
           {editedCategoryId && (
             <EditHomePageCategory
               open={editHomeCategory}

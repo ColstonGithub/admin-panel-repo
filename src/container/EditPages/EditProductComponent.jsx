@@ -250,7 +250,7 @@ const EditProductComponent = () => {
         );
     }
 
-    if (colors && colors?.length > 0) {
+    if (colors && colors?.productPictures?.length > 0) {
       colors?.map((color, index) => {
         const productPictures = color?.productPictures?.map((picture, i) => {
           return {

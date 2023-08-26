@@ -62,9 +62,8 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set HTTPS=true&&set SSL_CRT_FILE=certificate.crt&&set SSL_KEY_FILE=private.key&&react-scripts start",
     "build": "react-scripts build",
-    "clean": "rm -rf build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",

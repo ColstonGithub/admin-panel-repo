@@ -76,7 +76,7 @@ const CategoryTable = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "http://64.227.150.49:5000/api/category/getcategory"
+        "https://colstonconcepts.com:5000/api/category/getcategory"
       );
       console.log("response ", response);
       setData(response.data.categoryList);

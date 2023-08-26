@@ -91,7 +91,7 @@ const CategoryProducts = () => {
   const fetchCategoryProducts = async () => {
     try {
       const response = await axios.post(
-        "http://64.227.150.49:5000/api/product/getProducts/categoryid",
+        "https://colstonconcepts.com:5000/api/product/getProducts/categoryid",
         { id }
       );
       setGetCategoryProducts(response.data);
@@ -116,7 +116,7 @@ const CategoryProducts = () => {
       (category) => category?._id
     );
     try {
-      await axios.patch("http://64.227.150.49:5000/api/product/updateOrder", {
+      await axios.patch("https://colstonconcepts.com:5000/api/product/updateOrder", {
         productOrder,
       });
       fetchCategoryProducts();

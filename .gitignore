@@ -47,3 +47,5 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
+
+#     "start": "set HTTPS=true&&set SSL_CRT_FILE=certificate.crt&&set SSL_KEY_FILE=private.key&&react-scripts start",

@@ -1,7 +1,7 @@
 import { Avatar, Box, Grid } from "@mui/material";
 import React from "react";
-import colstonLogo from "../../assets/ColstonLogo.png";
-import profileIcon from "../../assets/profileIcon.svg";
+import colstonLogo from "assets/ColstonLogo.png";
+import profileIcon from "assets/profileIcon.svg";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";

@@ -1,20 +1,23 @@
-# Use an official Node.js runtime as a parent image
-FROM node:14-alpine
+# Use an official Node.js runtime as the base image
+FROM node:14
 
-# Set the working directory to /admin
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy the package.json and package-lock.json files to the working directory
+# Copy package.json and package-lock.json to the container
 COPY package*.json ./
 
-# Install app dependencies
-RUN npm install --silent
+# Install admin dependencies
+RUN npm install
 
-# Copy the rest of the application code to the working directory
+# Copy the rest of the admin application code to the container
 COPY . .
 
 # Add a command to run the clean script before starting the server
-RUN npm run clean
+#RUN npm run clean
 
-# Set the command to start the server
+# Expose port 3000 for the admin service
+EXPOSE 3000
+
+# Command to start the admin service
 CMD ["npm", "start"]

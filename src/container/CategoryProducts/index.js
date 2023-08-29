@@ -92,10 +92,6 @@ const CategoryProducts = () => {
   const [exploreCatId, setExploreCatId] = React.useState(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    dispatch(getInitialImagesAdmin());
-  }, [dispatch]);
-
   const initialImagesAdmin = useSelector(
     (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages
   );

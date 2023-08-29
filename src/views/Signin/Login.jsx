@@ -25,7 +25,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../../validationSchema/loginSchema";
 import { notify } from "constants/utils";
-import { getInitialImagesAdmin } from "redux/Slices/InitialImagesAdmin/InitialImagesAdminSlice";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -71,9 +70,6 @@ const Login = () => {
         });
       });
   };
-  useEffect(() => {
-    dispatch(getInitialImagesAdmin());
-  }, [dispatch]);
 
   const initialImagesAdmin = useSelector(
     (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages

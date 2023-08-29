@@ -28,10 +28,8 @@ import axios from "axios";
 
 import EditHomePageCategory from "container/EditPages/EditHomePageCategory";
 import FMButton from "components/FMButton/FMButton";
-import AddHomepageExploreCategoryComponent from "container/AddPages/AddHomepageExploreCategoryComponent";
 import ExploreCategoryDetailPage from "container/DetailPages/ExploreCategoryDetailPage";
 import AddBanner from "container/AddPages/AddCategory";
-import { getInitialImagesAdmin } from "redux/Slices/InitialImagesAdmin/InitialImagesAdminSlice";
 
 const CategoryRow = ({
   id,
@@ -139,10 +137,6 @@ const MainCategory = () => {
   const [isLoading, setIsLoading] = useState(true); // Add loading state
   const [addHomepageExploreCategory, setAddHomepageExploreCategory] =
     useState(false);
-
-  useEffect(() => {
-    dispatch(getInitialImagesAdmin());
-  }, [dispatch]);
 
   const initialImagesAdmin = useSelector(
     (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages

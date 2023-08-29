@@ -2,14 +2,9 @@ import React,{useEffect} from "react";
 import { Grid, Box, Modal } from "@mui/material";
 import { Col, Container } from "react-bootstrap";
 import FMTypography from "components/FMTypography/FMTypography";
-import { getInitialImagesAdmin } from "redux/Slices/InitialImagesAdmin/InitialImagesAdminSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 const ModalWrapper = (props) => {
   const { open, handleClose, setCloseDialog, children, modalTitle } = props;
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getInitialImagesAdmin());
-  }, [dispatch]);
 
   const initialImagesAdmin = useSelector(
     (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages

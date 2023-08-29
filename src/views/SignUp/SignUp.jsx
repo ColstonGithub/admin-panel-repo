@@ -14,7 +14,7 @@ import FMOutlinedInput from "../../components/FMOutlinedInput/FMOutlinedInput";
 import { signUpSchema } from "../../validationSchema/signupSchema";
 import { signUpUser } from "../../redux/Slices/SignUp/SignUp";
 import { useSelector } from "react-redux";
-import { getInitialImagesAdmin } from "redux/Slices/InitialImagesAdmin/InitialImagesAdminSlice";
+
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -88,10 +88,6 @@ const Login = () => {
   const navigateToLogin = () => {
     navigate(LOGIN);
   };
-
-  useEffect(() => {
-    dispatch(getInitialImagesAdmin());
-  }, [dispatch]);
 
   const initialImagesAdmin = useSelector(
     (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages

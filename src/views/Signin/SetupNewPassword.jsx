@@ -18,7 +18,6 @@ import { setupPassword } from "../../redux/Slices/Login/setupPassword";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import { setupPasswordSchema } from "../../validationSchema/setUpNewPassword";
-import { getInitialImagesAdmin } from "redux/Slices/InitialImagesAdmin/InitialImagesAdminSlice";
 
 const SetupNewPassword = () => {
   const [searchParams] = useSearchParams();
@@ -89,10 +88,7 @@ const SetupNewPassword = () => {
       // }
     });
   };
-  useEffect(() => {
-    dispatch(getInitialImagesAdmin());
-  }, [dispatch]);
-
+ 
   const initialImagesAdmin = useSelector(
     (state) => state?.initialImagesAdmin?.initialImagesAdmin?.initialImages
   );

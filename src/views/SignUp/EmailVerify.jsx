@@ -1,18 +1,16 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Grid } from "@mui/material";
-import { useDispatch } from "react-redux";
+
 import FMTypography from "components/FMTypography/FMTypography";
 import { HeaderStyle } from "components/SearchBar/HeaderStyle";
 import { commonStyle } from "Styles/commonStyles";
 import { Box } from "@mui/system";
 
 import { useSelector } from "react-redux";
-import { getInitialImagesAdmin } from "redux/Slices/InitialImagesAdmin/InitialImagesAdminSlice";
+
 const EmailVerify = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getInitialImagesAdmin());
-  }, [dispatch]);
+
+
 
   const initialImagesAdmin = useSelector(
     (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages

@@ -11,7 +11,6 @@ import { useDispatch } from "react-redux";
 import { verifyEmailSchema } from "../../validationSchema/verifyemailSchema";
 import { useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { getInitialImagesAdmin } from "redux/Slices/InitialImagesAdmin/InitialImagesAdminSlice";
 
 const EmailOtpVerification = () => {
   const dispatch = useDispatch();
@@ -33,9 +32,6 @@ const EmailOtpVerification = () => {
     resolver: yupResolver(verifyEmailSchema),
     mode: "onChange",
   });
-  useEffect(() => {
-    dispatch(getInitialImagesAdmin());
-  }, [dispatch]);
 
   const initialImagesAdmin = useSelector(
     (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages

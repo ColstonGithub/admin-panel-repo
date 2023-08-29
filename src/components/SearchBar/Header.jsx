@@ -50,8 +50,9 @@ const Header = () => {
   const initialImagesAdmin = useSelector(
     (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages
   );
-  const colstonLogo = initialImagesAdmin && initialImagesAdmin[24]?.image;
+  
   const profileIcon = initialImagesAdmin && initialImagesAdmin[23]?.image;
+  const colstonLogo = initialImagesAdmin && initialImagesAdmin[24]?.image;
 
   const logoutHandler = () => {
     // setDisabledLogout(true);

@@ -254,12 +254,6 @@ const AddProductComponent = () => {
     setPdfFile(URL.createObjectURL(e.target.files[0]));
   };
 
-
-  useEffect(() => {
-    dispatch(getInitialImagesAdmin());
-  }, [dispatch]);
-
-
   const initialImagesAdmin = useSelector(
     (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages
   );

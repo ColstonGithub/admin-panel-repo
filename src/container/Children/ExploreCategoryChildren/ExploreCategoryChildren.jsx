@@ -135,10 +135,6 @@ const ExploreCategoryChildren = () => {
   const [editHomeCategory, setEditHomeCategory] = React.useState(false);
   const [isLoading, setIsLoading] = useState(true); // Add loading state
 
-  useEffect(() => {
-    dispatch(getInitialImagesAdmin());
-  }, [dispatch]);
-
   const initialImagesAdmin = useSelector(
     (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages
   );

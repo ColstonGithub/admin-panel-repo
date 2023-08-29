@@ -641,9 +641,6 @@ export default function TabsTable({ type }) {
     (state) => state?.whereToBuy?.getWhereToBuyListData?.pagination
   );
 
-  useEffect(() => {
-    dispatch(getInitialImagesAdmin());
-  }, [dispatch]);
 
   const initialImagesAdmin = useSelector(
     (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages

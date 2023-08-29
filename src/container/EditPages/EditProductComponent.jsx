@@ -83,10 +83,6 @@ const EditProductComponent = () => {
     },
   ]);
 
-  useEffect(() => {
-    dispatch(getInitialImagesAdmin());
-  }, [dispatch]);
-  
   const initialImagesAdmin = useSelector(
     (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages
   );

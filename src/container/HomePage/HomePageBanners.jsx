@@ -355,7 +355,6 @@ const HomePageBanners = (props) => {
     type !== "careerSectionString" &&
     type !== "contactUsSectionString";
 
-
   const initialImagesAdmin = useSelector(
     (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages
   );

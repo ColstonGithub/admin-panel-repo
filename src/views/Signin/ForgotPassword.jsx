@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Box, Grid, InputBase } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import FMButton from "components/FMButton/FMButton";
@@ -12,7 +12,6 @@ import { forgotOtpSchema } from "validationSchema/forgotOtpSchema";
 import { useDispatch } from "react-redux";
 import { resetPasswordLink } from "../../redux/Slices/Login/resetPasswordLink";
 import { useSelector } from "react-redux";
-import { getInitialImagesAdmin } from "redux/Slices/InitialImagesAdmin/InitialImagesAdminSlice";
 const ForgotPassword = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,9 +30,6 @@ const ForgotPassword = () => {
     resolver: yupResolver(forgotOtpSchema),
     mode: "onChange",
   });
-  useEffect(() => {
-    dispatch(getInitialImagesAdmin());
-  }, [dispatch]);
 
   const initialImagesAdmin = useSelector(
     (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages

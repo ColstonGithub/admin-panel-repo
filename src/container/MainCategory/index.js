@@ -8,9 +8,6 @@ import {
   getHomePageCategories,
 } from "redux/Slices/HomePage/HomePageCategories";
 import FMTypography from "components/FMTypography/FMTypography";
-import detailIcon from "assets/detailIcon.svg";
-import editIcon from "assets/editIcon.svg";
-import deleteIcon from "assets/deleteIcon.svg";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { InfinitySpin } from "react-loader-spinner";
 import {
@@ -34,6 +31,7 @@ import FMButton from "components/FMButton/FMButton";
 import AddHomepageExploreCategoryComponent from "container/AddPages/AddHomepageExploreCategoryComponent";
 import ExploreCategoryDetailPage from "container/DetailPages/ExploreCategoryDetailPage";
 import AddBanner from "container/AddPages/AddCategory";
+import { getInitialImagesAdmin } from "redux/Slices/InitialImagesAdmin/InitialImagesAdminSlice";
 
 const CategoryRow = ({
   id,
@@ -141,6 +139,18 @@ const MainCategory = () => {
   const [isLoading, setIsLoading] = useState(true); // Add loading state
   const [addHomepageExploreCategory, setAddHomepageExploreCategory] =
     useState(false);
+
+  useEffect(() => {
+    dispatch(getInitialImagesAdmin());
+  }, [dispatch]);
+
+  const initialImagesAdmin = useSelector(
+    (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages
+  );
+  const editIcon = initialImagesAdmin && initialImagesAdmin[8]?.image;
+  const detailIcon = initialImagesAdmin && initialImagesAdmin[9]?.image;
+  const deleteIcon = initialImagesAdmin && initialImagesAdmin[10]?.image;
+
   useEffect(() => {
     dispatch(getHomePageCategories())
       .then(() => setIsLoading(false)) // Set loading to false after API call completes

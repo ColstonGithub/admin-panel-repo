@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Box, Grid, InputBase } from "@mui/material";
 import { tests } from "../../constants/AppConstant";
-import { EMAIL_VERIFY, FORGOTPASSWORD, LOGIN } from "Routes/Routes";
+import { LOGIN } from "Routes/Routes";
 import FMButton from "../../components/FMButton/FMButton";
 import FMTypography from "../../components/FMTypography/FMTypography";
-import ColstonLogo from "../../assets/ColstonLogo.png";
 import { commonStyle } from "../../Styles/commonStyles";
 import { HeaderStyle } from "../../components/SearchBar/HeaderStyle";
 import { useForm } from "react-hook-form";
@@ -14,7 +13,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import FMOutlinedInput from "../../components/FMOutlinedInput/FMOutlinedInput";
 import { signUpSchema } from "../../validationSchema/signupSchema";
 import { signUpUser } from "../../redux/Slices/SignUp/SignUp";
-
+import { useSelector } from "react-redux";
+import { getInitialImagesAdmin } from "redux/Slices/InitialImagesAdmin/InitialImagesAdminSlice";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -88,6 +88,16 @@ const Login = () => {
   const navigateToLogin = () => {
     navigate(LOGIN);
   };
+
+  useEffect(() => {
+    dispatch(getInitialImagesAdmin());
+  }, [dispatch]);
+
+  const initialImagesAdmin = useSelector(
+    (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages
+  );
+  const ColstonLogo = initialImagesAdmin && initialImagesAdmin[24]?.image;
+
   return (
     <>
       <Box

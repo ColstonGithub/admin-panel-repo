@@ -8,9 +8,6 @@ import {
   getHomePageCategories,
 } from "redux/Slices/HomePage/HomePageCategories";
 import FMTypography from "components/FMTypography/FMTypography";
-import detailIcon from "assets/detailIcon.svg";
-import editIcon from "assets/editIcon.svg";
-import deleteIcon from "assets/deleteIcon.svg";
 import ExploreCategoryDetailPage from "container/DetailPages/ExploreCategoryDetailPage";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 // import ExploreCategoryChildrenTableConfig from "./tableConfig";
@@ -31,6 +28,7 @@ import { ArrowUpward, ArrowDownward } from "@mui/icons-material";
 import axios from "axios";
 import AddHomepageExploreCategoryComponent from "container/AddPages/AddHomepageExploreCategoryComponent";
 import EditExploreCategoryComponent from "container/EditPages/EditExploreCategory";
+import { getInitialImagesAdmin } from "redux/Slices/InitialImagesAdmin/InitialImagesAdminSlice";
 
 const CategoryRow = ({
   id,
@@ -275,6 +273,18 @@ const ExploreCategory = () => {
     }
   };
   const handleAddCategory = async () => {};
+
+  useEffect(() => {
+    dispatch(getInitialImagesAdmin());
+  }, [dispatch]);
+
+  const initialImagesAdmin = useSelector(
+    (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages
+  );
+  const editIcon = initialImagesAdmin && initialImagesAdmin[8]?.image;
+  const detailIcon = initialImagesAdmin && initialImagesAdmin[9]?.image;
+  const deleteIcon = initialImagesAdmin && initialImagesAdmin[10]?.image;
+
   return (
     <>
       <Header />

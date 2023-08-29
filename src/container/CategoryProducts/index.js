@@ -23,9 +23,11 @@ import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import Header from "components/SearchBar/Header";
 import FMTypography from "components/FMTypography/FMTypography";
-import detailIcon from "assets/detailIcon.svg";
 import ProductDetailPage from "container/DetailPages/ProductsDetailPage";
 import { InfinitySpin } from "react-loader-spinner";
+import { getInitialImagesAdmin } from "redux/Slices/InitialImagesAdmin/InitialImagesAdminSlice";
+import { useDispatch, useSelector } from "react-redux";
+
 const CategoryRow = ({
   id,
   index,
@@ -83,11 +85,23 @@ const CategoryRow = ({
 const CategoryProducts = () => {
   const params = useParams();
   const { id } = params;
+  const dispatch = useDispatch();
   const [openExploreCatDetail, setOpenExploreCatDetail] = useState(false);
   const [getCategoryProducts, setGetCategoryProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // Add loading state
   const [exploreCatId, setExploreCatId] = React.useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(getInitialImagesAdmin());
+  }, [dispatch]);
+
+  const initialImagesAdmin = useSelector(
+    (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages
+  );
+
+  const detailIcon = initialImagesAdmin && initialImagesAdmin[9]?.image;
+
   const fetchCategoryProducts = async () => {
     try {
       const response = await axios.post(

@@ -1,24 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Grid, InputBase } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
 import FMButton from "components/FMButton/FMButton";
 import FMTypography from "components/FMTypography/FMTypography";
-
-import ColstonLogo from "../../assets/ColstonLogo.png";
-
 import { HeaderStyle } from "components/SearchBar/HeaderStyle";
 import { commonStyle } from "Styles/commonStyles";
-
 import { SETUP_NEW_PASSWORD } from "Routes/Routes";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { forgotOtpSchema } from "validationSchema/forgotOtpSchema";
-import FMOutlinedInput from "components/FMOutlinedInput/FMOutlinedInput";
-
 import { useDispatch } from "react-redux";
 import { resetPasswordLink } from "../../redux/Slices/Login/resetPasswordLink";
-
+import { useSelector } from "react-redux";
+import { getInitialImagesAdmin } from "redux/Slices/InitialImagesAdmin/InitialImagesAdminSlice";
 const ForgotPassword = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -37,6 +31,15 @@ const ForgotPassword = () => {
     resolver: yupResolver(forgotOtpSchema),
     mode: "onChange",
   });
+  useEffect(() => {
+    dispatch(getInitialImagesAdmin());
+  }, [dispatch]);
+
+  const initialImagesAdmin = useSelector(
+    (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages
+  );
+  const ColstonLogo = initialImagesAdmin && initialImagesAdmin[24]?.image;
+
   return (
     <>
       <Box

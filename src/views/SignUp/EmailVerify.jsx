@@ -1,12 +1,24 @@
+import React, { useEffect } from "react";
 import { Grid } from "@mui/material";
+import { useDispatch } from "react-redux";
 import FMTypography from "components/FMTypography/FMTypography";
-import ColstonLogo from "../../assets/ColstonLogo.png";
 import { HeaderStyle } from "components/SearchBar/HeaderStyle";
-import React from "react";
 import { commonStyle } from "Styles/commonStyles";
 import { Box } from "@mui/system";
 
+import { useSelector } from "react-redux";
+import { getInitialImagesAdmin } from "redux/Slices/InitialImagesAdmin/InitialImagesAdminSlice";
 const EmailVerify = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getInitialImagesAdmin());
+  }, [dispatch]);
+
+  const initialImagesAdmin = useSelector(
+    (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages
+  );
+  const ColstonLogo = initialImagesAdmin && initialImagesAdmin[24]?.image;
+
   return (
     <>
       <Box
@@ -29,7 +41,7 @@ const EmailVerify = () => {
             displayText={
               "Please verify mail by clicking on link sent on your email id"
             }
-            sx={{ fontWeight: "600",  fontFamily: " 'Inter', sans-serif",  }}
+            sx={{ fontWeight: "600", fontFamily: " 'Inter', sans-serif" }}
           />
         </Grid>
       </Grid>

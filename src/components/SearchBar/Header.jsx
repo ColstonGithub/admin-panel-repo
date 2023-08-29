@@ -1,7 +1,5 @@
 import { Avatar, Box, Grid } from "@mui/material";
-import React from "react";
-import colstonLogo from "assets/ColstonLogo.png";
-import profileIcon from "assets/profileIcon.svg";
+import React, { useEffect } from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -9,7 +7,7 @@ import { HeaderStyle } from "./HeaderStyle";
 import { Col, Row } from "react-bootstrap";
 import "./HeaderBootstrapMenu.css";
 import { useDispatch } from "react-redux";
-
+import { useSelector } from "react-redux";
 import FMTypography from "components/FMTypography/FMTypography";
 import { Stack } from "@mui/system";
 import FMButton from "components/FMButton/FMButton";
@@ -17,6 +15,8 @@ import { useNavigate } from "react-router-dom";
 import { LOGIN } from "Routes/Routes";
 import { logout } from "redux/Slices/Login/auth.slice";
 import { Link } from "react-router-dom";
+
+import { getInitialImagesAdmin } from "redux/Slices/InitialImagesAdmin/InitialImagesAdminSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -41,6 +41,17 @@ const Header = () => {
   const navigateToLogin = () => {
     navigate(LOGIN);
   };
+
+
+  useEffect(() => {
+    dispatch(getInitialImagesAdmin());
+  }, [dispatch]);
+
+  const initialImagesAdmin = useSelector(
+    (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages
+  );
+  const colstonLogo = initialImagesAdmin && initialImagesAdmin[24]?.image;
+  const profileIcon = initialImagesAdmin && initialImagesAdmin[23]?.image;
 
   const logoutHandler = () => {
     // setDisabledLogout(true);

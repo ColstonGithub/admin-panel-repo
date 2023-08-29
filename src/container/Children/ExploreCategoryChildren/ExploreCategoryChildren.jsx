@@ -5,9 +5,6 @@ import { Box, Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getExploreCategoryChildren } from "redux/Slices/ExploreCategoryChildren/ExploreCategoryChildren";
 import FMTypography from "components/FMTypography/FMTypography";
-import detailIcon from "assets/detailIcon.svg";
-import editIcon from "assets/editIcon.svg";
-import deleteIcon from "assets/deleteIcon.svg";
 import ExploreCategoryDetailPage from "container/DetailPages/ExploreCategoryDetailPage";
 import { deleteCategory } from "redux/Slices/HomePage/HomePageCategories";
 import EditHomePageCategoryChildren from "container/EditPages/EditExploreCategoryChildren";
@@ -28,6 +25,7 @@ import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { ArrowUpward, ArrowDownward } from "@mui/icons-material";
 import axios from "axios";
+import { getInitialImagesAdmin } from "redux/Slices/InitialImagesAdmin/InitialImagesAdminSlice";
 
 const CategoryRow = ({
   id,
@@ -137,6 +135,17 @@ const ExploreCategoryChildren = () => {
   const [editHomeCategory, setEditHomeCategory] = React.useState(false);
   const [isLoading, setIsLoading] = useState(true); // Add loading state
 
+  useEffect(() => {
+    dispatch(getInitialImagesAdmin());
+  }, [dispatch]);
+
+  const initialImagesAdmin = useSelector(
+    (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages
+  );
+
+  const editIcon = initialImagesAdmin && initialImagesAdmin[8]?.image;
+  const detailIcon = initialImagesAdmin && initialImagesAdmin[9]?.image;
+  const deleteIcon = initialImagesAdmin && initialImagesAdmin[10]?.image;
   useEffect(() => {
     dispatch(getExploreCategoryChildren(id))
       .then(() => setIsLoading(false)) // Set loading to false after API call completes
@@ -304,9 +313,7 @@ const ExploreCategoryChildren = () => {
                                 className="img-responsive img-fluid"
                                 loading="lazy"
                                 onClick={() =>
-                                  exploreCatdetailPageHandler(
-                                    category?._id
-                                  )
+                                  exploreCatdetailPageHandler(category?._id)
                                 }
                                 style={{ cursor: "pointer" }}
                               />

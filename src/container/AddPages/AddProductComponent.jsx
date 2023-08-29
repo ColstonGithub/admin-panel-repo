@@ -13,7 +13,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import FMButton from "components/FMButton/FMButton";
 import FMTypography from "components/FMTypography/FMTypography";
 import FMInput from "components/FMInput/FMInput";
-import crossIcon from "assets/crossIcon.svg";
 import { Col, Container, Row } from "react-bootstrap";
 import { addProductSchema } from "validationSchema/HomePage/AddBannerSchema";
 import { getHomePageCategories } from "redux/Slices/HomePage/HomePageCategories";
@@ -26,6 +25,7 @@ import { useNavigate } from "react-router";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { notify } from "constants/utils";
 import { commonStyle } from "Styles/commonStyles";
+import { getInitialImagesAdmin } from "redux/Slices/InitialImagesAdmin/InitialImagesAdminSlice";
 
 const AddProductComponent = () => {
   const navigate = useNavigate();
@@ -151,6 +151,7 @@ const AddProductComponent = () => {
     setColors(list);
   };
 
+
   useEffect(() => {
     const usersListData = { page: 1 };
     dispatch(getHomePageCategories(usersListData));
@@ -253,6 +254,16 @@ const AddProductComponent = () => {
     setPdfFile(URL.createObjectURL(e.target.files[0]));
   };
 
+
+  useEffect(() => {
+    dispatch(getInitialImagesAdmin());
+  }, [dispatch]);
+
+
+  const initialImagesAdmin = useSelector(
+    (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages
+  );
+  const crossIcon = initialImagesAdmin && initialImagesAdmin[11]?.image;
   return (
     <div>
       <Grid

@@ -40,9 +40,6 @@ import {
   getHomePageBanners,
   deleteBanner,
 } from "redux/Slices/HomePage/HomePageCategories";
-import detailIcon from "assets/detailIcon.svg";
-import editIcon from "assets/editIcon.svg";
-import deleteIcon from "assets/deleteIcon.svg";
 import { Grid } from "@mui/material";
 import { useNavigate } from "react-router";
 
@@ -208,6 +205,8 @@ import {
   deleteCareerDetails,
   getCareerDetailData,
 } from "redux/Slices/CareerDetails/CareerDetails";
+
+import { getInitialImagesAdmin } from "redux/Slices/InitialImagesAdmin/InitialImagesAdminSlice";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -641,6 +640,18 @@ export default function TabsTable({ type }) {
   const whereToBuyPagination = useSelector(
     (state) => state?.whereToBuy?.getWhereToBuyListData?.pagination
   );
+
+  useEffect(() => {
+    dispatch(getInitialImagesAdmin());
+  }, [dispatch]);
+
+  const initialImagesAdmin = useSelector(
+    (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages
+  );
+
+  const editIcon = initialImagesAdmin && initialImagesAdmin[8]?.image;
+  const detailIcon = initialImagesAdmin && initialImagesAdmin[9]?.image;
+  const deleteIcon = initialImagesAdmin && initialImagesAdmin[10]?.image;
 
   useEffect(() => {
     if (type === "homePageBannerString") {

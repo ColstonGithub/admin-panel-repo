@@ -12,11 +12,10 @@ import {
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { FORGOTPASSWORD, SIGNUP } from "../../Routes/Routes";
-
+import { useSelector } from "react-redux";
 import FMButton from "../../components/FMButton/FMButton";
 import FMTypography from "../../components/FMTypography/FMTypography";
 
-import ColstonLogo from "../../assets/ColstonLogo.png";
 import { login } from "../../redux/Slices/Login/auth.slice";
 
 import { commonStyle } from "../../Styles/commonStyles";
@@ -26,6 +25,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../../validationSchema/loginSchema";
 import { notify } from "constants/utils";
+import { getInitialImagesAdmin } from "redux/Slices/InitialImagesAdmin/InitialImagesAdminSlice";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -71,6 +71,14 @@ const Login = () => {
         });
       });
   };
+  useEffect(() => {
+    dispatch(getInitialImagesAdmin());
+  }, [dispatch]);
+
+  const initialImagesAdmin = useSelector(
+    (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages
+  );
+  const ColstonLogo = initialImagesAdmin && initialImagesAdmin[24]?.image;
 
   useEffect(() => {
     const auth = localStorage.getItem("AUTH_ACCESS_TOKEN");

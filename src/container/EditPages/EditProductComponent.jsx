@@ -19,7 +19,6 @@ import FMButton from "components/FMButton/FMButton";
 import FMTypography from "components/FMTypography/FMTypography";
 import FMInput from "components/FMInput/FMInput";
 // import FMInput from "Components/FMInput/FMInput";
-import crossIcon from "assets/crossIcon.svg";
 import { Col, Container, Row } from "react-bootstrap";
 import { addProductSchema } from "validationSchema/HomePage/AddBannerSchema";
 import { getHomePageCategories } from "redux/Slices/HomePage/HomePageCategories";
@@ -30,6 +29,8 @@ import {
 } from "redux/Slices/BannerProducts/BannerProducts";
 import { useParams, useNavigate } from "react-router";
 import { commonStyle } from "Styles/commonStyles";
+import { getInitialImagesAdmin } from "redux/Slices/InitialImagesAdmin/InitialImagesAdminSlice";
+
 
 const EditProductComponent = () => {
   const { id } = useParams();
@@ -81,6 +82,16 @@ const EditProductComponent = () => {
       picturePreview: "",
     },
   ]);
+
+  useEffect(() => {
+    dispatch(getInitialImagesAdmin());
+  }, [dispatch]);
+  
+  const initialImagesAdmin = useSelector(
+    (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages
+  );
+  
+  const crossIcon = initialImagesAdmin && initialImagesAdmin[11]?.image;
 
   const productListingData = useSelector(
     (state) => state?.exploreCategories?.getCategoriesListData?.categoryList

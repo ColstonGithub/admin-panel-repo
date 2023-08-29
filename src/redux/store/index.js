@@ -33,7 +33,7 @@ import orientationCenterSlice from "../Slices/OrientationCenter/orientation";
 import whereToBuySlice from "../Slices/WhereToBuy/whereToBuy";
 import exhibitionPageSlice from "../Slices/Exhibition/ExhibitionPage";
 import careerDetailsSlice from "../Slices/CareerDetails/CareerDetails";
-
+import InitialImagesAdminSlice from "redux/Slices/InitialImagesAdmin/InitialImagesAdminSlice";
 const rootReducer = combineReducers({
   auth: authReducer,
   exploreCategories: exploreCategoriesSlice,
@@ -65,6 +65,7 @@ const rootReducer = combineReducers({
   orientationCenter: orientationCenterSlice,
   whereToBuy: whereToBuySlice,
   careerDetails: careerDetailsSlice,
+  InitialImagesAdmin: InitialImagesAdminSlice,
 });
 
 const initializeStore = () =>

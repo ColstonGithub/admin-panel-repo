@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Grid, InputBase } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -6,8 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import FMButton from "../../components/FMButton/FMButton";
 import FMTypography from "../../components/FMTypography/FMTypography";
 
-import ColstonLogo from "../../assets/ColstonLogo.png";
-
+import { useSelector } from "react-redux";
 import { commonStyle } from "../../Styles/commonStyles";
 import { HeaderStyle } from "../../components/SearchBar/HeaderStyle";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -19,6 +18,7 @@ import { setupPassword } from "../../redux/Slices/Login/setupPassword";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import { setupPasswordSchema } from "../../validationSchema/setUpNewPassword";
+import { getInitialImagesAdmin } from "redux/Slices/InitialImagesAdmin/InitialImagesAdminSlice";
 
 const SetupNewPassword = () => {
   const [searchParams] = useSearchParams();
@@ -89,13 +89,20 @@ const SetupNewPassword = () => {
       // }
     });
   };
+  useEffect(() => {
+    dispatch(getInitialImagesAdmin());
+  }, [dispatch]);
+
+  const initialImagesAdmin = useSelector(
+    (state) => state?.initialImagesAdmin?.initialImagesAdmin?.initialImages
+  );
+  const ColstonLogo = initialImagesAdmin && initialImagesAdmin[24]?.image;
 
   return (
     <>
       <Box
         sx={{ ...commonStyle.flexDisplayStyle, padding: "1rem 50px 0 50px" }}
       >
-
         <img
           src={ColstonLogo}
           alt="ColstonLogo"

@@ -1,11 +1,21 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { Grid, Box, Modal } from "@mui/material";
 import { Col, Container } from "react-bootstrap";
 import FMTypography from "components/FMTypography/FMTypography";
-import crossIcon from "assets/crossIcon.svg";
-
+import { getInitialImagesAdmin } from "redux/Slices/InitialImagesAdmin/InitialImagesAdminSlice";
+import { useDispatch, useSelector } from "react-redux";
 const ModalWrapper = (props) => {
-  const {open,handleClose,setCloseDialog, children,modalTitle } = props;
+  const { open, handleClose, setCloseDialog, children, modalTitle } = props;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getInitialImagesAdmin());
+  }, [dispatch]);
+
+  const initialImagesAdmin = useSelector(
+    (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages
+  );
+
+  const crossIcon = initialImagesAdmin && initialImagesAdmin[11]?.image;
 
   return (
     <Modal
@@ -18,7 +28,7 @@ const ModalWrapper = (props) => {
         justifyContent: "center",
         backgroundColor: "rgba(0,0,0, .8)",
         zIndex: "1000",
-        overflowY:"auto"
+        overflowY: "auto",
       }}
     >
       <Grid
@@ -54,19 +64,22 @@ const ModalWrapper = (props) => {
               />
             </Col>
             <Col className="col-1">
-              <img
-                src={crossIcon}
-                alt="cross-icon"
-                style={{
-                  cursor: "pointer",
-                  width: "1rem",
-                  margin: "1rem",
-                }}
-                onClick={setCloseDialog}
-              />
+              <div onClick={setCloseDialog}>
+                <img
+                  src={crossIcon}
+                  alt="cross-icon"
+                  style={{
+                    cursor: "pointer",
+                    width: "1rem",
+                    margin: "1rem",
+                  }}
+                />
+              </div>
             </Col>
           </Box>
-          <Container style={{margin:"10px 0px 20px 0"}}>{children}</Container>
+          <Container style={{ margin: "10px 0px 20px 0" }}>
+            {children}
+          </Container>
         </Grid>
       </Grid>
     </Modal>

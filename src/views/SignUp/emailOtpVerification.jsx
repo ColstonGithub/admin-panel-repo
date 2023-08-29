@@ -1,9 +1,8 @@
+import React, { useState, useEffect } from "react";
 import { Box, Grid, InputBase } from "@mui/material";
 import FMButton from "../../components/FMButton/FMButton";
 import FMTypography from "../../components/FMTypography/FMTypography";
-import ColstonLogo from "../../assets/ColstonLogo.png";
 import { HeaderStyle } from "../../components/SearchBar/HeaderStyle";
-import React from "react";
 import { commonStyle } from "../../Styles/commonStyles";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -11,6 +10,8 @@ import { verifyOtp } from "../../redux/Slices/SignUp/SignUp";
 import { useDispatch } from "react-redux";
 import { verifyEmailSchema } from "../../validationSchema/verifyemailSchema";
 import { useSearchParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { getInitialImagesAdmin } from "redux/Slices/InitialImagesAdmin/InitialImagesAdminSlice";
 
 const EmailOtpVerification = () => {
   const dispatch = useDispatch();
@@ -32,12 +33,20 @@ const EmailOtpVerification = () => {
     resolver: yupResolver(verifyEmailSchema),
     mode: "onChange",
   });
+  useEffect(() => {
+    dispatch(getInitialImagesAdmin());
+  }, [dispatch]);
+
+  const initialImagesAdmin = useSelector(
+    (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages
+  );
+  const ColstonLogo = initialImagesAdmin && initialImagesAdmin[24]?.image;
+
   return (
     <>
       <Box
         sx={{ ...commonStyle.flexDisplayStyle, padding: "1rem 50px 0 50px" }}
       >
-
         <img
           src={ColstonLogo}
           alt="ColstonLogo"

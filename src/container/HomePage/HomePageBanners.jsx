@@ -1,10 +1,8 @@
 import { Box, Button } from "@mui/material";
 import FMTypography from "components/FMTypography/FMTypography";
 import Header from "components/SearchBar/Header";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Col, Row, Container } from "react-bootstrap";
-import homeIcon from "assets/homeIcon.svg";
-import blogspageIcon from "assets/blogspage.svg";
 import FMButton from "components/FMButton/FMButton";
 import TabsTable from "components/TabsTable/TabsTable";
 import AddBanner from "container/AddPages/AddCategory";
@@ -25,7 +23,6 @@ import {
   CORPORATE_PRODUCT,
   EXHIBITION_BANNER,
   EXHIBITION_PRODUCT,
-  EXPLORE_CATEGORY_HOME,
   FAQS,
   FAQ_CATEGORY,
   HOME,
@@ -63,29 +60,15 @@ import AddOrientationCenter from "container/AddPages/AddOrientationCenter";
 import AddWhereToBuyComponent from "container/AddPages/AddWhereToBuyComponent";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import productIcon from "assets/product.svg";
-import brandPageIcon from "assets/brandpage.svg";
-import corporatePageIcon from "assets/corporatePage.svg";
-import exhibitionIcon from "assets/exhibition.svg";
-import virtualTourIcon from "assets/virtualTour.svg";
-import newsPressIcon from "assets/newsPress.svg";
-import blogsIcon from "assets/blogs.svg";
-import catalogueIcon from "assets/catalogue.svg";
-import careCleanIcon from "assets/careClean.svg";
-import aboutUsIcon from "assets/aboutUs.svg";
-import faqsIcon from "assets/faqs.svg";
-import warrantyRegIcon from "assets/warrantyReg.svg";
-import quotationSecIcon from "assets/quotationSec.svg";
-import careerSecIcon from "assets/careerSec.svg";
-import contactUsIcon from "assets/contactUs.svg";
 
-import orientationSidebarIcon from "assets/orientationSidebarIcon.png";
-import whereToBuySidebarIcon from "assets/whereToBuySidebarIcon.png";
 import AddExhibitionPageComponent from "container/AddPages/AddExhibitionPageComponent";
 import AddCareerDetailsPageComponent from "container/AddPages/AddCareerDetailsPageComponent";
+import { useDispatch } from "react-redux";
+import { getInitialImagesAdmin } from "redux/Slices/InitialImagesAdmin/InitialImagesAdminSlice";
 
 const HomePageBanners = (props) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { children, value, index, type, ...other } = props;
   const [openFirst, setOpenFirst] = useState(false);
   const [corporatePage, setCorporatePage] = useState(false);
@@ -371,6 +354,34 @@ const HomePageBanners = (props) => {
     type !== "quotationSectionString" &&
     type !== "careerSectionString" &&
     type !== "contactUsSectionString";
+
+
+  const initialImagesAdmin = useSelector(
+    (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages
+  );
+
+  const orientationSidebarIcon =
+    initialImagesAdmin && initialImagesAdmin[0]?.image;
+  const whereToBuySidebarIcon =
+    initialImagesAdmin && initialImagesAdmin[1]?.image;
+  const warrantyRegIcon = initialImagesAdmin && initialImagesAdmin[2]?.image;
+  const virtualTourIcon = initialImagesAdmin && initialImagesAdmin[3]?.image;
+  const newsPressIcon = initialImagesAdmin && initialImagesAdmin[4]?.image;
+  const homeIcon = initialImagesAdmin && initialImagesAdmin[5]?.image;
+  const faqsIcon = initialImagesAdmin && initialImagesAdmin[6]?.image;
+  const exhibitionIcon = initialImagesAdmin && initialImagesAdmin[7]?.image;
+  const corporatePageIcon = initialImagesAdmin && initialImagesAdmin[12]?.image;
+  const quotationSecIcon = initialImagesAdmin && initialImagesAdmin[13]?.image;
+  const contactUsIcon = initialImagesAdmin && initialImagesAdmin[14]?.image;
+  const catalogueIcon = initialImagesAdmin && initialImagesAdmin[15]?.image;
+  const careerSecIcon = initialImagesAdmin && initialImagesAdmin[16]?.image;
+  const careCleanIcon = initialImagesAdmin && initialImagesAdmin[17]?.image;
+  const productIcon = initialImagesAdmin && initialImagesAdmin[18]?.image;
+  const brandPageIcon = initialImagesAdmin && initialImagesAdmin[19]?.image;
+  const blogspageIcon = initialImagesAdmin && initialImagesAdmin[20]?.image;
+  const blogsIcon = initialImagesAdmin && initialImagesAdmin[21]?.image;
+  const aboutUsIcon = initialImagesAdmin && initialImagesAdmin[22]?.image;
+
   return (
     <>
       <Header />
@@ -1058,30 +1069,6 @@ const HomePageBanners = (props) => {
                   />
                 </Button>
               </div>
-
-              {/* <div style={{ marginBottom: "20px" }}>
-                <Button
-                  sx={{
-                    "&:hover": { background: "#EBECEF", borderRadius: "8px" },
-                  }}
-                >
-                  <img
-                    src={careerSecIcon}
-                    alt="icon"
-                    style={{ marginRight: "24px", width: "15px" }}
-                  />
-                  <FMTypography
-                    displayText={"Career Section"}
-                    onClick={() => careerSectionNavigator()}
-                    styleData={{
-                      fontSize: "16px",
-                      fontWeight: "400",
-                      color: "#222222",
-                      fontFamily: " 'Inter', sans-serif",
-                    }}
-                  />
-                </Button>
-              </div> */}
 
               <div style={{ marginBottom: "20px" }}>
                 <Button

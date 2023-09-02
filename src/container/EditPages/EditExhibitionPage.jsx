@@ -47,8 +47,6 @@ const EditExhibitionPage = (props) => {
     (state) => state?.exhibitionPage?.getExhibitionCenterData?.exhibitionproduct
   );
 
-  console.log("ExhibitionData ", ExhibitionData);
-
   const {
     register,
     handleSubmit,

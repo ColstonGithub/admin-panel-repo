@@ -18,14 +18,12 @@ const ProductDetailPage = (props) => {
   };
 
   useEffect(() => {
-    console.log("banner product detail ", id);
     dispatch(getBannerProductDetail(id));
   }, [dispatch, id]);
 
   const productData = useSelector(
     (state) => state?.brandProduct?.getBannerProductData?.product
   );
-  console.log("product data ", productData);
   return (
     <ModalWrapper
       open={open}

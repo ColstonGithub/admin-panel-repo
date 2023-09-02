@@ -9,7 +9,7 @@ export const getInitialImagesAdmin = createAsyncThunk(
       const response = await axiosInstance.get(
         `api/initialImageAdmin/getInitialImagesAdmin`
       );
-       console.log("response ss", response.data);
+
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue({ error: error });

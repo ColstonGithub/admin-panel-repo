@@ -2656,7 +2656,6 @@ export default function TabsTable({ type }) {
 
     orientationCenterData &&
       orientationCenterData?.map((element, index) => {
-        console.log("element", element);
         const rowData = {
           "S.NO.": index + 1,
           City: element?.city,
@@ -2710,7 +2709,6 @@ export default function TabsTable({ type }) {
 
     whereToBuyData &&
       whereToBuyData?.map((element, index) => {
-        console.log("element", element);
         const rowData = {
           "S.NO.": index + 1,
           City: element?.city,

@@ -17,7 +17,7 @@ export const getExhibitionPage = createAsyncThunk(
       const response = await axiosInstance.get(
         `api/exhibitionproduct/getexhibitionproducts?page=${page}&limit=${PER_PAGE_LIMIT}`
       );
-      console.log("ress  ", response);
+
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue({ error: error });
@@ -32,7 +32,7 @@ export const getExhibitionPageDetail = createAsyncThunk(
       const response = await axiosInstance.get(
         `api/exhibitionproduct/${productId}`
       );
-      console.log("response Details ", response);
+
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue({ error: error });

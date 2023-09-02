@@ -31,7 +31,6 @@ import { useParams, useNavigate } from "react-router";
 import { commonStyle } from "Styles/commonStyles";
 import { getInitialImagesAdmin } from "redux/Slices/InitialImagesAdmin/InitialImagesAdminSlice";
 
-
 const EditProductComponent = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -86,7 +85,7 @@ const EditProductComponent = () => {
   const initialImagesAdmin = useSelector(
     (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages
   );
-  
+
   const crossIcon = initialImagesAdmin && initialImagesAdmin[11]?.image;
 
   const productListingData = useSelector(
@@ -237,7 +236,6 @@ const EditProductComponent = () => {
     if (productPdf) formData.append("pdf", productPdf);
 
     if (bannerPicture != [] && bannerPicture?.length > 1) {
-      console.log("bannerPicture 1 ", bannerPicture);
       bannerPicture?.map((file, index) => {
         return {
           img: formData.append("productPicture", file?.img),
@@ -245,7 +243,6 @@ const EditProductComponent = () => {
         };
       });
     } else if (bannerPicture[0]?.img != "" && bannerPicture?.length === 1) {
-      console.log("bannerPicture 2 ", bannerPicture);
       bannerPicture[0]?.img &&
         formData.append("productPicture", bannerPicture[0]?.img);
       bannerPicture[0]?.imageAltText &&

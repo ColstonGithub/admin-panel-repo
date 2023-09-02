@@ -17,7 +17,7 @@ export const getOrientationCenterData = createAsyncThunk(
       const response = await axiosInstance.get(
         `api/orientationCenter/getOrientationCenters?page=${page}&limit=${PER_PAGE_LIMIT}`
       );
-      console.log("orientation ", response);
+
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue({ error: error });
@@ -76,7 +76,6 @@ export const editOrientationCenter = createAsyncThunk(
   EDIT_ORIENTATION,
   async (payload, thunkAPI) => {
     try {
-      console.log("payload ", payload);
       const response = await axiosInstance.patch(
         `api/orientationCenter/update`,
         payload

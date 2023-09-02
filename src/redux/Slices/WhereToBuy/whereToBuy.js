@@ -17,7 +17,7 @@ export const getWhereToBuyData = createAsyncThunk(
       const response = await axiosInstance.get(
         `api/whereToBuy/getWhereToBuyCenters?page=${page}&limit=${PER_PAGE_LIMIT}`
       );
-      console.log("orientation ", response);
+
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue({ error: error });
@@ -29,12 +29,9 @@ export const deleteWhereToBuy = createAsyncThunk(
   DELETE_WHERE_TO_BUY,
   async (cId, thunkAPI) => {
     try {
-      const response = await axiosInstance.post(
-        `api/whereToBuy/delete`,
-        {
-          id: cId,
-        }
-      );
+      const response = await axiosInstance.post(`api/whereToBuy/delete`, {
+        id: cId,
+      });
 
       return response.data;
     } catch (error) {
@@ -76,7 +73,6 @@ export const editWhereToBuy = createAsyncThunk(
   EDIT_WHERE_TO_BUY,
   async (payload, thunkAPI) => {
     try {
-      console.log("payload ", payload);
       const response = await axiosInstance.patch(
         `api/whereToBuy/update`,
         payload

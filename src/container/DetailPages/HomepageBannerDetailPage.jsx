@@ -26,7 +26,7 @@ const HomepageCategoryBannerDetailPage = (props) => {
   const homepageExploreCatDetail = useSelector(
     (state) => state?.exploreCategories.getParticularBannerData?.banner
   );
-  console.log("homepageExploreCatDetail ", homepageExploreCatDetail);
+
   return (
     <ModalWrapper
       open={open}

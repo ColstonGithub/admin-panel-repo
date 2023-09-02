@@ -59,7 +59,6 @@ const Login = () => {
         }
       })
       .catch((err) => {
-        console.log("err => ", err);
         notify({
           type: "error",
           messgae: err?.error?.response?.data?.message

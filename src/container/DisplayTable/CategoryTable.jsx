@@ -78,7 +78,6 @@ const CategoryTable = () => {
       const response = await axios.get(
         "https://colstonconcepts.com:5000/api/category/getcategory"
       );
-      console.log("response ", response);
       setData(response.data.categoryList);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -103,10 +102,6 @@ const CategoryTable = () => {
   };
 
   return (
-
-
-
-
     <div>
       <DndProvider backend={HTML5Backend}>
         <TableContainer component={Paper}>
@@ -119,15 +114,16 @@ const CategoryTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data && data.map((category, index) => (
-                <CategoryRow
-                  key={category._id}
-                  id={category._id}
-                  index={index}
-                  name={category.name}
-                  moveRow={moveRow}
-                />
-              ))}
+              {data &&
+                data.map((category, index) => (
+                  <CategoryRow
+                    key={category._id}
+                    id={category._id}
+                    index={index}
+                    name={category.name}
+                    moveRow={moveRow}
+                  />
+                ))}
             </TableBody>
           </Table>
         </TableContainer>

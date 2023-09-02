@@ -201,7 +201,6 @@ const ExploreCategoryChildren = () => {
   const navigate = useNavigate();
   const moveRow = (fromIndex, toIndex) => {
     const newData = [...data];
-    console.log("getCategoryProducts ", data);
     const movedItem = newData.splice(fromIndex, 1)[0];
     newData.splice(toIndex, 0, movedItem);
     setData(newData);

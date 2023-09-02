@@ -35,6 +35,7 @@ const AddWhereToBuyComponent = (props) => {
   const dispatch = useDispatch();
 
   const onSubmit = (data) => {
+    console.log("on click")
     dispatch(addWhereToBuy(data)).then((response) => {
       const usersListData = { page: 1 };
       dispatch(getWhereToBuyData(usersListData));
@@ -66,7 +67,6 @@ const AddWhereToBuyComponent = (props) => {
         </Col>
         <Col md={6}>
           <FMInput
-            required
             readOnly={false}
             displayText="Email"
             id="email"

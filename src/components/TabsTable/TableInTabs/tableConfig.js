@@ -22,7 +22,6 @@ export const homePageTableConfig = (
     align: "left",
     width: "15%",
     renderColumn: (row) => {
-      console.log("row ", row);
       return type === "homePageBannerString" ? (
         <>
           <img

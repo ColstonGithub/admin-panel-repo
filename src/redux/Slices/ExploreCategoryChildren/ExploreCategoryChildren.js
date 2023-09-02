@@ -7,9 +7,9 @@ export const getExploreCategoryChildren = createAsyncThunk(
   EXPLORE_CATEGORY_CHILDREN,
   async (categoryId, thunkAPI) => {
     try {
-      const response = await axiosInstance.get(
-        `api/category/${categoryId}/children`
-      );
+      const response = await axiosInstance.post(`api/category/id/children`, {
+        id: categoryId,
+      });
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue({ error: error });

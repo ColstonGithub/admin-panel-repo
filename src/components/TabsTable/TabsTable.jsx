@@ -641,7 +641,6 @@ export default function TabsTable({ type }) {
     (state) => state?.whereToBuy?.getWhereToBuyListData?.pagination
   );
 
-
   const initialImagesAdmin = useSelector(
     (state) => state?.InitialImagesAdmin?.initialImagesAdmin?.initialImages
   );
@@ -1448,12 +1447,27 @@ export default function TabsTable({ type }) {
     let BannerRowDataVal = [];
 
     brandproductss?.map((element, index) => {
+      let completeImageUrl = "";
+      console.log("element ", element?.productPictures[0]?.img);
+      if (
+        element?.productPictures &&
+        !element?.productPictures[0]?.img.startsWith("https://")
+      ) {
+        completeImageUrl = `https://${element?.productPictures[0]?.img}`;
+      } else if (
+        element?.colors?.productPictures &&
+        !element?.colors?.productPictures[0]?.img.startsWith(
+          "https://"
+        )
+      ) {
+        completeImageUrl = `https://${element?.colors[0]?.productPictures[0]?.img}`;
+      } else {
+        completeImageUrl = element?.productPictures[0]?.img || "";
+      }
       const rowData = {
         "S.NO.": index + 1,
         Name: element?.name,
-        Images: element?.productPictures?.[0]?.img,
-        // AmazonLink: element?.amazonLink,
-        // category: element?.category,
+        Images: completeImageUrl,
         id: element?._id,
         Actions: (
           <Grid>

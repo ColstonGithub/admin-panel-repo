@@ -64,7 +64,6 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import AddExhibitionPageComponent from "container/AddPages/AddExhibitionPageComponent";
 import AddCareerDetailsPageComponent from "container/AddPages/AddCareerDetailsPageComponent";
 import { useDispatch } from "react-redux";
-import { getInitialImagesAdmin } from "redux/Slices/InitialImagesAdmin/InitialImagesAdminSlice";
 
 const HomePageBanners = (props) => {
   const navigate = useNavigate();

@@ -21,6 +21,8 @@ import { notify } from "constants/utils";
 import { commonStyle } from "Styles/commonStyles";
 import ModalWrapper from "container/HomePage/Modal";
 
+
+
 const AddBanner = (props) => {
   const { setOpen, open, homepageCategoriess } = props;
   const [imagePreview, setImagePreview] = useState(null);

@@ -51,36 +51,37 @@ const ProductDetailPage = (props) => {
 
       <Row style={{ marginBottom: "1rem" }}>
         {productData?.colors?.map((elem, index) => (
-          <Col>
+          <Col key={index}>
             <FMTypography displayText={`Color ${index + 1}`} />
-            {/* <div style={{ display: "flex" }}> */}
-            <FMTypography
-              displayText={`-> ${elem?.colorName}`}
-              // styleData={{ color: elem?.colorCode }}
-            />
+            <FMTypography displayText={`-> ${elem?.colorName}`} />
 
-            {/* </div> */}
-            {elem?.productPictures?.map((ele, i) => (
-              <Col>
-                <Box sx={{ display: "flex" }}>
-                  <FMTypography
-                    displayText={`-> ${i + 1}`}
-                    // styleData={{ color: elem?.colorCode }}
-                  />
-                  <Box className="mx-2 my-2">
-                    <img
-                      src={ele.img}
-                      alt={ele.imageAltText}
-                      style={{ width: "200px", height: "200px" }}
-                    />
+            {elem?.productPictures?.map((ele, i) => {
+              let completeImageUrl = "";
+              if (ele?.img && !ele?.img.startsWith("https://")) {
+                completeImageUrl = `https://${ele?.img}`;
+              } else {
+                completeImageUrl = `${ele?.img}`;
+              }
+
+              return (
+                <Col key={i}>
+                  <Box sx={{ display: "flex" }}>
+                    <FMTypography displayText={`-> ${i + 1}`} />
+                    <Box className="mx-2 my-2">
+                      <img
+                        src={completeImageUrl}
+                        alt={ele.imageAltText}
+                        style={{ width: "200px", height: "200px" }}
+                      />
+                    </Box>
                   </Box>
-                </Box>
-                {/* </div> */}
-              </Col>
-            ))}
+                </Col>
+              );
+            })}
           </Col>
         ))}
       </Row>
+
       <Row style={{ marginBottom: "1rem" }}>
         <Col>
           <FMTypography displayText={"PDF"} />
@@ -101,17 +102,26 @@ const ProductDetailPage = (props) => {
           styleData={{ color: "#717171" }}
         />
       </Row>
-
       <FMTypography displayText={"Images"} />
-      {productData?.productPictures?.map((elem) => (
-        <img
-          src={elem?.img}
-          alt="img"
-          width="200px"
-          height="200px"
-          style={{ marginLeft: "2rem" }}
-        />
-      ))}
+      {productData?.productPictures?.map((elem, index) => {
+        let completeImageUrl = "";
+        if (elem?.img && !elem?.img.startsWith("https://")) {
+          completeImageUrl = `https://${elem?.img}`;
+        } else {
+          completeImageUrl = `${elem?.img}`;
+        }
+
+        return (
+          <img
+            key={index} // Add a unique key prop for each image
+            src={completeImageUrl}
+            alt="img"
+            width="200px"
+            height="200px"
+            style={{ marginLeft: "2rem" }}
+          />
+        );
+      })}
     </ModalWrapper>
   );
 };

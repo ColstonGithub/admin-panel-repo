@@ -221,6 +221,7 @@ const EditProductComponent = () => {
   };
 
   const handleBannerPdf = (e) => {
+    setPdfPreview(URL.createObjectURL(e.target.files[0]));
     setProductPdf(e.target.files[0]);
   };
 
@@ -254,7 +255,7 @@ const EditProductComponent = () => {
         );
     }
 
-    if (colors && colors?.productPictures?.length > 0) {
+    if (colors && colors?.length > 0) {
       colors?.map((color, index) => {
         const productPictures = color?.productPictures?.map((picture, i) => {
           return {
@@ -292,8 +293,20 @@ const EditProductComponent = () => {
       category: productData?.category,
       setBannerPicture,
     });
-    const filename = productData?.pdf?.replace("http://localhost:5000/", "");
-    setPdfPreview(filename);
+
+    let completeImageUrl = "";
+    if (productData?.pdf && !productData?.pdf?.startsWith("https://")) {
+      completeImageUrl = `https://${productData?.pdf}`;
+    } else if (
+      productData?.pdf &&
+      !productData?.pdf?.startsWith("http://localhost")
+    ) {
+      completeImageUrl = productData?.pdf?.replace(
+        "http://localhost:5000/",
+        ""
+      );
+    }
+    setPdfPreview(completeImageUrl);
     setPreColors(productData?.colors);
     setPreBannerPicture(productData?.productPictures);
     setCategoryId(productData?.category);
@@ -501,8 +514,18 @@ const EditProductComponent = () => {
                         />
                       </Box>
 
-                      {color?.productPictures?.map((picture, pictureIndex) =>
-                        picture ? (
+                      {color?.productPictures?.map((picture, pictureIndex) => {
+                        let completeImageUrl = "";
+                        if (
+                          picture?.img &&
+                          !picture?.img.startsWith("https://")
+                        ) {
+                          completeImageUrl = `https://${picture?.img}`;
+                        } else {
+                          completeImageUrl = `${picture?.img}`;
+                        }
+
+                        return (
                           <Box key={pictureIndex} className="mx-5">
                             {picture.img && (
                               <Box className="mb-2">
@@ -518,7 +541,7 @@ const EditProductComponent = () => {
                                 <img
                                   src={
                                     !picture.picturePreview
-                                      ? picture.img
+                                      ? completeImageUrl
                                       : picture.picturePreview
                                   }
                                   style={{
@@ -549,10 +572,8 @@ const EditProductComponent = () => {
                               }}
                             />
                           </Box>
-                        ) : (
-                          <></>
-                        )
-                      )}
+                        );
+                      })}
                     </Box>
                   </div>
                 ))}
@@ -740,49 +761,56 @@ const EditProductComponent = () => {
                 <h5>Add atleast 4 Pictures</h5>
                 <Box className="d-flex">
                   {preBannerPicture &&
-                    preBannerPicture?.map(
-                      (pic, index) =>
-                        pic?.img && (
-                          <Box className="d-flex me-4 mb-3">
-                            <Box>
-                              <FMTypography
-                                displayText={`Image ${index + 1}`}
-                                styleData={{
-                                  color: "#a3a3a3",
-                                  fontFamily: " 'Inter', sans-serif",
-                                  fontSize: "0.875rem",
-                                  fontWeight: "500",
-                                }}
-                              />
-                              <img
-                                src={pic.img ? pic.img : pic.picturePreview}
-                                style={{
-                                  width: "70px",
-                                  height: "50px",
-                                }}
-                              />
-                              <FMTypography
-                                displayText={`Image Alt Text ${index + 1}`}
-                                styleData={{
-                                  color: "#a3a3a3",
-                                  fontSize: "0.875rem",
-                                  fontWeight: "500",
-                                  fontFamily: " 'Inter', sans-serif",
-                                  marginTop: "10px",
-                                }}
-                              />
-                              <FMTypography
-                                displayText={pic?.imageAltText}
-                                styleData={{
-                                  color: "#222",
-                                  fontSize: "14px",
-                                  fontFamily: " 'Inter', sans-serif",
-                                }}
-                              />{" "}
-                            </Box>{" "}
-                          </Box>
-                        )
-                    )}
+                    preBannerPicture?.map((pic, index) => {
+                      let completeImageUrl = "";
+                      if (pic?.img && !pic?.img.startsWith("https://")) {
+                        completeImageUrl = `https://${pic?.img}`;
+                      } else {
+                        completeImageUrl = `${pic?.img}`;
+                      }
+                      return (
+                        <Box className="d-flex me-4 mb-3">
+                          <Box>
+                            <FMTypography
+                              displayText={`Image ${index + 1}`}
+                              styleData={{
+                                color: "#a3a3a3",
+                                fontFamily: " 'Inter', sans-serif",
+                                fontSize: "0.875rem",
+                                fontWeight: "500",
+                              }}
+                            />
+                            <img
+                              src={
+                                pic.img ? completeImageUrl : pic.picturePreview
+                              }
+                              style={{
+                                width: "70px",
+                                height: "50px",
+                              }}
+                            />
+                            <FMTypography
+                              displayText={`Image Alt Text ${index + 1}`}
+                              styleData={{
+                                color: "#a3a3a3",
+                                fontSize: "0.875rem",
+                                fontWeight: "500",
+                                fontFamily: " 'Inter', sans-serif",
+                                marginTop: "10px",
+                              }}
+                            />
+                            <FMTypography
+                              displayText={pic?.imageAltText}
+                              styleData={{
+                                color: "#222",
+                                fontSize: "14px",
+                                fontFamily: " 'Inter', sans-serif",
+                              }}
+                            />{" "}
+                          </Box>{" "}
+                        </Box>
+                      );
+                    })}
                 </Box>
                 {bannerPicture?.map((picture, index) => (
                   <Row key={index}>

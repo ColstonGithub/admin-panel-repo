@@ -62,7 +62,7 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "export HTTPS=true&&SSL_CRT_FILE=Ssl/certificate.crt&&SSL_KEY_FILE=Ssl/private.key react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

@@ -1024,7 +1024,7 @@ export default function TabsTable({ type }) {
   };
 
   const editBlogsFunc = (cId) => {
-    navigate(`/blogs/edit-blog/${cId}`);
+    navigate(`/colstonconcept/edit/${cId}`);
     // setEditBlogs(cId);
   };
 

@@ -200,7 +200,7 @@ const HomePageBanners = (props) => {
   };
 
   const addBlogModal = () => {
-    navigate("/blogs/add-blog");
+    navigate("/colstonconcept/add");
   };
   const addBlogCategoryModal = () => {
     setAddBlogCategory(true);
@@ -826,7 +826,7 @@ const HomePageBanners = (props) => {
                     style={{ marginRight: "24px", width: "15px" }}
                   />
                   <FMTypography
-                    displayText={"Blogs"}
+                    displayText={"Colston Concept"}
                     onClick={() => blogsMenuDisplay()}
                     styleData={{
                       fontSize: "16px",
@@ -853,7 +853,7 @@ const HomePageBanners = (props) => {
                   }}
                 >
                   <FMTypography
-                    displayText={"Blogs Category"}
+                    displayText={"Colston Concept Category"}
                     styleData={{
                       color: "#717171",
                       cursor: "pointer",
@@ -867,7 +867,7 @@ const HomePageBanners = (props) => {
                   />
 
                   <FMTypography
-                    displayText={"Blogs"}
+                    displayText={"Colston Concept"}
                     styleData={{
                       color: "#717171",
                       cursor: "pointer",
@@ -1238,9 +1238,9 @@ const HomePageBanners = (props) => {
                     : type === "careCleanString"
                     ? "Care & Clean"
                     : type === "blogsString"
-                    ? "Blogs"
+                    ? "Colston Concept"
                     : type === "blogsCategoryString"
-                    ? "Blogs Categories"
+                    ? "Colston Concept Categories"
                     : type === "catalogueString"
                     ? "Catalogues"
                     : type === "categoryBannerString"

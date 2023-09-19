@@ -153,7 +153,7 @@ const EditBlogs = (props) => {
                 }}
               >
                 <FMTypography
-                  displayText="Edit Blog"
+                  displayText="Edit Colston Concept"
                   styleData={{
                     fontWeight: "600",
                     fontSize: "2rem",

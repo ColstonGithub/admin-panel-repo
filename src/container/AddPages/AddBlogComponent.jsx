@@ -115,7 +115,7 @@ const AddBlogComponent = () => {
                 }}
               >
                 <FMTypography
-                  displayText="Add Blog"
+                  displayText="Add Colston Concept"
                   styleData={{
                     fontWeight: "600",
                     fontSize: "2rem",

@@ -78,7 +78,7 @@ const ContactUsSectionDetailPage = (props) => {
           />
         </Col>
         <Col>
-          <FMTypography displayText={"Subject"} />
+          <FMTypography displayText={"Location"} />
           <FMTypography
             displayText={contactUsSectionDetail?.subject}
             styleData={{ color: "#717171" }}

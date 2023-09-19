@@ -38,7 +38,7 @@ const BlogDetailPage = (props) => {
       setOpen={setOpen}
       handleClose={handleClose}
       setCloseDialog={setCloseDialog}
-      modalTitle={"Blog Category Details"}
+      modalTitle={"Colston Concept Category Details"}
     >
       <Row style={{ marginTop: "1rem" }}>
         <Col>
@@ -76,7 +76,7 @@ const BlogDetailPage = (props) => {
 
       <Row style={{ marginTop: "1rem" }}>
         <Col>
-          <FMTypography displayText={"Bolg Category"} />
+          <FMTypography displayText={"Colston Concept Category"} />
           <FMTypography
             displayText={blogsDetail?.blogCategory}
             styleData={{ color: "#717171" }}

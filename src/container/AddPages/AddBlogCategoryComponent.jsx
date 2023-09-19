@@ -49,7 +49,7 @@ const AddBlogCategoryComponent = (props) => {
       setOpen={setOpen}
       handleClose={handleClose}
       setCloseDialog={setCloseDialog}
-      modalTitle={"Add Blog Category"}
+      modalTitle={"Add Colston Concept Category"}
     >
       <Row style={{ marginTop: "1rem" }}>
         <Col>

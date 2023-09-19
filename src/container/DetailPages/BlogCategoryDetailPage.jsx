@@ -31,7 +31,7 @@ const BlogCategoryDetailPage = (props) => {
       setOpen={setOpen}
       handleClose={handleClose}
       setCloseDialog={setCloseDialog}
-      modalTitle={"Blog Category Details"}
+      modalTitle={"Colston Concept Category Details"}
     >
       <Row style={{ marginBottom: "1rem" }}>
         <Col>

@@ -67,7 +67,7 @@ const EditBlogsCategory = (props) => {
       setOpen={setOpen}
       handleClose={handleClose}
       setCloseDialog={setCloseDialog}
-      modalTitle={"Edit Blogs Category"}
+      modalTitle={"Edit Colston Concept Category"}
     >
       <Row style={{ marginBottom: "1rem" }}>
         <Col>

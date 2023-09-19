@@ -23,8 +23,8 @@ export const NEWS_PRESS_BANNER = "/new-press-banner";
 export const VIRTUAL_TOUR_BANNER = "/virtual-tour-banner";
 export const VIDEO = "/video";
 export const CARE_CLEAN = "/care-clean";
-export const BLOGS = "/blogs";
-export const BLOGS_CATEGORY = "/blogs-category";
+export const BLOGS = "/colstonconcept";
+export const BLOGS_CATEGORY = "/colstonconcept-category";
 export const CATALOGUE = "/catalogue";
 export const EXPLORE_CATEGORY_CHILDREN = "explore-category-child/:id";
 export const ABOUT_US = "/about-us";
@@ -32,8 +32,8 @@ export const ABOUT_US = "/about-us";
 export const ADD_PRODUCT = "/products/add-product";
 export const EDIT_PRODUCT = "/products/edit-product/:id";
 
-export const ADD_BLOG = "/blogs/add-blog";
-export const EDIT_BLOG = "/blogs/edit-blog/:id";
+export const ADD_BLOG = "/colstonconcept/add";
+export const EDIT_BLOG = "/colstonconcept/edit/:id";
 
 export const FAQS = "/faqs";
 export const FAQ_CATEGORY = "/faq-category";

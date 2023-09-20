@@ -1446,67 +1446,66 @@ export default function TabsTable({ type }) {
   const getBrandProductsRowData = () => {
     let BannerRowDataVal = [];
 
-    brandproductss?.map((element, index) => {
-      let completeImageUrl = "";
-      console.log("element ", element?.productPictures[0]?.img);
-      if (
-        element?.productPictures &&
-        !element?.productPictures[0]?.img.startsWith("https://")
-      ) {
-        completeImageUrl = `https://${element?.productPictures[0]?.img}`;
-      } else if (
-        element?.colors?.productPictures &&
-        !element?.colors?.productPictures[0]?.img.startsWith(
-          "https://"
-        )
-      ) {
-        completeImageUrl = `https://${element?.colors[0]?.productPictures[0]?.img}`;
-      } else {
-        completeImageUrl = element?.productPictures[0]?.img || "";
-      }
-      const rowData = {
-        "S.NO.": index + 1,
-        Name: element?.name,
-        Images: completeImageUrl,
-        id: element?._id,
-        Actions: (
-          <Grid>
-            <img
-              src={detailIcon}
-              alt="img"
-              width="20px"
-              height="20px"
-              className="img-responsive img-fluid "
-              loading="lazy"
-              onClick={() => productDetailPageHandler(element?._id)}
-              style={{ cursor: "pointer" }}
-            />
-            <img
-              src={editIcon}
-              alt="img"
-              width="20px"
-              height="20px"
-              className="img-responsive img-fluid "
-              loading="lazy"
-              style={{ marginLeft: "1.5rem", cursor: "pointer" }}
-              onClick={() => editProductPage(element?._id)}
-            />
-            <img
-              src={deleteIcon}
-              alt="img"
-              width="17px"
-              height="17px"
-              className="img-responsive img-fluid "
-              loading="lazy"
-              onClick={() => deleteCategoryFunc(element?._id)}
-              style={{ marginLeft: "1.5rem", cursor: "pointer" }}
-            />
-          </Grid>
-        ),
-      };
+    brandproductss &&
+      brandproductss?.map((element, index) => {
+        let completeImageUrl = "";
+        if (
+          element?.productPictures &&
+          !element?.productPictures[0]?.img.startsWith("https://")
+        ) {
+          completeImageUrl = `https://${element?.productPictures[0]?.img}`;
+        } else if (
+          element?.colors?.productPictures &&
+          !element?.colors?.productPictures[0]?.img.startsWith("https://")
+        ) {
+          completeImageUrl = `https://${element?.colors[0]?.productPictures[0]?.img}`;
+        } else {
+          completeImageUrl = element?.productPictures[0]?.img || "";
+        }
+        const rowData = {
+          "S.NO.": index + 1,
+          Name: element?.name,
+          Category: element?.categoryName,
+          Images: completeImageUrl,
+          id: element?._id,
+          Actions: (
+            <Grid>
+              <img
+                src={detailIcon}
+                alt="img"
+                width="20px"
+                height="20px"
+                className="img-responsive img-fluid "
+                loading="lazy"
+                onClick={() => productDetailPageHandler(element?._id)}
+                style={{ cursor: "pointer" }}
+              />
+              <img
+                src={editIcon}
+                alt="img"
+                width="20px"
+                height="20px"
+                className="img-responsive img-fluid "
+                loading="lazy"
+                style={{ marginLeft: "1.5rem", cursor: "pointer" }}
+                onClick={() => editProductPage(element?._id)}
+              />
+              <img
+                src={deleteIcon}
+                alt="img"
+                width="17px"
+                height="17px"
+                className="img-responsive img-fluid "
+                loading="lazy"
+                onClick={() => deleteCategoryFunc(element?._id)}
+                style={{ marginLeft: "1.5rem", cursor: "pointer" }}
+              />
+            </Grid>
+          ),
+        };
 
-      return BannerRowDataVal.push(rowData);
-    });
+        return BannerRowDataVal.push(rowData);
+      });
     return BannerRowDataVal;
   };
 

@@ -112,7 +112,11 @@ export const brandProductTableConfig = (type) => [
     field: "Name",
     width: "20%",
   },
-
+  {
+    headername: "Category",
+    field: "Category",
+    width: "20%",
+  },
   {
     headername: "Images",
     field: "Images",

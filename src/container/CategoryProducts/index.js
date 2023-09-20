@@ -126,9 +126,12 @@ const CategoryProducts = () => {
       (category) => category?._id
     );
     try {
-      await axios.patch("https://colstonconcepts.com:5000/api/product/updateOrder", {
-        productOrder,
-      });
+      await axios.patch(
+        "https://colstonconcepts.com:5000/api/product/updateOrder",
+        {
+          productOrder,
+        }
+      );
       fetchCategoryProducts();
     } catch (error) {
       console.error("Error saving order:", error);

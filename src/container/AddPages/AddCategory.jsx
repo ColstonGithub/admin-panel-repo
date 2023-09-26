@@ -1,12 +1,7 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Box,
-  FormControl,
-  Select,
-  TextField,
-} from "@mui/material";
+import { Box, FormControl, Select, TextField } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FMButton from "components/FMButton/FMButton";
 import FMTypography from "components/FMTypography/FMTypography";
@@ -20,8 +15,6 @@ import {
 import { notify } from "constants/utils";
 import { commonStyle } from "Styles/commonStyles";
 import ModalWrapper from "container/HomePage/Modal";
-
-
 
 const AddBanner = (props) => {
   const { setOpen, open, homepageCategoriess } = props;
@@ -144,9 +137,6 @@ const AddBanner = (props) => {
               {productListingData?.map((option) => (
                 <>
                   <option value={option?._id}>{option.name}</option>
-                  {option?.children.map((e) => (
-                    <option value={e?._id}>{e.name}</option>
-                  ))}
                 </>
               ))}
             </Select>
@@ -205,7 +195,9 @@ const AddBanner = (props) => {
         <Col>
           {imagePreview && (
             <Box className="mt-4">
-              <div style={commonStyle.commonModalTitleStyle}>{`Image Preview`} </div>
+              <div style={commonStyle.commonModalTitleStyle}>
+                {`Image Preview`}{" "}
+              </div>
               <img
                 src={imagePreview}
                 style={{

@@ -25,12 +25,12 @@ import { useNavigate } from "react-router";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { notify } from "constants/utils";
 import { commonStyle } from "Styles/commonStyles";
-import { getInitialImagesAdmin } from "redux/Slices/InitialImagesAdmin/InitialImagesAdminSlice";
+// import { getInitialImagesAdmin } from "redux/Slices/InitialImagesAdmin/InitialImagesAdminSlice";
 
 const AddProductComponent = () => {
   const navigate = useNavigate();
   const [imageAltText, setImageAltText] = useState([""]);
-  
+
   const productListingData = useSelector(
     (state) => state?.exploreCategories?.getCategoriesListData?.categoryList
   );
@@ -150,7 +150,6 @@ const AddProductComponent = () => {
     list.splice(colorIndex, 1);
     setColors(list);
   };
-
 
   useEffect(() => {
     const usersListData = { page: 1 };
@@ -276,6 +275,7 @@ const AddProductComponent = () => {
               />
             </div>
           </Box>
+
           <Row
             style={{
               background: "#fff",
@@ -300,6 +300,7 @@ const AddProductComponent = () => {
                 }}
               />
             </div>
+
             <Col md={6}>
               <FMInput
                 required
@@ -416,6 +417,7 @@ const AddProductComponent = () => {
                 {...register("specification")}
               />
             </Row>
+
             <Row style={{ marginTop: "2rem" }}>
               <FMTypography
                 displayText={"Description"}
@@ -697,6 +699,7 @@ const AddProductComponent = () => {
                 </Box>
               </Box>
             </Col>
+
             <FMButton
               displayText="Add Product"
               type="submit"
